@@ -40,6 +40,13 @@ export const chats = {
     5: new Chat(5, 'Chat 5', '2022-01-01', brugere[1]),
 }
 
+export const beskeder = {
+    1: new Besked(1, 'Hej', '2022-01-01', brugere[1]),
+    2: new Besked(1, 'Hygge', '2022-01-01', brugere[1]),
+    3: new Besked(1, 'Drengerøv', '2022-01-01', brugere[1]),
+    4: new Besked(1, 'lalalalalala', '2022-01-01', brugere[1]),
+}
+
 
 
 

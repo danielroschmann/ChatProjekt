@@ -2,6 +2,8 @@ import express from 'express'
 
 import session from 'express-session'
 
+import {chats, brugere} from './index.js'
+
 const app = express()
 
 const port = 8000
@@ -28,7 +30,11 @@ app.get('/', (req, res) => {
 })
 
 app.get('/chats', (req, res) => {
-    res.render('chats')
+    res.render('chats', {chats: chats})
+})
+
+app.get('/users', (req, res) => {
+    res.render('users', {brugere: brugere})
 })
 
 app.listen(port, () => {

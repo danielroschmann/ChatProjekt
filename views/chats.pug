@@ -2,5 +2,11 @@ doctype HTML
 html 
     head 
         title Chats 
+        script(src="index.js") 
     body 
         h1 Chats
+        ul 
+            each chat in chats 
+                li 
+                    p Navn:  #{chat.navn}
+                    

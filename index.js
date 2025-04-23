@@ -26,4 +26,20 @@ class Ejer {
     }
 }
 
-module.exports = { Chat, Besked, Ejer }
+export const brugere = {
+    1: new Ejer(1, 'Ejer 1', '1234', '2022-01-01', 1),
+    2: new Ejer(2, 'Ejer 2', '1234', '2022-01-01', 1),
+    3: new Ejer(3, 'Ejer 3', '1234', '2022-01-01', 1),
+}
+
+export const chats = {
+    1: new Chat(1, 'Chat 1', '2022-01-01', brugere[1]),
+    2: new Chat(2, 'Chat 2', '2022-01-01', brugere[1]),
+    3: new Chat(3, 'Chat 3', '2022-01-01', brugere[1]),
+    4: new Chat(4, 'Chat 4', '2022-01-01', brugere[1]),
+    5: new Chat(5, 'Chat 5', '2022-01-01', brugere[1]),
+}
+
+
+
+

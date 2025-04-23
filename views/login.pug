@@ -3,7 +3,7 @@ html
     head 
         title Log ind 
     body 
-        form(action="", method="post") 
-        input(type="text", name="username")
-        input(type="password", name="password")
-        button(type="submit", value="")
+        form(action="/login", method="post") 
+            input(type="text", name="username", placeholder="brugernavn")
+            input(type="password", name="password", placeholder="password")
+            button(type="submit", value="") Log Ind

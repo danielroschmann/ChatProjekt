@@ -3,6 +3,7 @@ html
     head 
         title Beskeder 
     body 
+        include includes/menubar
         h1 Beskeder 
         each besked in chat.beskeder
                 p #{besked.ejer.navn}: #{besked.besked}

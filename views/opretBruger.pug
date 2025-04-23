@@ -2,8 +2,10 @@ doctype HTML
 html 
     head 
         title Opret ny bruger 
+        link(rel="stylesheet", href="/css/logincss.css")
     body 
         form(action="/opretBruger", method="post") 
-            input(type="text", name="username")
-            input(type="password", name="password")
+            h1 Opret bruger
+            input(type="text", name="username", placeholder="username")
+            input(type="password", name="password", placeholder="password")
             button(type="submit") Opret

@@ -20,6 +20,8 @@ app.use(session({
     saveUninitialized: true
 }))
 
+app.use(express.static('public'))
+
 function checkAccess(req,res,next) {
     console.log("Forsøger at få adgang til siden " + req.url)
     if (req.url.includes('/chats') && !req.session.isLoggedIn || req.url.includes('/users') && !req.session.isLoggedIn)  {

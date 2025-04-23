@@ -9,7 +9,6 @@ const app = express()
 const port = 8000
 
 
-
 app.set('view engine', 'pug')
 
 app.use(session({
@@ -36,6 +35,7 @@ app.get('/chats', (req, res) => {
 
 app.get('/users', (req, res) => {
     res.render('users', {brugere: brugere})
+   
 })
 app.get('/chats/:id', (req, res) => {
     const chatId = Number(req.params.id)

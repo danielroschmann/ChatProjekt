@@ -2,7 +2,7 @@ import express from 'express'
 
 import session from 'express-session'
 
-import {chats, brugere} from './index.js'
+import {chats, brugere, Ejer, Chat, Besked} from './index.js'
 
 const app = express()
 
@@ -17,6 +17,16 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }))
+
+function checkAccess(req,res,next) {
+    console.log("Forsøger at få adgang til siden " + req.url)
+    if (req.url.includes('/chats') && !req.session.isLoggedIn || req.url.includes('/users') && !req.session.isLoggedIn)  {
+        res.render('error')
+    } else {
+        next()
+    }
+}
+app.use(checkAccess)
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -42,6 +52,25 @@ app.post('/login', (req, res) => {
 app.get('/logout', (req, res) => {
     req.session.destroy()
     res.redirect('/')
+})
+
+app.get('/opret', (req, res) => {
+    res.render('opretBruger')
+})
+
+app.post('/opretBruger', (req, res) => {
+    const username = req.body.username
+    const password = req.body.password
+    const dato = Date.now
+    let bruger = new Ejer(1, username, password, dato, 1)
+    if (brugere.find(b => b.navn === username) !== undefined) {
+        res.render('error')
+    } else {
+    brugere.push(bruger)
+    req.session.isLoggedIn = true
+    req.session.username = username
+    res.redirect('/chats')
+    }
 })
 
 

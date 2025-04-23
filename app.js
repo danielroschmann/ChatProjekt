@@ -2,6 +2,8 @@ import express from 'express'
 
 import session from 'express-session'
 
+import fs from 'node:fs'
+
 import {chats, brugere} from './index.js'
 
 const app = express()

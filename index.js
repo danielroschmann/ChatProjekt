@@ -1,3 +1,7 @@
+let globalChatId = 0;
+let globalBeskedId = 0;
+let globalUserId = 0;
+
 class Chat {
     constructor(id, navn, dato, ejer) {
         this.id = id
@@ -5,6 +9,13 @@ class Chat {
         this.navn = navn;
         this.dato = dato;
         this.ejer = ejer
+        function nyBesked(besked, ejer) {
+            let nyBesked = new Besked(globalBeskedId++, besked, Date.getDate(), ejer, this.id)
+            beskeder.push(nyBesked)
+        }
+        function sletBesked(id) {
+            beskeder.splice(beskeder.indexOf(id), 1)
+        }
     }
 }
 class Besked {
@@ -26,26 +37,23 @@ class Ejer {
     }
 }
 
-export const brugere = {
-    1: new Ejer(1, 'Ejer 1', '1234', '2022-01-01', 1),
-    2: new Ejer(2, 'Ejer 2', '1234', '2022-01-01', 1),
-    3: new Ejer(3, 'Ejer 3', '1234', '2022-01-01', 1),
-}
+export const brugere = [
+    new Ejer(1, 'Ejer 1', '1234', '2022-01-01', 1),
+    new Ejer(2, 'Ejer 2', '1234', '2022-01-01', 1),
+    new Ejer(3, 'Ejer 3', '1234', '2022-01-01', 1),
+]
 
-export const chats = {
-    1: new Chat(1, 'Chat 1', '2022-01-01', brugere[1]),
-    2: new Chat(2, 'Chat 2', '2022-01-01', brugere[1]),
-    3: new Chat(3, 'Chat 3', '2022-01-01', brugere[1]),
-    4: new Chat(4, 'Chat 4', '2022-01-01', brugere[1]),
-    5: new Chat(5, 'Chat 5', '2022-01-01', brugere[1]),
-}
+export const chats = [
+    new Chat(1, 'Chat 1', '2022-01-01', brugere[1]),
+    new Chat(2, 'Chat 2', '2022-01-01', brugere[1]),
+    new Chat(3, 'Chat 3', '2022-01-01', brugere[1]),
+    new Chat(4, 'Chat 4', '2022-01-01', brugere[1]),
+    new Chat(5, 'Chat 5', '2022-01-01', brugere[1]),
+]
 
-export const beskeder = {
-    1: new Besked(1, 'Hej', '2022-01-01', brugere[1], 1),
-    2: new Besked(2, 'Hygge', '2022-01-01', brugere[1], 1),
-    3: new Besked(3, 'Drengerøv', '2022-01-01', brugere[1], 1),
-    4: new Besked(4, 'lalalalalala', '2022-01-01', brugere[1], 1),
-}
+
+
+
 
 
 

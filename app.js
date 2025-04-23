@@ -15,13 +15,20 @@ app.use(session({
     saveUninitialized: true
 }))
 
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+
 app.get('/login', (req, res) => {
-    const { username, password } = req.session.body
+    //const { username, password } = req.session.body
     res.render('login')
 })
 
 app.get('/', (req, res) => {
     res.render('homepage')
+})
+
+app.get('/chats', (req, res) => {
+    res.render('chats')
 })
 
 app.listen(port, () => {

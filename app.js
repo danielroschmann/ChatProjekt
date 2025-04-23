@@ -2,11 +2,12 @@ import express from 'express'
 
 import session from 'express-session'
 
-import {chats, brugere} from './index.js'
+import {chats, brugere, beskeder} from './index.js'
 
 const app = express()
 
 const port = 8000
+
 
 
 app.set('view engine', 'pug')
@@ -37,11 +38,11 @@ app.get('/users', (req, res) => {
     res.render('users', {brugere: brugere})
 })
 
-app.get('/chats:id', (req, res) => {
+app.get('/chats/:id', (req, res) => {
     const chatId = Number(req.params.id)
     const chat = chats.find(c => c.id === chatId)
 
-    res.render('messages', {beskeder: beskeder})
+    res.render('messages', {beskeder: chat})
 })
 
 app.listen(port, () => {

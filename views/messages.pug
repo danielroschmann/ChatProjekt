@@ -4,6 +4,5 @@ html
         title Beskeder 
     body 
         h1 Beskeder 
-        each besked in beskeder 
-        
-            p #{besked.ejer}: #{besked.besked}
+        each besked in chat.beskeder
+                p #{besked.ejer.navn}: #{besked.besked}

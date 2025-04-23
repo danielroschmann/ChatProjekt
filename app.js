@@ -37,12 +37,18 @@ app.get('/chats', (req, res) => {
 app.get('/users', (req, res) => {
     res.render('users', {brugere: brugere})
 })
-
 app.get('/chats/:id', (req, res) => {
     const chatId = Number(req.params.id)
     const chat = chats.find(c => c.id === chatId)
 
-    res.render('messages', {beskeder: chat})
+    res.render('chatServer', {chat: chat})
+})
+app.get('/chats/:id/messages', (req, res) => {
+    const chatId = Number(req.params.id)
+    const chat = chats.find(c => c.id === chatId)
+    console.log(chat)
+
+    res.render('messages', {chat: chat})
 })
 
 app.listen(port, () => {

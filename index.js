@@ -51,7 +51,9 @@ export const chats = [
     new Chat(5, 'Chat 5', '2022-01-01', brugere[1]),
 ]
 
+const besked = new Besked(1, 'Hygge', '2000', brugere[1], 1)
 
+chats[0].beskeder.push(besked)
 
 
 

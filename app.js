@@ -41,7 +41,7 @@ app.get('/chats:id', (req, res) => {
     const chatId = Number(req.params.id)
     const chat = chats.find(c => c.id === chatId)
 
-    res.render('beskeder', {beskeder: beskeder})
+    res.render('messages', {beskeder: beskeder})
 })
 
 app.listen(port, () => {

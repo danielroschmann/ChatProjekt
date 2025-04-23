@@ -9,13 +9,6 @@ export class Chat {
         this.navn = navn;
         this.dato = dato;
         this.ejer = ejer
-        function nyBesked(besked, ejer) {
-            let nyBesked = new Besked(globalBeskedId++, besked, Date.getDate(), ejer, this.id)
-            beskeder.push(nyBesked)
-        }
-        function sletBesked(id) {
-            beskeder.splice(beskeder.indexOf(id), 1)
-        }
     }
 }
 export class Besked {

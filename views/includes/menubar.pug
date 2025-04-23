@@ -1,6 +1,7 @@
 .menu
-    if knownUser 
+    if isKnownUser 
         a(href="/logout") LOGOUT 
         a(href="/") Homepage 
     else 
         a(href="/login") LOGIN
+        a(href="/users/opret") Opret bruger

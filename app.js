@@ -2,7 +2,7 @@ import express from 'express'
 
 import session from 'express-session'
 
-import {chats, brugere, beskeder} from './index.js'
+import {chats, brugere} from './index.js'
 
 const app = express()
 

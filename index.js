@@ -2,7 +2,7 @@ let globalChatId = 0;
 let globalBeskedId = 0;
 let globalUserId = 0;
 
-class Chat {
+export class Chat {
     constructor(id, navn, dato, ejer) {
         this.id = id
         this.beskeder = [];
@@ -18,7 +18,7 @@ class Chat {
         }
     }
 }
-class Besked {
+export class Besked {
     constructor(id, besked, dato, ejer, chatId) {
         this.id = id;
         this.besked = besked;
@@ -27,7 +27,7 @@ class Besked {
         this.chatId = chatId;
     }
 }
-class Ejer {
+export class Ejer {
     constructor(id, navn, password, dato, niveau) {
         this.id = id;
         this.navn = navn;
@@ -54,6 +54,7 @@ export const chats = [
 const besked = new Besked(1, 'Hygge', '2000', brugere[1], 1)
 
 chats[0].beskeder.push(besked)
+
 
 
 

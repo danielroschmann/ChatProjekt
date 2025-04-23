@@ -41,10 +41,10 @@ export const chats = {
 }
 
 export const beskeder = {
-    1: new Besked(1, 'Hej', '2022-01-01', brugere[1]),
-    2: new Besked(1, 'Hygge', '2022-01-01', brugere[1]),
-    3: new Besked(1, 'Drengerøv', '2022-01-01', brugere[1]),
-    4: new Besked(1, 'lalalalalala', '2022-01-01', brugere[1]),
+    1: new Besked(1, 'Hej', '2022-01-01', brugere[1], 1),
+    2: new Besked(2, 'Hygge', '2022-01-01', brugere[1], 1),
+    3: new Besked(3, 'Drengerøv', '2022-01-01', brugere[1], 1),
+    4: new Besked(4, 'lalalalalala', '2022-01-01', brugere[1], 1),
 }
 
 

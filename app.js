@@ -37,6 +37,13 @@ app.get('/users', (req, res) => {
     res.render('users', {brugere: brugere})
 })
 
+app.get('/chats:id', (req, res) => {
+    const chatId = Number(req.params.id)
+    const chat = chats.find(c => c.id === chatId)
+
+    res.render('beskeder', {beskeder: beskeder})
+})
+
 app.listen(port, () => {
     console.log("Listening on port 8000");
 })

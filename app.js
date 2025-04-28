@@ -12,27 +12,29 @@ import { EJER_FIL, CHAT_FIL, BESKED_FIL } from './controllers/filData.js'
 const app = express()
 const port = 8000
 
-
+// Data arrays
 let brugere = []
 let chats = []
 let messages = []
 
+// Viewmode
 app.set('view engine', 'pug')
 
+// Middleware
 app.use(session({
     secret: 'chathygge',
     resave: true,
     saveUninitialized: true
 }))
-
 app.use(express.static('public'))
-
 app.use(checkAccess)
-
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
+// Initialiser data
 brugere = læsJSON(EJER_FIL)
+chats = læsJSON(CHAT_FIL)
+messages = læsJSON(BESKED_FIL)
 
 app.get('/login', (req, res) => {
     res.render('login')

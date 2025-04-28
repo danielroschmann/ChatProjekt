@@ -8,7 +8,7 @@ export const getAllMessagesInChat = (req, res) => {
     const chat = chats.find(c => c.id === chatId)
     console.log(chat)
     
-    res.render('messages', {chat: chat, isKnownUser: req.session.isLoggedIn})
+    res.render('messages', {username: req.session.username,chat: chat, isKnownUser: req.session.isLoggedIn})
 }
 
 export const getSingleMessage = (req, res) => {
@@ -49,7 +49,7 @@ export const createMessage = async (req, res) => {
     await gemJSON(CHAT_FIL, chatArr);
     await gemJSON(BESKED_FIL, beskedArr);
     
-    res.render('messages', {chat: chat, isKnownUser: req.session.isLoggedIn})
+    res.render('messages', {username: req.session.username, chat: chat, isKnownUser: req.session.isLoggedIn})
 };
 
 

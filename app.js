@@ -11,7 +11,7 @@ import { EJER_FIL, CHAT_FIL, BESKED_FIL } from './controllers/filData.js'
 
 const app = express()
 const port = 8000
-
+let k = 0
 // Viewmode
 app.set('view engine', 'pug')
 

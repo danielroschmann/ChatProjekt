@@ -1,13 +1,13 @@
 doctype HTML
 html
     head
-        title Beskeder
+        title Chat: #{chat.navn}
         link(rel="stylesheet", href="/css/menubar.css")
         link(rel="stylesheet", href="/css/messages.css")
     body
         include includes/menubar
         a(class="tilbage", href="/chats") ⬅ Gå tilbage
-        h1 Beskeder
+        h1 #{chat.navn}
         div(class="message-container")
             each besked in chat.beskeder
                 div(class=besked.ejer.navn == username ? 'outgoing' : 'incoming')

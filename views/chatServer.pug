@@ -3,9 +3,10 @@ html
     head 
         title Server: #{chat.navn}
         link(rel="stylesheet", href="/css/menubar.css")
-    body 
+        link(rel="stylesheet", href="/css/chatServer.css")
+    body.content
         include includes/menubar
         h1 Server navn: #{chat.navn} 
         h2 Server ejer: #{chat.ejer.navn} 
         h2 Server oprettelsesdato: #{chat.dato} 
-        a(href="/chats/" + chat.id + "/messages") Tilslut
+        a.join-link(href="/chats/" + chat.id + "/messages") Tilslut

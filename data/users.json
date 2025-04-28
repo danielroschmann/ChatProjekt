@@ -1,7 +1,1 @@
-[
-    {"id":1,
-    "navn":"admin",
-    "password":"admin",
-    "dato":"4/23/2025",
-    "niveau":3}
-]
+[{"id":1,"navn":"admin","password":"admin","dato":"4/23/2025","niveau":3}]

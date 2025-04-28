@@ -1,6 +1,6 @@
 import { gemJSON, læsJSON } from "./filData.js"
 import { EJER_FIL } from "./filData.js"
-import path from 'path'
+import Ejer from "../models/Ejer.js"
 
 export const createUser = async (req, res) => {
     const username = req.body.username
@@ -18,9 +18,7 @@ export const createUser = async (req, res) => {
     let bruger = new Ejer(id, username, password, dato, 1)
     brugere.push(bruger)
     await gemJSON(EJER_FIL, brugere)
-    req.session.isLoggedIn = true   
-    req.session.username = username
-    res.render('chats')
+    res.render('login')
 }
 
 
@@ -33,5 +31,8 @@ export const getAllUsers = (req, res) => {
     res.render('users', {brugere: brugere, isKnownUser: req.session.isLoggedIn})
 }
 
+export const signUp = (req, res) => {
+    res.render('opretBruger')
+}
 
 

@@ -9,8 +9,12 @@ html
         include includes/menubar
         h1 Chats
         ul 
-            if (chats !== null)
-                each chat in chats 
-                    li 
-                        a(href=`/chats/${chat.id}`, style="display: block; width: 100%; height: 100%") #{chat.navn}
-                    
+            if (chats !== undefined) 
+                if (chats.length > 0)
+                    each chat in chats 
+                        li 
+                          a(href=`/chats/${chat.id}`, style="display: block; width: 100%; height: 100%") #{chat.navn}
+                else 
+                    h1 Der er ingen chats tilrådighed
+
+            

@@ -1,0 +1,18 @@
+doctype HTML 
+html 
+    head 
+        title Besked
+        link(rel="stylesheet", href="/css/menubar.css")
+    body 
+        include includes/menubar
+        h1 Besked
+        h3 
+            p Besked ID: #{besked.id}
+            br
+            p Besked Indhold: #{besked.besked}
+            br
+            p Besked Dato: #{besked.dato} 
+            br
+            p Besked Ejer: #{besked.ejer.navn}
+            br
+            p Chat Id: #{besked.chatId}

@@ -113,6 +113,14 @@ app.get('/chats/:id/messages', (req, res) => {
 
     res.render('messages', {chat: chat, isKnownUser: req.session.isLoggedIn})
 })
+app.get('/chats/messages/:id', (req, res) => {
+    const beskedId = Number(req.params.id)
+    const chat = chats.find(c => c.id === 1) 
+    const besked = chat.beskeder.find(b => b.id === beskedId)
+    console.log(besked)
+
+    res.render('message', {besked: besked, isKnownUser: req.session.isLoggedIn})
+})
 
 app.listen(port, () => {
     console.log("Listening on port 8000");

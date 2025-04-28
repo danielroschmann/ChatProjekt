@@ -64,7 +64,7 @@ app.get('/logout', (req, res) => {
     res.redirect('/')
 })
 
-app.get('/opret', (req, res) => {
+app.get('/opretBruger', (req, res) => {
     res.render('opretBruger')
 })
 

@@ -8,4 +8,8 @@ html
         h1 Beskeder 
         each besked in chat.beskeder
                 li 
-                    a(href=`/chats/messages/${chat.id}`) #{besked.ejer.navn}: #{besked.besked}
+                    a(href=`/chats/messages/${besked.id}`) #{besked.ejer.navn}: #{besked.besked}
+        form(action=`/chats/${chat.id}/messages`, method="post") 
+            input(type="text", name="besked", placeholder="Indtast besked")
+            input(type="hidden", name="chatId", value=chat.id)
+            button(type="submit") Send

@@ -5,7 +5,7 @@ import {gemJSON, læsJSON, EJER_FIL, CHAT_FIL, BESKED_FIL} from './controllers/f
 import { checkAccess, checkCredentials } from './controllers/bruger.js'
 import Besked from './models/Besked.js'
 import Ejer from './models/Ejer.js'
-
+import messageRoute from './routes/besked.js'
 
 const app = express()
 
@@ -24,6 +24,8 @@ app.use(express.static('public'))
 app.use(checkAccess)
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+app.use('/', messageRoute)
+
 
 let brugere = læsJSON(EJER_FIL)
 let chats = læsJSON(CHAT_FIL)

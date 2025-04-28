@@ -35,3 +35,16 @@ body.content a.join-link {
 body.content a:hover {
     background-color: #45a049;
 }
+
+.tilbage {
+    justify-self: left;
+    display: inline-block;
+    margin-top: 30px;
+    padding: 12px 24px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    font-size: 1.2em;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+}

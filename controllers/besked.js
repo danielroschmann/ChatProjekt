@@ -37,9 +37,9 @@ export const createMessage = async (req, res) => {
     }
     
     let id = beskedArr.length > 0 ? beskedArr[beskedArr.length - 1].id + 1 : 1; // korrekt ID
-    let dato = new Date().toLocaleString();
+    let tidspunkt = [new Date().toLocaleDateString(), new Date().toLocaleTimeString()];
     
-    let nyBesked = new Besked(id, besked, dato, ejer, chatId);
+    let nyBesked = new Besked(id, besked, tidspunkt, ejer, chatId);
     
     let chat = chatArr.find(c => c.id == chatId);
     

@@ -8,6 +8,10 @@ html
     body 
         include includes/menubar
         h1 Chats
+            form(action=`/chats`, method="post") 
+                input(type="hidden", name="ejerNavn", value=username)
+                input(type="text", name="chatNavn")
+                button(type="submit") Ny chat
         ul 
             if (chats !== undefined) 
                 if (chats.length > 0)

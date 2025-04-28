@@ -6,6 +6,7 @@ import { checkAccess, checkCredentials } from './controllers/bruger.js'
 import Besked from './models/Besked.js'
 import Ejer from './models/Ejer.js'
 import messageRoute from './routes/besked.js'
+import chatRoute from './routes/chat.js'
 
 const app = express()
 
@@ -25,6 +26,7 @@ app.use(checkAccess)
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use('/', messageRoute)
+app.use('/', chatRoute)
 
 
 let brugere = læsJSON(EJER_FIL)
@@ -93,12 +95,6 @@ app.get('/chats', (req, res) => {
 
 app.get('/users', (req, res) => {
     res.render('users', {brugere: brugere, isKnownUser: req.session.isLoggedIn})
-})
-app.get('/chats/:id', (req, res) => {
-    const chatId = Number(req.params.id)
-    const chat = chats.find(c => c.id === chatId)
-
-    res.render('chatServer', {chat: chat, isKnownUser: req.session.isLoggedIn})
 })
 app.get('/chats/:id/messages', (req, res) => {
     const chatId = Number(req.params.id)

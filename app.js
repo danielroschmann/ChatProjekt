@@ -3,46 +3,39 @@ import express from 'express'
 import session from 'express-session'
 
 import fs from 'node:fs'
-
-import {chats, Ejer, Chat, Besked} from './index.js'
+import {gemJSON, læsJSON} from './index.js'
+import Besked from './models/Besked.js'
+import Ejer from './models/Ejer.js'
+import path from 'path'
 
 const app = express()
 
 const port = 8000
 
-let brugere = []
+const DATA_PATH = './data'
+const EJER_FIL = path.join(DATA_PATH, 'users.json')
+const CHAT_FIL = path.join(DATA_PATH, 'chats.json')
+const BESKED_FIL = path.join(DATA_PATH, 'messages.json')
 
+let brugere = []
+let chats = []
+let messages = []
+
+// Viewmode
 app.set('view engine', 'pug')
 
+// Middleware
 app.use(session({
     secret: 'chathygge',
     resave: true,
     saveUninitialized: true
 }))
-
 app.use(express.static('public'))
-
-function checkAccess(req,res,next) {
-    console.log("Forsøger at få adgang til siden " + req.url)
-    if (req.url.includes('/chats') && !req.session.isLoggedIn || req.url.includes('/users') && !req.session.isLoggedIn)  {
-        res.render('error')
-    } else {
-        next()
-    }
-}
 app.use(checkAccess)
-
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-try {
-    const brugerData = fs.readFileSync('users.json', 'utf8')
-    brugere = JSON.parse(brugerData).map(b => new Ejer(b.id, b.navn, b.password, b.dato, b.niveau))
-    console.log('Indlæste brugere fra fil:')
-    console.log(brugere)
-} catch (err) {
-    console.log('Kunne ikke læse fil: ' + err)
-}
+brugere = læsJSON(EJER_FIL)
 
 app.get('/login', (req, res) => {
     res.render('login')
@@ -125,14 +118,4 @@ app.listen(port, () => {
     console.log("Listening on port 8000");
 })
 
-function checkCredentials(username, password) {
-    let validate = false
-    brugere.forEach(bruger => {
-        if (username == bruger.navn && password == bruger.password) 
-            {
-            validate = true
-            }
-        }
-    )
-    return validate
-}
+

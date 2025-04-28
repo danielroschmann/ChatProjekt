@@ -1,0 +1,82 @@
+/* user.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2 {
+    color: #333;
+    text-align: center;
+}
+
+h1 {
+    margin-top: 20px;
+    font-size: 2.5rem;
+}
+
+h2 {
+    font-size: 1.5rem;
+    color: #666;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-info {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.profile-info div {
+    font-size: 1.2rem;
+    color: #444;
+}
+
+.role-info {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.role-info h2 {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    display: inline-block;
+    font-weight: normal;
+}
+
+.role-info h2.Bruger {
+    background-color: #28a745;
+}
+
+.role-info h2.Moderator {
+    background-color: #ffc107;
+}
+
+.role-info h2.Administrator {
+    background-color: #dc3545;
+}
+
+.tilbage {
+    justify-self: left;
+    display: inline-block;
+    margin-top: 30px;
+    padding: 12px 24px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    font-size: 1.2em;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+}

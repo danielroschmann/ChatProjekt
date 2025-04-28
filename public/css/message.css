@@ -1,0 +1,52 @@
+/* besked.css */
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+h3 {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h3 p {
+    font-size: 18px;
+    margin: 10px 0;
+    color: #555;
+}
+
+br {
+    display: none; /* Fjern unødvendige mellemrum fra br, layoutet klares via margin */
+}
+
+/* Hvis du vil have lidt ekstra spacing mellem sektionerne */
+h3 p:not(:last-child) {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.tilbage {
+    justify-self: left;
+    display: inline-block;
+    margin-top: 30px;
+    padding: 12px 24px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    font-size: 1.2em;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+}

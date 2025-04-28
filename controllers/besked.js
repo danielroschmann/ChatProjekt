@@ -6,9 +6,10 @@ export const getAllMessagesInChat = (req, res) => {
     const chatId = Number(req.params.id)
     let chats = læsJSON(CHAT_FIL)
     const chat = chats.find(c => c.id === chatId)
+    const beskeder = chat.beskeder
     console.log(chat)
     
-    res.render('messages', {chat: chat, isKnownUser: req.session.isLoggedIn})
+    res.render('messages', {username: req.session.username, beskeder: beskeder, chat: chat, isKnownUser: req.session.isLoggedIn})
 }
 
 export const getSingleMessage = (req, res) => {
@@ -37,11 +38,12 @@ export const createMessage = async (req, res) => {
     }
     
     let id = beskedArr.length > 0 ? beskedArr[beskedArr.length - 1].id + 1 : 1; // korrekt ID
-    let dato = new Date().toLocaleString();
+    let tidspunkt = [new Date().toLocaleDateString(), new Date().toLocaleTimeString()];
     
-    let nyBesked = new Besked(id, besked, dato, ejer, chatId);
+    let nyBesked = new Besked(id, besked, tidspunkt, ejer, chatId);
     
     let chat = chatArr.find(c => c.id == chatId);
+    let beskeder = chat.beskeder;
     
     chat.beskeder.push(nyBesked);
     beskedArr.push(nyBesked); 
@@ -49,7 +51,7 @@ export const createMessage = async (req, res) => {
     await gemJSON(CHAT_FIL, chatArr);
     await gemJSON(BESKED_FIL, beskedArr);
     
-    res.render('messages', {chat: chat, isKnownUser: req.session.isLoggedIn})
+    res.render('messages', {username: req.session.username, beskeder: beskeder, chat: chat, isKnownUser: req.session.isLoggedIn})
 };
 
 

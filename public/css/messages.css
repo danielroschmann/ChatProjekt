@@ -1,0 +1,134 @@
+/* Generelle stilarter for siden */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+    padding: 0;
+    margin: 0;
+}
+
+h1 {
+    text-align: center;
+    margin: 20px 0;
+    color: #333;
+}
+
+/* Container for beskeder */
+.message-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Stilarter for hver besked */
+.message-container .outgoing, .message-container .incoming {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: flex-start;
+    max-width: 100%;
+    word-wrap: break-word;
+}
+
+.message-container .outgoing {
+    justify-content: flex-end;
+}
+
+.message-container .incoming {
+    justify-content: flex-start;
+}
+
+.message-container .message-content {
+    padding: 10px;
+    border-radius: 15px;
+    font-size: 14px;
+    line-height: 1.4;
+    word-wrap: break-word; /* Bryder ord, så de ikke går udenfor containeren */
+    word-break: break-word; /* Hvis der er lange ord uden mellemrum, bryder linjen */
+    white-space: normal; /* Sikrer, at teksten vises normalt og kan bryde linje */
+    text-decoration: none;
+}
+
+.message-container .outgoing .message-content {
+    background-color: #0070ff;
+    color: white;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 15px;
+    
+}
+
+.message-container .incoming .message-content {
+    background-color: #e4e6eb;
+    color: #333;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 15px;
+}
+
+/* Stilarter for beskedens ejer */
+.ejer {
+    font-weight: bold;
+    margin-right: 8px;
+    font-size: 14px;
+}
+
+/* Stilarter for selve beskeden */
+.besked {
+    font-size: 14px;
+    max-width: 200px;
+}
+
+.tid {
+    font-size: 12px;
+    color: #999;
+}
+
+/* Formular til at sende beskeder */
+form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #fff;
+    border-top: 1px solid #ddd;
+    max-width: 600px;
+    margin: 20px auto;
+    border-radius: 8px;
+}
+
+input[type="text"] {
+    width: 85%;
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #0084ff;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0073e6;
+}
+.tilbage {
+    justify-self: left;
+    display: inline-block;
+    margin-top: 30px;
+    padding: 12px 24px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    font-size: 1.2em;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+}

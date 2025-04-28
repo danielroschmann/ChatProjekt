@@ -1,0 +1,23 @@
+doctype HTML 
+html 
+    head 
+        title #{bruger.navn}
+        link(rel="stylesheet", href="/css/menubar.css")
+        link(rel="stylesheet", href="/css/user.css")
+    body 
+        include includes/menubar
+        a(class="tilbage", href="/users") ⬅ Gå tilbage
+        .container
+            h1 Navn: #{bruger.navn} 
+            h2 Oprettelsesdato: #{bruger.dato} 
+            if (bruger.niveau === 1)
+                - var rolle = 'Bruger'
+            if (bruger.niveau === 2)
+                - var rolle = 'Moderator'
+            if (bruger.niveau === 3) 
+                - var rolle = 'Administrator'
+            .profile-info
+                h2 ID: #{bruger.id}
+            .role-info 
+                h2(class=rolle) #{rolle}
+            a(class="viewMessages", href=`/users/${bruger.id}/messages`) Se beskeder

@@ -1,5 +1,5 @@
 import { gemJSON, læsJSON } from "./filData.js"
-import { EJER_FIL } from "./filData.js"
+import { EJER_FIL, BESKED_FIL } from "./filData.js"
 import Ejer from "../models/Ejer.js"
 
 export const createUser = async (req, res) => {
@@ -23,7 +23,10 @@ export const createUser = async (req, res) => {
 
 
 export const getSingleUser = (req, res) => {
-    // TODO
+    let brugere = læsJSON(EJER_FIL)
+    const userId = Number(req.params.id)
+    const bruger = brugere.find(b => b.id === userId)
+    res.render('user', {bruger: bruger, isKnownUser: req.session.isLoggedIn})
 }
 
 export const getAllUsers = (req, res) => {
@@ -33,6 +36,18 @@ export const getAllUsers = (req, res) => {
 
 export const signUp = (req, res) => {
     res.render('opretBruger')
+}
+
+export const getUserMessages = (req, res) => {
+    let brugere = læsJSON(EJER_FIL)
+    let beskeder = læsJSON(BESKED_FIL)
+    const userId = Number(req.params.id)
+    const bruger = brugere.find(b => b.id === userId)
+    beskeder = beskeder.filter(b => b.ejer.id === userId)
+    if (beskeder === undefined) {
+        beskeder = []
+    }
+    res.render('messages', {beskeder: beskeder, bruger: bruger, isKnownUser: req.session.isLoggedIn, viewMode: true})
 }
 
 

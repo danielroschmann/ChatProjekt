@@ -22,7 +22,7 @@ export const createChat = async (req, res) => {
     } else {
         id = chatArr.length > 0 ? chatArr[chatArr.length - 1].id + 1 : 1
         }
-    let dato = new Date().toLocaleString()
+    let dato = new Date().toLocaleDateString()
     let ejerArr = læsJSON(EJER_FIL)
     console.log("Ejer arr:" + ejerArr)
     let ejer = ejerArr.find(ejer => ejer.navn === ejerNavn)

@@ -1,18 +1,14 @@
 import express from 'express'
+
 import session from 'express-session'
+
 import fs from 'node:fs'
-import {gemJSON, læsJSON} from './index.js'
-import Besked from './models/Besked.js'
-import Ejer from './models/Ejer.js'
-import path from 'path'
+
+import {chats, Ejer, Chat, Besked} from './index.js'
 
 const app = express()
-const port = 8000
 
-const DATA_PATH = './data'
-const EJER_FIL = path.join(DATA_PATH, 'users.json')
-const CHAT_FIL = path.join(DATA_PATH, 'chats.json')
-const BESKED_FIL = path.join(DATA_PATH, 'messages.json')
+const port = 8000
 
 let brugere = []
 
@@ -39,7 +35,14 @@ app.use(checkAccess)
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-brugere = læsJSON(EJER_FIL)
+try {
+    const brugerData = fs.readFileSync('users.json', 'utf8')
+    brugere = JSON.parse(brugerData).map(b => new Ejer(b.id, b.navn, b.password, b.dato, b.niveau))
+    console.log('Indlæste brugere fra fil:')
+    console.log(brugere)
+} catch (err) {
+    console.log('Kunne ikke læse fil: ' + err)
+}
 
 app.get('/login', (req, res) => {
     res.render('login')
@@ -64,7 +67,7 @@ app.get('/logout', (req, res) => {
     res.redirect('/')
 })
 
-app.get('/opretBruger', (req, res) => {
+app.get('/opret', (req, res) => {
     res.render('opretBruger')
 })
 
@@ -79,7 +82,14 @@ app.post('/opretBruger', (req, res) => {
 
     let bruger = new Ejer(id, username, password, dato, 1)
     brugere.push(bruger)
-    brugere = gemJSON(EJER_FIL, brugere)
+    let userJson = JSON.stringify(brugere)
+    fs.writeFile('users.json', userJson, 'utf8', (err) => {
+        if (err) {
+            console.error(err) 
+        } else {
+            console.log('Filen er skrevet')
+        }
+    })
     req.session.isLoggedIn = true
     req.session.username = username
     res.redirect('/chats')

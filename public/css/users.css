@@ -1,0 +1,64 @@
+/* Generelle stilarter for siden */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    text-align: center;
+    margin: 20px 0;
+    color: #333;
+}
+
+/* Container for brugerne */
+.user-item {
+    background-color: #ffffff;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Hover-effekt for hver bruger */
+.user-item:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Link-stil */
+.user-item a {
+    text-decoration: none;
+    font-size: 16px;
+    color: #007bff; /* Blå farve for link */
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+/* Hover-effekt for links */
+.user-item a:hover {
+    color: #0056b3; /* Mørkere blå farve ved hover */
+}
+
+/* Stilarter for container af brugere */
+body {
+    padding: 0 2rem;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Gør brugere centreret */
+.user-item {
+    max-width: 600px;
+    margin: 10px auto;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}

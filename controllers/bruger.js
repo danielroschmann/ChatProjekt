@@ -23,7 +23,10 @@ export const createUser = async (req, res) => {
 
 
 export const getSingleUser = (req, res) => {
-    // TODO
+    let brugere = læsJSON(EJER_FIL)
+    const userId = Number(req.params.id)
+    const bruger = brugere.find(b => b.id === userId)
+    res.render('user', {bruger: bruger, isKnownUser: req.session.isLoggedIn})
 }
 
 export const getAllUsers = (req, res) => {

@@ -1,4 +1,9 @@
 import fs from 'node:fs'
+import path from 'path'
+
+export const EJER_FIL = path.join('./data', 'users.json')
+export const CHAT_FIL = path.join('./data', 'chats.json')
+export const BESKED_FIL = path.join('./data', 'messages.json')
 
 export function gemJSON(fil, arr) {
     let jsonFil = JSON.stringify(arr)
@@ -20,8 +25,3 @@ export function læsJSON(fil) {
         console.log('Kunne ikke læse fil: ' + fil + ' - ' + err)
     }
 }
-
-
-
-
-

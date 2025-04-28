@@ -2,8 +2,11 @@ doctype HTML
 html 
     head 
         title Log ind 
+        link(rel="stylesheet", href="/css/logincss.css")
+        link(rel="stylesheet", href="/css/menubar.css")
     body 
         form(action="/login", method="post") 
+            h1 Log ind
             input(type="text", name="username", placeholder="brugernavn")
             input(type="password", name="password", placeholder="password")
             button(type="submit", value="") Log Ind

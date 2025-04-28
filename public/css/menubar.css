@@ -1,0 +1,22 @@
+.menu {
+    background-color: #96B2A2;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: flex-start;
+    gap: 2rem;
+  }
+  
+  .menu a {
+    font-family: Arial, sans-serif;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: color 0.3s, text-decoration 0.3s;
+  }
+  
+  .menu a:hover {
+    color: #ffd700; /* eller en anden kontrastfarve */
+    text-decoration: underline;
+  }
+  

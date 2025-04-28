@@ -3,11 +3,13 @@ html
     head 
         title Chats 
         script(src="index.js") 
+        link(rel="stylesheet", href="/css/chats.css")
+        link(rel="stylesheet", href="css/menubar.css")
     body 
         include includes/menubar
         h1 Chats
         ul 
             each chat in chats 
                 li 
-                    p Navn:  #{chat.navn}
+                    a(href=`/chats/${chat.id}`, style="display: block; width: 100%; height: 100%") #{chat.navn}
                     

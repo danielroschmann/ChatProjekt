@@ -2,12 +2,15 @@ import express from 'express'
 
 import session from 'express-session'
 
-import {chats, brugere, Ejer, Chat, Besked} from './index.js'
+import fs from 'node:fs'
+
+import {chats, Ejer, Chat, Besked} from './index.js'
 
 const app = express()
 
 const port = 8000
 
+let brugere = []
 
 app.set('view engine', 'pug')
 
@@ -16,6 +19,8 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }))
+
+app.use(express.static('public'))
 
 function checkAccess(req,res,next) {
     console.log("Forsøger at få adgang til siden " + req.url)
@@ -29,6 +34,15 @@ app.use(checkAccess)
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+
+try {
+    const brugerData = fs.readFileSync('users.json', 'utf8')
+    brugere = JSON.parse(brugerData).map(b => new Ejer(b.id, b.navn, b.password, b.dato, b.niveau))
+    console.log('Indlæste brugere fra fil:')
+    console.log(brugere)
+} catch (err) {
+    console.log('Kunne ikke læse fil: ' + err)
+}
 
 app.get('/login', (req, res) => {
     res.render('login')
@@ -60,16 +74,25 @@ app.get('/opret', (req, res) => {
 app.post('/opretBruger', (req, res) => {
     const username = req.body.username
     const password = req.body.password
-    const dato = Date.now
-    let bruger = new Ejer(1, username, password, dato, 1)
+    const dato = new Date().toLocaleDateString()
+    const id = brugere.length > 0 ? brugere[brugere.length - 1].id + 1 : 1
     if (brugere.find(b => b.navn === username) !== undefined) {
-        res.render('error')
-    } else {
+        return res.render('error')
+    }
+
+    let bruger = new Ejer(id, username, password, dato, 1)
     brugere.push(bruger)
+    let userJson = JSON.stringify(brugere)
+    fs.writeFile('users.json', userJson, 'utf8', (err) => {
+        if (err) {
+            console.error(err) 
+        } else {
+            console.log('Filen er skrevet')
+        }
+    })
     req.session.isLoggedIn = true
     req.session.username = username
     res.redirect('/chats')
-    }
 })
 
 

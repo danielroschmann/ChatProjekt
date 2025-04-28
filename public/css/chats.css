@@ -1,0 +1,43 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    padding: 0 2rem;
+  }
+  
+  h1 {
+    text-align: center;
+    margin-top: 2rem;
+    color: #333;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+    max-width: 600px;
+    margin: 2rem auto;
+  }
+  
+  li {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    margin-bottom: 1rem;
+    transition: transform 0.2s ease;
+  }
+  
+  li:hover {
+    transform: scale(1.02);
+  }
+  
+  li a {
+    color: #444;
+    text-decoration: none;
+  }
+
+  ul li a {
+    display: block;
+    height: 100%;
+    width: 100%;
+    padding: 10px
+  }
+  

@@ -1,5 +1,7 @@
+import { gemJSON } from "./index.js"
 
 let brugere = []
+const EJER_FIL = path.join(DATA_PATH, 'users.json')
 
 const createUser = async(req, res) => {
     const username = req.body.username

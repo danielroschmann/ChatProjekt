@@ -7,7 +7,10 @@ export const getChat = (req, res) => {
 }
 
 export const getSingleChat = (req, res) => {
-    // TODO
+    const chatId = Number(req.params.id)
+    const chat = chats.find(c => c.id === chatId)
+    
+    res.render('chatServer', {chat: chat, isKnownUser: req.session.isLoggedIn})
 }
 
 

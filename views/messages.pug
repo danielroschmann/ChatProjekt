@@ -9,3 +9,5 @@ html
         each besked in chat.beskeder
                 li 
                     a(href=`/chats/messages/${chat.id}`) #{besked.ejer.navn}: #{besked.besked}
+        input(type="text", name="besked", placeholder="Indtast besked")
+        button(type="submit") Send

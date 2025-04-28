@@ -1,4 +1,5 @@
 import { gemJSON, læsJSON } from "./filData.js"
+import { EJER_FIL } from "./filData.js"
 import path from 'path'
 
 let brugere = []

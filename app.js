@@ -1,7 +1,5 @@
 import express from 'express'
-
 import session from 'express-session'
-
 import fs from 'node:fs'
 import {gemJSON, læsJSON, EJER_FIL, CHAT_FIL, BESKED_FIL} from './controllers/filData.js'
 import { checkAccess, checkCredentials } from './controllers/bruger.js'

@@ -12,7 +12,7 @@ export const createUser = async (req, res) => {
     }
     const id = brugere.length > 0 ? brugere[brugere.length - 1].id + 1 : 1
     if (brugere.find(b => b.navn === username) !== undefined) {
-        return res.render('error')
+        return res.render('opretBruger', {errorMessage: 'Brugernavnet er allerede taget'})
     }
     
     let bruger = new Ejer(id, username, password, dato, 1)

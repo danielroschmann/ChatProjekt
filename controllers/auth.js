@@ -9,7 +9,7 @@ export const logIn = (req, res) => {
             req.session.username = username
             res.redirect('chats')
     } else {
-        res.render('error')
+        res.render('login', { errorMessage: 'Forkert brugernavn eller kodeord' })
     }
 }
 

@@ -10,3 +10,7 @@ html
             input(type="text", name="username", placeholder="brugernavn")
             input(type="password", name="password", placeholder="password")
             button(type="submit", value="") Log Ind
+            if (errorMessage) 
+                div(class="error-message") #{errorMessage}
+        
+            

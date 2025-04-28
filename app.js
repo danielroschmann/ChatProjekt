@@ -3,10 +3,11 @@ import express from 'express'
 import session from 'express-session'
 
 import fs from 'node:fs'
-import {gemJSON, læsJSON} from './index.js'
+import {gemJSON, læsJSON, EJER_FIL, CHAT_FIL, BESKED_FIL} from './controllers/filData.js'
+import { checkAccess, checkCredentials } from './controllers/bruger.js'
 import Besked from './models/Besked.js'
 import Ejer from './models/Ejer.js'
-import path from 'path'
+
 
 const app = express()
 
@@ -26,7 +27,9 @@ app.use(checkAccess)
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-brugere = læsJSON(EJER_FIL)
+let brugere = læsJSON(EJER_FIL)
+let chats = læsJSON(CHAT_FIL)
+let messages = læsJSON(BESKED_FIL)
 
 app.get('/login', (req, res) => {
     res.render('login')

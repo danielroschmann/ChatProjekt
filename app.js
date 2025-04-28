@@ -12,11 +12,6 @@ import { EJER_FIL, CHAT_FIL, BESKED_FIL } from './controllers/filData.js'
 const app = express()
 const port = 8000
 
-// Data arrays
-let brugere = []
-let chats = []
-let messages = []
-
 // Viewmode
 app.set('view engine', 'pug')
 
@@ -32,9 +27,9 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 // Initialiser data
-brugere = læsJSON(EJER_FIL)
-chats = læsJSON(CHAT_FIL)
-messages = læsJSON(BESKED_FIL)
+let brugere = læsJSON(EJER_FIL)
+let chats = læsJSON(CHAT_FIL)
+let messages = læsJSON(BESKED_FIL)
 
 app.get('/login', (req, res) => {
     res.render('login')
@@ -104,6 +99,14 @@ app.get('/chats/:id/messages', (req, res) => {
     console.log(chat)
 
     res.render('messages', {chat: chat, isKnownUser: req.session.isLoggedIn})
+})
+app.get('/chats/messages/:id', (req, res) => {
+    const beskedId = Number(req.params.id)
+    const chat = chats.find(c => c.id === 1) 
+    const besked = chat.beskeder.find(b => b.id === beskedId)
+    console.log(besked)
+
+    res.render('message', {besked: besked, isKnownUser: req.session.isLoggedIn})
 })
 
 app.listen(port, () => {

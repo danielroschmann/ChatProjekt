@@ -7,4 +7,5 @@ html
         include includes/menubar
         h1 Beskeder 
         each besked in chat.beskeder
-                p #{besked.ejer.navn}: #{besked.besked}
+                li 
+                    a(href=`/chats/messages/${chat.id}`) #{besked.ejer.navn}: #{besked.besked}

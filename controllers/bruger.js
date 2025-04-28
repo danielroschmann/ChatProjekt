@@ -25,6 +25,7 @@ const createUser = async(req, res) => {
 
 export function checkCredentials(username, password) {
     let validate = false
+    brugere = læsJSON(EJER_FIL)
     brugere.forEach(bruger => {
         if (username == bruger.navn && password == bruger.password) 
             {

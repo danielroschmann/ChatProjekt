@@ -1,9 +1,8 @@
 import express from 'express'
 
 const router = express.Router()
-const {
-    opretBesked,
-    hentBesked,
-    sletBesked,
-    redigerBesked
-} = require('../controllers/besked')
+
+
+import {getChats, createChat, updateChat, deleteChat} from '../controllers/chats'  
+
+router.route('/login').get(getChats).post

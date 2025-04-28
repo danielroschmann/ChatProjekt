@@ -3,15 +3,17 @@ html
     head 
         title Besked
         link(rel="stylesheet", href="/css/menubar.css")
+        link(rel="stylesheet", href="/css/message.css")
     body 
         include includes/menubar
+        a(class="tilbage", href=`/chats/${besked.chatId}/messages`) ⬅ Gå tilbage
         h1 Besked
         h3 
             p Besked ID: #{besked.id}
             br
             p Besked Indhold: #{besked.besked}
             br
-            p Besked Dato: #{besked.dato} 
+            p Besked Dato: #{besked.dato[0]} - #{besked.dato[1]} 
             br
             p Besked Ejer: #{besked.ejer.navn}
             br

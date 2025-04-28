@@ -20,7 +20,7 @@ html
         div(class="message-container")
             each besked in beskeder
                 div(class=besked.ejer.navn == username ? 'outgoing' : 'incoming')
-                    div(class="message-content")
+                    a.div(class="message-content", href=`/chats/messages/${besked.id}`)
                         span(class="ejer") #{besked.ejer.navn}: 
                         span(class="besked") #{besked.besked} 
                         br

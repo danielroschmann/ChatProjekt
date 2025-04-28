@@ -49,6 +49,7 @@ h1 {
     word-wrap: break-word; /* Bryder ord, så de ikke går udenfor containeren */
     word-break: break-word; /* Hvis der er lange ord uden mellemrum, bryder linjen */
     white-space: normal; /* Sikrer, at teksten vises normalt og kan bryde linje */
+    text-decoration: none;
 }
 
 .message-container .outgoing .message-content {

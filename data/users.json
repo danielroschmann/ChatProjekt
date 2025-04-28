@@ -3,10 +3,5 @@
     "navn":"admin",
     "password":"admin",
     "dato":"4/23/2025",
-    "niveau":3},
-    {"id":2,
-    "navn":"jonas",
-    "password":"12345",
-    "dato":"4/23/2025",
-    "niveau":1}
+    "niveau":3}
 ]

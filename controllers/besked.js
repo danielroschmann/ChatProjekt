@@ -12,16 +12,17 @@ export const getAllMessagesInChat = (req, res) => {
 }
 
 export const getSingleMessage = (req, res) => {
-    const beskedId = Number(req.params.id)
-    let chats = læsJSON(CHAT_FIL)
-    const chat = chats.find(c => c.id === 1) 
-    const besked = chat.beskeder.find(b => b.id === beskedId)
-    console.log(besked)
+    const messageId = Number(req.params.id)
+    let messageData = læsJSON(BESKED_FIL)
+    const message = messageData.find(m => m.id === messageId)
 
-    res.render('message', {besked: besked, isKnownUser: req.session.isLoggedIn})
+    res.render('message', {besked: message, isKnownUser: req.session.isLoggedIn})
 }
 
-export const createMessage = (req, res) => {
+export const createMessage = async (req, res) => {
+    if (!req.session.isLoggedIn) {
+        return res.redirect('/login')
+    }
     let besked = req.body.besked;
     let ejer = læsJSON(EJER_FIL).find(u => u.navn === req.session.username);
     let chatId = req.body.chatId;
@@ -31,26 +32,24 @@ export const createMessage = (req, res) => {
     console.log(chatArr)
     let beskedArr = læsJSON(BESKED_FIL);
 
-    console.log(beskedArr.length)
+    if (beskedArr === undefined) {
+        beskedArr = []
+    }
     
     let id = beskedArr.length > 0 ? beskedArr[beskedArr.length - 1].id + 1 : 1; // korrekt ID
-    let dato = new Date().toLocaleString(); // korrekt dato
+    let dato = new Date().toLocaleString();
     
     let nyBesked = new Besked(id, besked, dato, ejer, chatId);
     
     let chat = chatArr.find(c => c.id == chatId);
-    console.log(chat)
-    if (!chat) {
-        return res.status(404).json({ error: "Chat ikke fundet" });
-    }
     
     chat.beskeder.push(nyBesked);
-    beskedArr.push(nyBesked); // husk også at gemme den i beskedfilen
+    beskedArr.push(nyBesked); 
 
-    gemJSON(CHAT_FIL, chatArr);
-    gemJSON(BESKED_FIL, beskedArr);
+    await gemJSON(CHAT_FIL, chatArr);
+    await gemJSON(BESKED_FIL, beskedArr);
     
-    res.redirect(`/chats/${chatId}/messages`)
+    res.render('messages', {chat: chat, isKnownUser: req.session.isLoggedIn})
 };
 
 

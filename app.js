@@ -4,6 +4,7 @@ import fs from 'node:fs'
 import {gemJSON, læsJSON} from './index.js'
 import Besked from './models/Besked.js'
 import Ejer from './models/Ejer.js'
+import Chat from './models/Chat.js'
 import path from 'path'
 
 const app = express()
@@ -15,6 +16,8 @@ const CHAT_FIL = path.join(DATA_PATH, 'chats.json')
 const BESKED_FIL = path.join(DATA_PATH, 'messages.json')
 
 let brugere = []
+let chats = []
+let messages = []
 
 app.set('view engine', 'pug')
 
@@ -64,7 +67,7 @@ app.get('/logout', (req, res) => {
     res.redirect('/')
 })
 
-app.get('/opret', (req, res) => {
+app.get('/opretBruger', (req, res) => {
     res.render('opretBruger')
 })
 

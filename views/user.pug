@@ -20,3 +20,4 @@ html
                 h2 ID: #{bruger.id}
             .role-info 
                 h2(class=rolle) #{rolle}
+            a(class="viewMessages", href=`/users/${bruger.id}/messages`) Se beskeder

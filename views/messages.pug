@@ -1,15 +1,24 @@
 doctype HTML
 html
     head
-        title Chat: #{chat.navn}
+        if (!viewMode)
+            title Chat: #{chat.navn}
+        else 
+            title Beskeder fra #{bruger.navn}
         link(rel="stylesheet", href="/css/menubar.css")
         link(rel="stylesheet", href="/css/messages.css")
     body
         include includes/menubar
-        a(class="tilbage", href="/chats") ⬅ Gå tilbage
-        h1 #{chat.navn}
+        if (!viewMode)
+            a(class="tilbage", href="/chats") ⬅ Gå tilbage
+        else 
+            a(class="tilbage", href=`/users/${bruger.id}`) ⬅ Gå tilbage
+        if (!viewMode)
+            h1 #{chat.navn}
+        else 
+            h1 #{bruger.navn}
         div(class="message-container")
-            each besked in chat.beskeder
+            each besked in beskeder
                 div(class=besked.ejer.navn == username ? 'outgoing' : 'incoming')
                     div(class="message-content")
                         span(class="ejer") #{besked.ejer.navn}: 
@@ -17,7 +26,8 @@ html
                         br
                         - var tidspunkt = new Date().toLocaleDateString() !== besked.dato[0] ?  `${besked.dato[0]}: ${besked.dato[1]}` : `${besked.dato[1]}`
                         span(class="tid") #{tidspunkt}
-        form(action=`/chats/${chat.id}/messages`, method="post") 
-            input(type="text", name="besked", placeholder="Indtast besked")
-            input(type="hidden", name="chatId", value=chat.id)
-            button(type="submit") Send
+        if (!viewMode)
+            form(action=`/chats/${chat.id}/messages`, method="post") 
+                input(type="text", name="besked", placeholder="Indtast besked")
+                input(type="hidden", name="chatId", value=chat.id)
+                button(type="submit") Send

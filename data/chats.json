@@ -1,1 +1,1 @@
-[{"id":1,"beskeder":[],"navn":"test","dato":"28.4.2025, 17.20.18","ejer":{"id":1,"navn":"admin","password":"admin","dato":"4/23/2025","niveau":3}}]
+[{"id":1,"beskeder":[{"id":1,"besked":"hej","dato":"28.4.2025, 17.26.59","ejer":{"id":2,"navn":"daro","password":"1234","dato":"28.4.2025","niveau":1},"chatId":"1"}],"navn":"test","dato":"28.4.2025, 17.20.18","ejer":{"id":1,"navn":"admin","password":"admin","dato":"4/23/2025","niveau":3}}]

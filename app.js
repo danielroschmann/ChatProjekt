@@ -1,15 +1,15 @@
 import express from 'express'
+
 import session from 'express-session'
+
 import fs from 'node:fs'
-import {gemJSON, læsJSON} from './controllers/filData.js'
-import { checkAccess, checkCredentials } from './controllers/bruger.js'
+import {gemJSON, læsJSON} from './index.js'
 import Besked from './models/Besked.js'
 import Ejer from './models/Ejer.js'
-import Chat from './models/Chat.js'
 import path from 'path'
-import { EJER_FIL, CHAT_FIL, BESKED_FIL } from './controllers/filData.js'
 
 const app = express()
+
 const port = 8000
 let k = 0
 // Viewmode
@@ -26,10 +26,7 @@ app.use(checkAccess)
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-// Initialiser data
-let brugere = læsJSON(EJER_FIL)
-let chats = læsJSON(CHAT_FIL)
-let messages = læsJSON(BESKED_FIL)
+brugere = læsJSON(EJER_FIL)
 
 app.get('/login', (req, res) => {
     res.render('login')
@@ -54,7 +51,7 @@ app.get('/logout', (req, res) => {
     res.redirect('/')
 })
 
-app.get('/opretBruger', (req, res) => {
+app.get('/opret', (req, res) => {
     res.render('opretBruger')
 })
 
@@ -69,7 +66,14 @@ app.post('/opretBruger', (req, res) => {
 
     let bruger = new Ejer(id, username, password, dato, 1)
     brugere.push(bruger)
-    brugere = gemJSON(EJER_FIL, brugere)
+    let userJson = JSON.stringify(brugere)
+    fs.writeFile('users.json', userJson, 'utf8', (err) => {
+        if (err) {
+            console.error(err) 
+        } else {
+            console.log('Filen er skrevet')
+        }
+    })
     req.session.isLoggedIn = true
     req.session.username = username
     res.redirect('/chats')

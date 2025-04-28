@@ -2,7 +2,11 @@ import express from 'express'
 
 const router = express.Router()
 
+import {createChat, getChat, getSingleChat} from '../controllers/chats'
 
-import {getChats, createChat, updateChat, deleteChat} from '../controllers/chats'  
+router.route('/chats').get(getChat)
 
-router.route('/login').get(getChats).post
+router.route('/chats/:id').get(getSingleChat).post(createChat)
+
+export default router
+

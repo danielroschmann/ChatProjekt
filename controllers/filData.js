@@ -20,9 +20,6 @@ export function læsJSON(fil) {
         let jsonData = fs.readFileSync(fil, 'utf8')
         let jsonObjekt = JSON.parse(jsonData)
         console.log('Indlæst data fra fil: ' + fil)
-        jsonObjekt.forEach(element => {
-            console.log(element)
-        });
         return jsonObjekt
     } catch (err) {
         console.log('Kunne ikke læse fil: ' + fil + ' - ' + err)

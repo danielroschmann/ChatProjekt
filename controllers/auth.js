@@ -3,13 +3,15 @@ import { læsJSON, EJER_FIL } from "./filData.js"
 export const logIn = (req, res) => {
     const username = req.body.username
     const password = req.body.password
+    const authLevel = getAuthentificationLevel(username)
     console.log(username + " " + password)
     if(checkCredentials(username, password)) {
             req.session.isLoggedIn = true
             req.session.username = username
+            req.session.authLevel = authLevel
             res.redirect('chats')
     } else {
-        res.render('login', { errorMessage: 'Forkert brugernavn eller kodeord' })
+        res.render('login', {  errorMessage: 'Forkert brugernavn eller kodeord' })
     }
 }
 
@@ -47,4 +49,17 @@ export function checkAccess(req, res, next) {
     } else {
         next()
     }
+}
+
+function getAuthentificationLevel(username) {
+    let authentificationLevel = 0
+    let brugere = læsJSON(EJER_FIL)
+    brugere.forEach(bruger => {
+        if (username == bruger.navn) 
+            {
+            authentificationLevel = bruger.niveau
+            }
+        }
+    )
+    return authentificationLevel
 }

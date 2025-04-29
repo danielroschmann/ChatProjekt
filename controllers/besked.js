@@ -7,7 +7,6 @@ export const getAllMessagesInChat = (req, res) => {
     let chats = læsJSON(CHAT_FIL)
     const chat = chats.find(c => c.id === chatId)
     const beskeder = chat.beskeder
-    console.log(chat)
     
     res.render('messages', {username: req.session.username, beskeder: beskeder, chat: chat, isKnownUser: req.session.isLoggedIn})
 }

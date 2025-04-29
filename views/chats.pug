@@ -7,11 +7,11 @@ html
     body 
         include includes/menubar
         h1 Chats
-
-        form(action=`/chats`, method="post") 
-            input(type="hidden", name="ejerNavn", value=username)
-            input(type="text", name="chatNavn")
-            button(type="submit") Ny chat
+        if (authLevel >= 2)
+            form(action=`/chats`, method="post") 
+                input(type="hidden", name="ejerNavn", value=username)
+                input(type="text", name="chatNavn")
+                button(type="submit") Ny chat
 
         if (errorMessage) 
             p(class="error-message") #{errorMessage}
@@ -20,6 +20,12 @@ html
             if (chats !== undefined && chats.length > 0)
                 each chat in chats 
                     li 
-                        a(href=`/chats/${chat.id}`, style="display: block; width: 100%; height: 100%") #{chat.navn}
+                        div.chat-item(style="display: flex; align-items: center; gap: 0.5rem;")
+                            div.chat-link(style="flex: 1;")
+                                a(href=`/chats/${chat.id}`, class="chat-box") #{chat.navn}
+                            if (authLevel > 1)
+                                form(action=`/chats/${chat.id}/delete`, method="post", onsubmit="return confirm('Er du sikker på, at du vil slette denne chat?');") 
+                                    button(type="submit", class="delete")  ❌
+                                
             else 
                 h1 Der er ingen chats til rådighed

@@ -15,28 +15,20 @@ export const createChat = async (req, res) => {
         return res.render('chats', {chats: chatArr, errorMessage: 'Navnet er for kort'})
     }
     let ejerNavn = req.session.username
-    let id;
-    if (chatArr === undefined) {
-        id = 1
-        chatArr = []
-    } else {
-        id = chatArr.length > 0 ? chatArr[chatArr.length - 1].id + 1 : 1
-        }
+    let id = generateUniqueId()
     let dato = new Date().toLocaleDateString()
     let ejerArr = læsJSON(EJER_FIL)
-    console.log("Ejer arr:" + ejerArr)
     let ejer = ejerArr.find(ejer => ejer.navn === ejerNavn)
-    console.log(ejer)
     let nyChat = new Chat(id, chatNavn, dato, ejer)
     chatArr.push(nyChat)
     await gemJSON(CHAT_FIL, chatArr)
-    res.render('chats', {chats: chatArr, isKnownUser: req.session.isLoggedIn})
+    res.redirect('/chats')
 }
 
 
 export const getChat = (req, res) => {
     let chats = læsJSON(CHAT_FIL)
-    res.render('chats', {chats: chats, isKnownUser: req.session.isLoggedIn})
+    res.render('chats', {chats: chats, isKnownUser: req.session.isLoggedIn, authLevel: req.session.authLevel})
 }
 
 export const getSingleChat = (req, res) => {
@@ -51,7 +43,6 @@ export const getChatMessages = (req, res) => {
     const chatId = Number(req.params.id)
     let chats = læsJSON(CHAT_FIL)
     const chat = chats.find(c => c.id === chatId)
-    console.log(chat)
     
     res.render('messages', {chat: chat, isKnownUser: req.session.isLoggedIn, username: req.session.username})
 }
@@ -61,6 +52,22 @@ export const getDetailedChatMessage = (req, res) => {
     const message = læsJSON(BESKED_FIL).find(besked => besked.id === messageId)
     
     res.render('message', {besked: message})
+}
+
+const generateUniqueId = () => {
+    const chatArr = læsJSON(CHAT_FIL)
+    return chatArr.length > 0 ? chatArr[chatArr.length - 1].id + 1 : 1
+}
+
+export const deleteChat = async (req, res) => {
+    const chatId = Number(req.params.id)
+    let chatArr = læsJSON(CHAT_FIL)
+    let beskedArr = læsJSON(BESKED_FIL)
+    beskedArr = beskedArr.filter(besked => besked.chatId !== chatId)
+    chatArr = chatArr.filter(chat => chat.id !== chatId)
+    await gemJSON(CHAT_FIL, chatArr)
+    await gemJSON(BESKED_FIL, beskedArr)
+    res.redirect('/chats')
 }
 
 

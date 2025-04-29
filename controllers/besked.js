@@ -23,7 +23,10 @@ export const createMessage = async (req, res) => {
     if (!req.session.isLoggedIn) {
         return res.redirect('/login')
     }
-    let besked = req.body.besked;
+    let besked = req.body.besked.trim();
+    if (besked === undefined || besked === '') {
+        return res.redirect('messages')
+    }
     let ejer = læsJSON(EJER_FIL).find(u => u.navn === req.session.username);
     let chatId = req.body.chatId;
     console.log("Hentet chatId: " + chatId)

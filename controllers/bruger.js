@@ -3,8 +3,8 @@ import { EJER_FIL, BESKED_FIL } from "./filData.js"
 import Ejer from "../models/Ejer.js"
 
 export const createUser = async (req, res) => {
-    const username = req.body.username
-    const password = req.body.password
+    const username = req.body.username.trim()
+    const password = req.body.password.trim()
     if (username.trim() === '' || password.trim() === '') {
         return res.render('opretBruger', {errorMessage: 'Indtast venligst et brugernavn og et kodeord'})
     }

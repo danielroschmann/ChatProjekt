@@ -7,7 +7,7 @@ html
     body 
         include includes/menubar
         h1 Chats
-        if (authLevel >= 2)
+        if (authLevel == 3)
             form(action=`/chats`, method="post") 
                 input(type="hidden", name="ejerNavn", value=username)
                 input(type="text", name="chatNavn")
@@ -23,7 +23,7 @@ html
                         div.chat-item(style="display: flex; align-items: center; gap: 0.5rem;")
                             div.chat-link(style="flex: 1;")
                                 a(href=`/chats/${chat.id}`, class="chat-box") #{chat.navn}
-                            if (authLevel > 1)
+                            if (authLevel == 3)
                                 form(action=`/chats/${chat.id}/delete`, method="post", onsubmit="return confirm('Er du sikker på, at du vil slette denne chat?');") 
                                     button(type="submit", class="delete")  ❌
                                 

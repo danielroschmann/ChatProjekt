@@ -3,16 +3,16 @@ import { læsJSON, gemJSON } from "./filData.js"
 import Chat from "../models/Chat.js"
 
 export const createChat = async (req, res) => {
-    let chatNavn = req.body.chatNavn
+    let chatNavn = req.body.chatNavn.trim()
     let chatArr = læsJSON(CHAT_FIL)
     if (chatNavn === undefined  || chatNavn === '') {
-        return res.render('chats', {chats: chatArr, errorMessage: 'Indtast venligst et navn'})
+        return res.render('chats', {authLevel: req.session.authLevel, chats: chatArr, errorMessage: 'Indtast venligst et navn'})
     }
     if (chatNavn.length > 20) {
-        return res.render('chats', {chats: chatArr, errorMessage: 'Navnet er for langt'})
+        return res.render('chats', {authLevel: req.session.authLevel, chats: chatArr, errorMessage: 'Navnet er for langt'})
     }
     if (chatNavn.length < 3) {
-        return res.render('chats', {chats: chatArr, errorMessage: 'Navnet er for kort'})
+        return res.render('chats', {authLevel: req.session.authLevel, chats: chatArr, errorMessage: 'Navnet er for kort'})
     }
     let ejerNavn = req.session.username
     let id = generateUniqueId()

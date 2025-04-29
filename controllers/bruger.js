@@ -5,6 +5,9 @@ import Ejer from "../models/Ejer.js"
 export const createUser = async (req, res) => {
     const username = req.body.username
     const password = req.body.password
+    if (username.trim() === '' || password.trim() === '') {
+        return res.render('opretBruger', {errorMessage: 'Indtast venligst et brugernavn og et kodeord'})
+    }
     const dato = new Date().toLocaleDateString()
     let brugere = læsJSON(EJER_FIL)
     if (brugere === undefined) {

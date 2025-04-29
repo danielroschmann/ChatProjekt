@@ -52,7 +52,7 @@ export function checkAccess(req, res, next) {
 }
 
 function getAuthentificationLevel(username) {
-    let authentificationLevel = 0
+    let authentificationLevel = 1
     let brugere = læsJSON(EJER_FIL)
     brugere.forEach(bruger => {
         if (username == bruger.navn) 

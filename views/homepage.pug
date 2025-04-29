@@ -1,9 +1,11 @@
-doctype HTML
+doctype html
 html
-    head 
-        title Chatserver 
-        link(rel="stylesheet", href="/css/homepage.css")
-    body 
-        h1 Velkommen til ChatServeren! 
-        a.button(href="/login") Log Ind 
-        a(href="/opretBruger") Eller opret ny bruger
+  head
+    title Chatserver
+    link(rel="stylesheet", href="/css/homepage.css")
+  body
+    div.container
+        h1 Velkommen til ChatServeren!
+        div.buttons
+          a.button.login(href="/login") Log ind
+          a.button.signup(href="/opretBruger") Opret ny bruger

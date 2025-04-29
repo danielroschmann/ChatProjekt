@@ -4,7 +4,6 @@ export const logIn = (req, res) => {
     const username = req.body.username
     const password = req.body.password
     const authLevel = getAuthentificationLevel(username)
-    console.log(username + " " + password)
     if(checkCredentials(username, password)) {
             req.session.isLoggedIn = true
             req.session.username = username

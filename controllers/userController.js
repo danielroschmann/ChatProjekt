@@ -6,7 +6,7 @@ export const createUser = async (req, res) => {
     const username = req.body.username.trim()
     const password = req.body.password.trim()
     if (username.trim() === '' || password.trim() === '') {
-        return res.render('signUpView', {errorMessage: 'Indtast venligst et brugernavn og et kodeord'})
+        return res.render('registerView', {errorMessage: 'Indtast venligst et brugernavn og et kodeord'})
     }
     const dato = new Date().toLocaleDateString()
     let brugere = læsJSON(EJER_FIL)
@@ -15,7 +15,7 @@ export const createUser = async (req, res) => {
     }
     const id = brugere.length > 0 ? brugere[brugere.length - 1].id + 1 : 1
     if (brugere.find(b => b.navn === username) !== undefined) {
-        return res.render('signUpVIew', {errorMessage: 'Brugernavnet er allerede taget'})
+        return res.render('registerView', {errorMessage: 'Brugernavnet er allerede taget'})
     }
     
     let bruger = new User(id, username, password, dato, 1)
@@ -29,7 +29,7 @@ export const getSingleUser = (req, res) => {
     let brugere = læsJSON(EJER_FIL)
     const userId = Number(req.params.id)
     const bruger = brugere.find(b => b.id === userId)
-    res.render('detailedUserView', {bruger: bruger, isKnownUser: req.session.isLoggedIn})
+    res.render('userDetailView', {bruger: bruger, isKnownUser: req.session.isLoggedIn})
 }
 
 export const getAllUsers = (req, res) => {
@@ -38,7 +38,7 @@ export const getAllUsers = (req, res) => {
 }
 
 export const signUp = (req, res) => {
-    res.render('signUpView')
+    res.render('registerView')
 }
 
 export const getUserMessages = (req, res) => {
@@ -50,7 +50,7 @@ export const getUserMessages = (req, res) => {
     if (beskeder === undefined) {
         beskeder = []
     }
-    res.render('chatMessagesView', {beskeder: beskeder, bruger: bruger, isKnownUser: req.session.isLoggedIn, viewMode: true})
+    res.render('chatMessageListView', {beskeder: beskeder, bruger: bruger, isKnownUser: req.session.isLoggedIn, viewMode: true})
 }
 
 

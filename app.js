@@ -4,7 +4,7 @@ import { checkAccess } from './controllers/authController.js'
 import messageRoute from './routes/messageRoutes.js'
 import chatRoute from './routes/chatRoutes.js'
 import authRoute from './routes/authRoutes.js'
-import userRoute from './routes/brugerRoutes.js'
+import userRoute from './routes/userRoutes.js'
 
 const app = express()
 

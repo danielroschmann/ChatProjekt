@@ -44,7 +44,7 @@ export function checkCredentials(username, password) {
 export function checkAccess(req, res, next) {
     console.log("Forsøger at få adgang til siden " + req.url)
     if ((req.url.includes('/chats') || req.url.includes('/users')) && !req.session.isLoggedIn)  {
-        res.render('error', { errorMessage: 'Du skal være logget ind for at se denne side' })
+        res.render('errorView', { errorMessage: 'Du skal være logget ind for at se denne side' })
     } else {
         next()
     }

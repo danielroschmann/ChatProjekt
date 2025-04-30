@@ -36,7 +36,7 @@ export const getSingleChat = (req, res) => {
     const chatId = Number(req.params.id)
     const chat = chats.find(c => c.id === chatId)
     
-    res.render('detailedChatView', {chat: chat, isKnownUser: req.session.isLoggedIn})
+    res.render('chatDetailView', {chat: chat, isKnownUser: req.session.isLoggedIn})
 }
 
 export const getChatMessages = (req, res) => {
@@ -44,14 +44,14 @@ export const getChatMessages = (req, res) => {
     let chats = læsJSON(CHAT_FIL)
     const chat = chats.find(c => c.id === chatId)
     
-    res.render('chatMessagesView', {chat: chat, isKnownUser: req.session.isLoggedIn, username: req.session.username})
+    res.render('chatMessageListView', {chat: chat, isKnownUser: req.session.isLoggedIn, username: req.session.username})
 }
 
 export const getDetailedChatMessage = (req, res) => {
     const messageId = Number(req.params.id)
     const message = læsJSON(BESKED_FIL).find(besked => besked.id === messageId)
     
-    res.render('detailedMessageView', {besked: message})
+    res.render('messageDetailView', {besked: message})
 }
 
 const generateUniqueId = () => {

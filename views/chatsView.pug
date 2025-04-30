@@ -3,9 +3,9 @@ html
     head 
         title Chats 
         link(rel="stylesheet", href="/css/chatsView.css")
-        link(rel="stylesheet", href="css/menubar.css")
+        link(rel="stylesheet", href="css/menubarComponent.css")
     body 
-        include includes/menubar
+        include includes/menubarComponent
         h1 Chats
         if (authLevel == 3)
             form(action=`/chats`, method="post") 

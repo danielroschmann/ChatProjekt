@@ -8,7 +8,7 @@ export const getAllMessagesInChat = (req, res) => {
     const chat = chats.find(c => c.id === chatId)
     const beskeder = chat.beskeder
     
-    res.render('chatMessagesView', {username: req.session.username, beskeder: beskeder, chat: chat, isKnownUser: req.session.isLoggedIn})
+    res.render('chatMessageListView', {username: req.session.username, beskeder: beskeder, chat: chat, isKnownUser: req.session.isLoggedIn})
 }
 
 export const getSingleMessage = (req, res) => {
@@ -16,7 +16,7 @@ export const getSingleMessage = (req, res) => {
     let messageData = læsJSON(BESKED_FIL)
     const message = messageData.find(m => m.id === messageId)
 
-    res.render('detailedMessageView', {besked: message, isKnownUser: req.session.isLoggedIn})
+    res.render('messageDetailView', {besked: message, isKnownUser: req.session.isLoggedIn})
 }
 
 export const createMessage = async (req, res) => {
@@ -25,7 +25,7 @@ export const createMessage = async (req, res) => {
     }
     let besked = req.body.besked.trim();
     if (besked === undefined || besked === '') {
-        return res.redirect('chatMessagesView')
+        return res.redirect('chatMessageListView')
     }
     let ejer = læsJSON(EJER_FIL).find(u => u.navn === req.session.username);
     let chatId = req.body.chatId;
@@ -53,7 +53,7 @@ export const createMessage = async (req, res) => {
     await gemJSON(CHAT_FIL, chatArr);
     await gemJSON(BESKED_FIL, beskedArr);
     
-    res.render('chatMessagesView', {username: req.session.username, beskeder: beskeder, chat: chat, isKnownUser: req.session.isLoggedIn})
+    res.render('chatMessageListView', {username: req.session.username, beskeder: beskeder, chat: chat, isKnownUser: req.session.isLoggedIn})
 };
 
 

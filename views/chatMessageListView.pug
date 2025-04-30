@@ -5,10 +5,10 @@ html
             title Chat: #{chat.navn}
         else 
             title Beskeder fra #{bruger.navn}
-        link(rel="stylesheet", href="/css/menubar.css")
+        link(rel="stylesheet", href="/css/menubarComponent.css")
         link(rel="stylesheet", href="/css/chatMessagesView.css")
     body
-        include includes/menubar
+        include includes/menubarComponent
         if (!viewMode)
             a(class="tilbage", href="/chats") ⬅ Gå tilbage
         else 

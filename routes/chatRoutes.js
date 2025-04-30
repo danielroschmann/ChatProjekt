@@ -2,7 +2,7 @@ import express from 'express'
 
 const router = express.Router()
 
-import {createChat, getChat, getSingleChat, getChatMessages, deleteChat} from '../controllers/chats.js'
+import {createChat, getChat, getSingleChat, getChatMessages, deleteChat} from '../controllers/chatController.js'
 
 router.route('/chats').get(getChat).post(createChat)
 

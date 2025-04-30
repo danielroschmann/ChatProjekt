@@ -1,4 +1,4 @@
-export default class Ejer {
+export default class User {
     constructor(id, navn, password, dato, niveau) {
         this.id = id;
         this.navn = navn;

@@ -1,18 +1,18 @@
-import { EJER_FIL, CHAT_FIL, BESKED_FIL } from "./filData.js"
-import { læsJSON, gemJSON } from "./filData.js"
-import Chat from "../models/Chat.js"
+import { EJER_FIL, CHAT_FIL, BESKED_FIL } from "./fileStorageController.js"
+import { læsJSON, gemJSON } from "./fileStorageController.js"
+import Chat from "../models/chatModel.js"
 
 export const createChat = async (req, res) => {
     let chatNavn = req.body.chatNavn.trim()
     let chatArr = læsJSON(CHAT_FIL)
     if (chatNavn === undefined  || chatNavn === '') {
-        return res.render('chats', {authLevel: req.session.authLevel, chats: chatArr, errorMessage: 'Indtast venligst et navn'})
+        return res.render('chatsView', {authLevel: req.session.authLevel, chats: chatArr, errorMessage: 'Indtast venligst et navn'})
     }
     if (chatNavn.length > 20) {
-        return res.render('chats', {authLevel: req.session.authLevel, chats: chatArr, errorMessage: 'Navnet er for langt'})
+        return res.render('chatsView', {authLevel: req.session.authLevel, chats: chatArr, errorMessage: 'Navnet er for langt'})
     }
     if (chatNavn.length < 3) {
-        return res.render('chats', {authLevel: req.session.authLevel, chats: chatArr, errorMessage: 'Navnet er for kort'})
+        return res.render('chatsView', {authLevel: req.session.authLevel, chats: chatArr, errorMessage: 'Navnet er for kort'})
     }
     let ejerNavn = req.session.username
     let id = generateUniqueId()
@@ -28,7 +28,7 @@ export const createChat = async (req, res) => {
 
 export const getChat = (req, res) => {
     let chats = læsJSON(CHAT_FIL)
-    res.render('chats', {chats: chats, isKnownUser: req.session.isLoggedIn, authLevel: req.session.authLevel})
+    res.render('chatsView', {chats: chats, isKnownUser: req.session.isLoggedIn, authLevel: req.session.authLevel})
 }
 
 export const getSingleChat = (req, res) => {
@@ -36,7 +36,7 @@ export const getSingleChat = (req, res) => {
     const chatId = Number(req.params.id)
     const chat = chats.find(c => c.id === chatId)
     
-    res.render('chatServer', {chat: chat, isKnownUser: req.session.isLoggedIn})
+    res.render('detailedChatView', {chat: chat, isKnownUser: req.session.isLoggedIn})
 }
 
 export const getChatMessages = (req, res) => {
@@ -44,14 +44,14 @@ export const getChatMessages = (req, res) => {
     let chats = læsJSON(CHAT_FIL)
     const chat = chats.find(c => c.id === chatId)
     
-    res.render('messages', {chat: chat, isKnownUser: req.session.isLoggedIn, username: req.session.username})
+    res.render('chatMessagesView', {chat: chat, isKnownUser: req.session.isLoggedIn, username: req.session.username})
 }
 
 export const getDetailedChatMessage = (req, res) => {
     const messageId = Number(req.params.id)
     const message = læsJSON(BESKED_FIL).find(besked => besked.id === messageId)
     
-    res.render('message', {besked: message})
+    res.render('detailedMessageView', {besked: message})
 }
 
 const generateUniqueId = () => {

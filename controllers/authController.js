@@ -1,4 +1,4 @@
-import { læsJSON, EJER_FIL } from "./filData.js"
+import { læsJSON, EJER_FIL } from "./fileStorageController.js"
 
 export const logIn = (req, res) => {
     const username = req.body.username
@@ -10,7 +10,7 @@ export const logIn = (req, res) => {
             req.session.authLevel = authLevel
             res.redirect('chats')
     } else {
-        res.render('login', {  errorMessage: 'Forkert brugernavn eller kodeord' })
+        res.render('loginView', {  errorMessage: 'Forkert brugernavn eller kodeord' })
     }
 }
 
@@ -21,11 +21,11 @@ export const logOut = (req, res) => {
         }
     })
     res.clearCookie('connect.sid')
-    res.render('homepage')
+    res.render('homepageView')
 }
 
 export const showLogInPage = (req, res) => {
-    res.render('login')
+    res.render('loginView')
 }
 
 export function checkCredentials(username, password) {

@@ -2,7 +2,7 @@ import express from 'express'
 
 const router = express.Router()
 
-import {getAllUsers, getSingleUser, createUser, signUp, getUserMessages} from '../controllers/bruger.js'
+import {getAllUsers, getSingleUser, createUser, signUp, getUserMessages} from '../controllers/userController.js'
 
 router.route('/users').get(getAllUsers)
 router.route('/opretBruger').get(signUp).post(createUser)

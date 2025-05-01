@@ -57,7 +57,61 @@ export const createMessage = async (req, res) => {
 };
 
 
+export const editMessage = (req, res) => {
+    const messageId = Number(req.params.id)
+    const message = getSpecificMessage(messageId)
+    res.render('messageEditView', {message: message, username: req.session.username})
+}
+
 export const updateMessage = (req, res) => {
-    // TODO
+    const messageId = Number(req.params.id);
+    const newText = req.body.newMessage;
+
+    const allMessages = læsJSON(BESKED_FIL);
+    const oldMessage = allMessages.find(m => m.id === messageId);
+
+    if (!oldMessage) {
+        return res.status(404).send("Besked ikke fundet");
+    }
+
+    const allChat = læsJSON(CHAT_FIL)
+    const chatObject = allChat.find(chat => Number(chat.id) === Number(oldMessage.chatId))
+
+    if (!chatObject) {
+        return res.status(404).send("Chat ikke fundet")
+    }
+
+    const chatObjectMessages = chatObject.beskeder
+
+    const updatedMessage = new Besked(
+        messageId,
+        newText,
+        oldMessage.dato,
+        oldMessage.ejer,
+        oldMessage.chatId
+    );
+
+    const updatedMessages = allMessages.filter(m => Number(m.id) !== Number(messageId));
+    updatedMessages.push(updatedMessage);
+    gemJSON(BESKED_FIL, updatedMessages);
+
+
+    const updatedChatMessages = chatObjectMessages.filter(m => Number(m.id) !== Number(messageId));
+    updatedChatMessages.push(updatedMessage);
+    chatObject.beskeder = updatedChatMessages;
+
+    const updatedChats = allChat.filter(chat => Number(chat.id) !== Number(oldMessage.chatId))
+    updatedChats.push(chatObject)
+    gemJSON(CHAT_FIL, updatedChats);
+
+    res.redirect(`/chats/${updatedMessage.chatId}/messages`);
+};
+
+
+
+const getSpecificMessage = (id) => {
+    const messageArr = læsJSON(BESKED_FIL)
+    const message = messageArr.find(message => message.id === id)
+    return message
 }
 

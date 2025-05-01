@@ -6,7 +6,7 @@ import bcrypt from 'bcrypt'
 export const createUser = async (req, res) => {
     const username = req.body.username.trim()
     const password = req.body.password.trim()
-    if (inputIsBlank) {
+    if (inputIsBlank(username, password)) {
         return res.render('registerView', {errorMessage: 'Indtast venligst et brugernavn og et kodeord'})
     }
 
@@ -71,6 +71,6 @@ function generateUniqueId() {
 
 function usernameIsValid(username) {
     const userArr = læsJSON(EJER_FIL)
-    return userArr.find(b => b.navn === username) !== undefined
+    return userArr.find(b => b.navn === username) === undefined
 }
 

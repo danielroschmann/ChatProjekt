@@ -28,7 +28,7 @@ export const createChat = async (req, res) => {
 
 export const getChat = (req, res) => {
     let chats = læsJSON(CHAT_FIL)
-    res.render('chatsView', {chats: chats, isKnownUser: req.session.isLoggedIn, authLevel: req.session.authLevel})
+    res.render('chatsView', {username: req.session.username, chats: chats, isKnownUser: req.session.isLoggedIn, authLevel: req.session.authLevel})
 }
 
 export const getSingleChat = (req, res) => {
@@ -62,12 +62,37 @@ const generateUniqueId = () => {
 export const deleteChat = async (req, res) => {
     const chatId = Number(req.params.id)
 
-    const {chatArr, beskedArr } = læsJSON(CHAT_FIL, BESKED_FIL)
+    let beskedArr = læsJSON(BESKED_FIL)
+    let chatArr = læsJSON(CHAT_FIL)
     
     beskedArr = beskedArr.filter(besked => besked.chatId !== chatId)
-    chatArr = chatArr.filter(chat => chat.id !== chatId)
+    chatArr = chatArr.filter(chat => Number(chat.id) !== Number(chatId))
     await gemJSON(CHAT_FIL, chatArr)
     await gemJSON(BESKED_FIL, beskedArr)
+    res.redirect('/chats')
+}
+
+export const editChat = (req, res) => {
+    const chatId = Number(req.params.id)
+    const chatArr = læsJSON(CHAT_FIL)
+    const chat = chatArr.find(c => Number(c.id) === Number(chatId))
+    res.render('chatEditView', {chat: chat, isKnownUser: req.session.isLoggedIn})
+}
+
+export const updateChat = (req, res) => {
+    const newName = req.body.newName
+    const chatId = req.body.chatId
+    const chatArr = læsJSON(CHAT_FIL)
+    const chat = chatArr.find(chat => Number(chat.id) === Number(chatId))
+    let updatedChat = new Chat(
+        chatId,
+        newName,
+        chat.dato,
+        chat.ejer
+    )
+    let updatedChatArr = chatArr.filter(chat => Number(chat.id) !== Number(chatId))
+    updatedChatArr.push(updatedChat)
+    gemJSON(CHAT_FIL, updatedChatArr)
     res.redirect('/chats')
 }
 

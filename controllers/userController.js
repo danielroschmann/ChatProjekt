@@ -1,10 +1,11 @@
 import { gemJSON, læsJSON } from "./fileStorageController.js"
 import { EJER_FIL, BESKED_FIL } from "./fileStorageController.js"
 import User from "../models/userModel.js"
+import bcrypt from 'bcrypt'
 
 export const createUser = async (req, res) => {
-
-    const {username, password} = req.body.trim()
+    const username = req.body.username.trim();
+    const password = req.body.password.trim();
 
     if (username.trim() === '' || password.trim() === '') {
         return res.render('registerView', {errorMessage: 'Indtast venligst et brugernavn og et kodeord'})
@@ -19,11 +20,19 @@ export const createUser = async (req, res) => {
     if (brugere.find(b => b.navn === username) !== undefined) {
         return res.render('registerView', {errorMessage: 'Brugernavnet er allerede taget'})
     }
+
+    try {
+        const hashPassword = await bcrypt.hash(password, 10);
+        const bruger = new User(id, username, hashPassword, dato, 1)
+        brugere.push(bruger)
+        await gemJSON(EJER_FIL, brugere)
+        res.render('loginView')
+    } catch (error) {
+        res.render('registerView', { errorMessage: 'Noget gik galt. Prøv igen.' })
     
-    let bruger = new User(id, username, password, dato, 1)
-    brugere.push(bruger)
-    await gemJSON(EJER_FIL, brugere)
-    res.render('loginView')
+    }
+    
+    
 }
 
 

@@ -1,9 +1,10 @@
 import { læsJSON, EJER_FIL } from "./fileStorageController.js"
+import bcrypt from 'bcrypt'
 
-export const logIn = (req, res) => {
+export const logIn = async (req, res) => {
     const {username, password } = req.body
     const authLevel = getAuthentificationLevel(username)
-    if(checkCredentials(username, password)) {
+    if(await checkCredentials(username, password)) {
             req.session.isLoggedIn = true
             req.session.username = username
             req.session.authLevel = authLevel
@@ -27,16 +28,16 @@ export const showLogInPage = (req, res) => {
     res.render('loginView')
 }
 
-export function checkCredentials(username, password) {
+export async function checkCredentials(username, password) {
     let validate = false
     let brugere = læsJSON(EJER_FIL)
-    brugere.forEach(bruger => {
-        if (username == bruger.navn && password == bruger.password) 
+    for (const bruger of brugere) {
+        if (username === bruger.navn) 
             {
-            validate = true
+            const passwordMatch = await bcrypt.compare(password,bruger.password)
+            if (passwordMatch) validate = true
             }
         }
-    )
     return validate
 }
 

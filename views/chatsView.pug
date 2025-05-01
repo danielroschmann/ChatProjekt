@@ -1,0 +1,31 @@
+doctype HTML 
+html 
+    head 
+        title Chats 
+        link(rel="stylesheet", href="/css/chatsView.css")
+        link(rel="stylesheet", href="css/menubarComponent.css")
+    body 
+        include includes/menubarComponent
+        h1 Chats
+        if (authLevel == 3)
+            form(action=`/chats`, method="post") 
+                input(type="hidden", name="ejerNavn", value=username)
+                input(type="text", name="chatNavn")
+                button(type="submit") Ny chat
+
+        if (errorMessage) 
+            p(class="error-message") #{errorMessage}
+
+        ul 
+            if (chats !== undefined && chats.length > 0)
+                each chat in chats 
+                    li 
+                        div.chat-item(style="display: flex; align-items: center; gap: 0.5rem;")
+                            div.chat-link(style="flex: 1;")
+                                a(href=`/chats/${chat.id}`, class="chat-box") #{chat.navn}
+                            if (authLevel == 3)
+                                form(action=`/chats/${chat.id}/delete`, method="post", onsubmit="return confirm('Er du sikker på, at du vil slette denne chat?');") 
+                                    button(type="submit", class="delete")  ❌
+                                
+            else 
+                h1 Der er ingen chats til rådighed

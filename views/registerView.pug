@@ -2,13 +2,13 @@ doctype HTML
 html 
     head 
         title Opret ny bruger 
-        link(rel="stylesheet", href="/css/logincss.css")
+        link(rel="stylesheet", href="/css/loginView.css")
     body 
         form(action="/opretBruger", method="post") 
             a(href="/") ⬅ Gå tilbage
             h1 Opret bruger
-            input(type="text", name="username", placeholder="username")
-            input(type="password", name="password", placeholder="password")
+            input(type="text", name="username", placeholder="Brugernavn")
+            input(type="password", name="password", placeholder="Adgangskode")
             button(type="submit") Opret
             if (errorMessage)
                 div(class="error-message") #{errorMessage}

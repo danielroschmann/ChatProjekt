@@ -1,0 +1,5 @@
+<<<<<<< HEAD:data/users.json
+[{"id":1,"navn":"admin","password":"admin","dato":"4/23/2025","niveau":3},{"id":2,"navn":"test","password":"test","dato":"28.4.2025","niveau":1},{"id":3,"navn":"daro","password":"1234","dato":"28.4.2025","niveau":1}]
+=======
+[{"id":1,"navn":"admin","password":"admin","dato":"4/23/2025","niveau":3},{"id":2,"navn":"test","password":"test","dato":"28.4.2025","niveau":1},{"id":3,"navn":"modtest","password":"test","dato":"4/29/2025","niveau":2}]
+>>>>>>> b8cc263c3f3c97740f1ecd7ce0d1297e7fd0e03a:data/userData.json

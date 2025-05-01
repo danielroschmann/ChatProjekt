@@ -1,0 +1,19 @@
+doctype HTML 
+html 
+    head 
+        title Brugere 
+        link(rel="stylesheet", href="/css/menubarComponent.css")
+        link(rel="stylesheet", href="/css/usersView.css")
+    body 
+        include includes/menubarComponent
+        h1 Brugere 
+        each bruger in brugere 
+            - var auth 
+            if (bruger.niveau === 1)
+                - auth = "Bruger"
+            if (bruger.niveau === 2)
+                - auth = "Moderator"
+            if (bruger.niveau === 3) 
+                - auth = "Administrator"
+            div(class="user-item") 
+                a(href=`/users/${bruger.id}`, style="display: block; width: 100%; height: 100%") #{bruger.navn} (#{auth})

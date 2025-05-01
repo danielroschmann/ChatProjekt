@@ -5,10 +5,10 @@ html
             title Chat: #{chat.navn}
         else 
             title Beskeder fra #{bruger.navn}
-        link(rel="stylesheet", href="/css/menubar.css")
-        link(rel="stylesheet", href="/css/messages.css")
+        link(rel="stylesheet", href="/css/menubarComponent.css")
+        link(rel="stylesheet", href="/css/chatMessageListView.css")
     body
-        include includes/menubar
+        include includes/menubarComponent
         if (!viewMode)
             a(class="tilbage", href="/chats") ⬅ Gå tilbage
         else 
@@ -22,7 +22,8 @@ html
                 div(class=besked.ejer.navn == username ? 'outgoing' : 'incoming')
                     a.div(class="message-content", href=`/chats/messages/${besked.id}`)
                         span(class="ejer") #{besked.ejer.navn}: 
-                        span(class="besked") #{besked.besked} 
+                        span(class="besked") #{besked.besked}
+                        a(href=`/chats/messages/${besked.id}/edit`) Redigér 
                         br
                         - var tidspunkt = new Date().toLocaleDateString() !== besked.dato[0] ?  `${besked.dato[0]}: ${besked.dato[1]}` : `${besked.dato[1]}`
                         span(class="tid") #{tidspunkt}

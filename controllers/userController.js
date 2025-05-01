@@ -4,20 +4,16 @@ import User from "../models/userModel.js"
 import bcrypt from 'bcrypt'
 
 export const createUser = async (req, res) => {
-    const username = req.body.username.trim();
-    const password = req.body.password.trim();
-
-    if (username.trim() === '' || password.trim() === '') {
+    const username = req.body.username.trim()
+    const password = req.body.password.trim()
+    if (inputIsBlank) {
         return res.render('registerView', {errorMessage: 'Indtast venligst et brugernavn og et kodeord'})
     }
 
     const dato = new Date().toLocaleDateString()
     let brugere = læsJSON(EJER_FIL)
-    if (brugere === undefined) {
-        brugere = []
-    }
-    const id = brugere.length > 0 ? brugere[brugere.length - 1].id + 1 : 1
-    if (brugere.find(b => b.navn === username) !== undefined) {
+    const id = generateUniqueId()
+    if (!usernameIsValid) {
         return res.render('registerView', {errorMessage: 'Brugernavnet er allerede taget'})
     }
 
@@ -64,4 +60,17 @@ export const getUserMessages = (req, res) => {
     res.render('chatMessageListView', {beskeder: beskeder, bruger: bruger, isKnownUser: req.session.isLoggedIn, viewMode: true})
 }
 
+function inputIsBlank(username, password) {
+    return username.trim() === '' || password.trim() === ''
+}
+
+function generateUniqueId() {
+    const userArr = læsJSON(EJER_FIL)
+    return userArr.length > 0 ? userArr[userArr.length - 1].id + 1 : 1
+}
+
+function usernameIsValid(username) {
+    const userArr = læsJSON(EJER_FIL)
+    return userArr.find(b => b.navn === username) !== undefined
+}
 

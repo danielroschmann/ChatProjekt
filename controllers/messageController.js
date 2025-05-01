@@ -1,6 +1,5 @@
-import Besked from "../models/messageModel.js"
+import Message from "../models/messageModel.js"
 import { BESKED_FIL, læsJSON, CHAT_FIL, gemJSON, EJER_FIL } from "./fileStorageController.js"
-import session from 'express-session'
 
 export const getAllMessagesInChat = (req, res) => {
     const chatId = Number(req.params.id)
@@ -42,7 +41,7 @@ export const createMessage = async (req, res) => {
     let id = beskedArr.length > 0 ? beskedArr[beskedArr.length - 1].id + 1 : 1; // korrekt ID
     let tidspunkt = [new Date().toLocaleDateString(), new Date().toLocaleTimeString()];
     
-    let nyBesked = new Besked(id, besked, tidspunkt, ejer, chatId);
+    let nyBesked = new Message(id, besked, tidspunkt, ejer, chatId);
     
     let chat = chatArr.find(c => c.id == chatId);
     let beskeder = chat.beskeder;
@@ -72,7 +71,7 @@ export const updateMessage = (req, res) => {
     const chatObject = getChatFromChatId(oldMessage.chatId)
     const chatObjectMessages = chatObject.beskeder
 
-    const updatedMessage = new Besked(
+    const updatedMessage = new Message(
         messageId,
         newText,
         oldMessage.dato,
@@ -100,7 +99,7 @@ const getSpecificMessage = (id) => {
     const messageArr = læsJSON(BESKED_FIL)
     const message = messageArr.find(message => message.id === id)
     if (!message) {
-        return res.status(404).send("Besked ikke fundet");
+        return res.status(404).send("Message ikke fundet");
     }
     return message
 }

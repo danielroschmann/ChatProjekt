@@ -6,4 +6,7 @@ html
     body 
         h1 Fejl! 
         p #{errorMessage}
-        a(href="/") Klik her for at vende tilbage.
+        if (!isKnownUser)
+            a(href="/") Klik her for at vende tilbage.
+        else 
+            a(href="/chats") Klik her for at vende tilbage.

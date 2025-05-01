@@ -1,4 +1,4 @@
-export default class Besked {
+export default class Message {
     constructor(id, besked, dato, ejer, chatId) {
         this.id = id;
         this.besked = besked;

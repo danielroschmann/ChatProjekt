@@ -1,8 +1,7 @@
 import { læsJSON, EJER_FIL } from "./fileStorageController.js"
 
 export const logIn = (req, res) => {
-    const username = req.body.username
-    const password = req.body.password
+    const {username, password } = req.body
     const authLevel = getAuthentificationLevel(username)
     if(checkCredentials(username, password)) {
             req.session.isLoggedIn = true

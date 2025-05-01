@@ -3,15 +3,13 @@ import { EJER_FIL, BESKED_FIL } from "./fileStorageController.js"
 import User from "../models/userModel.js"
 
 export const createUser = async (req, res) => {
-<<<<<<< HEAD:controllers/bruger.js
-    const {username, password} = req.body
-=======
-    const username = req.body.username.trim()
-    const password = req.body.password.trim()
+
+    const {username, password} = req.body.trim()
+
     if (username.trim() === '' || password.trim() === '') {
         return res.render('registerView', {errorMessage: 'Indtast venligst et brugernavn og et kodeord'})
     }
->>>>>>> b8cc263c3f3c97740f1ecd7ce0d1297e7fd0e03a:controllers/userController.js
+
     const dato = new Date().toLocaleDateString()
     let brugere = læsJSON(EJER_FIL)
     if (brugere === undefined) {

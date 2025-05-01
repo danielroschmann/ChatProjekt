@@ -61,8 +61,9 @@ const generateUniqueId = () => {
 
 export const deleteChat = async (req, res) => {
     const chatId = Number(req.params.id)
-    let chatArr = læsJSON(CHAT_FIL)
-    let beskedArr = læsJSON(BESKED_FIL)
+
+    const {chatArr, beskedArr } = læsJSON(CHAT_FIL, BESKED_FIL)
+    
     beskedArr = beskedArr.filter(besked => besked.chatId !== chatId)
     chatArr = chatArr.filter(chat => chat.id !== chatId)
     await gemJSON(CHAT_FIL, chatArr)

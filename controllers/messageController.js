@@ -67,20 +67,9 @@ export const updateMessage = (req, res) => {
     const messageId = Number(req.params.id);
     const newText = req.body.newMessage;
 
-    const allMessages = læsJSON(BESKED_FIL);
-    const oldMessage = allMessages.find(m => m.id === messageId);
+    const oldMessage = getSpecificMessage(messageId)
 
-    if (!oldMessage) {
-        return res.status(404).send("Besked ikke fundet");
-    }
-
-    const allChat = læsJSON(CHAT_FIL)
-    const chatObject = allChat.find(chat => Number(chat.id) === Number(oldMessage.chatId))
-
-    if (!chatObject) {
-        return res.status(404).send("Chat ikke fundet")
-    }
-
+    const chatObject = getChatFromChatId(oldMessage.chatId)
     const chatObjectMessages = chatObject.beskeder
 
     const updatedMessage = new Besked(
@@ -91,15 +80,13 @@ export const updateMessage = (req, res) => {
         oldMessage.chatId
     );
 
-    const updatedMessages = allMessages.filter(m => Number(m.id) !== Number(messageId));
-    updatedMessages.push(updatedMessage);
-    gemJSON(BESKED_FIL, updatedMessages);
-
+    handleMessagesUpdate(updatedMessage)
 
     const updatedChatMessages = chatObjectMessages.filter(m => Number(m.id) !== Number(messageId));
     updatedChatMessages.push(updatedMessage);
     chatObject.beskeder = updatedChatMessages;
 
+    const allChat = læsJSON(CHAT_FIL)
     const updatedChats = allChat.filter(chat => Number(chat.id) !== Number(oldMessage.chatId))
     updatedChats.push(chatObject)
     gemJSON(CHAT_FIL, updatedChats);
@@ -112,6 +99,25 @@ export const updateMessage = (req, res) => {
 const getSpecificMessage = (id) => {
     const messageArr = læsJSON(BESKED_FIL)
     const message = messageArr.find(message => message.id === id)
+    if (!message) {
+        return res.status(404).send("Besked ikke fundet");
+    }
     return message
 }
+
+const getChatFromChatId = (id) => {
+    const allChat = læsJSON(CHAT_FIL)
+    const chatObject = allChat.find(chat => Number(chat.id) === Number(id))
+    return chatObject
+}
+
+const handleMessagesUpdate = (updatedMessage) => {
+    const allMessages = læsJSON(BESKED_FIL)
+    const messageId = updatedMessage.id
+    const updatedMessages = allMessages.filter(m => Number(m.id) !== Number(messageId));
+    updatedMessages.push(updatedMessage);
+    gemJSON(BESKED_FIL, updatedMessages);
+}
+
+
 

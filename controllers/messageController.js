@@ -4,7 +4,7 @@ import { BESKED_FIL, læsJSON, CHAT_FIL, gemJSON, EJER_FIL } from "./fileStorage
 export const getAllMessagesInChat = (req, res) => {
     const chatId = Number(req.params.id)
     let chats = læsJSON(CHAT_FIL)
-    const chat = chats.find(c => c.id === chatId)
+    const chat = chats.find(c => Number(c.id) === Number(chatId))
     const beskeder = chat.beskeder
     
     res.render('chatMessageListView', {username: req.session.username, beskeder: beskeder, chat: chat, isKnownUser: req.session.isLoggedIn})

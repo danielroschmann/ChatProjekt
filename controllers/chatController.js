@@ -34,7 +34,7 @@ export const getChat = (req, res) => {
 export const getSingleChat = (req, res) => {
     let chats = læsJSON(CHAT_FIL)
     const chatId = Number(req.params.id)
-    const chat = chats.find(c => c.id === chatId)
+    const chat = chats.find(c => Number(c.id) === Number(chatId))
     
     res.render('chatDetailView', {chat: chat, isKnownUser: req.session.isLoggedIn})
 }
@@ -42,7 +42,7 @@ export const getSingleChat = (req, res) => {
 export const getChatMessages = (req, res) => {
     const chatId = Number(req.params.id)
     let chats = læsJSON(CHAT_FIL)
-    const chat = chats.find(c => c.id === chatId)
+    const chat = chats.find(c => Number(c.id) === Number(chatId))
     
     res.render('chatMessageListView', {chat: chat, isKnownUser: req.session.isLoggedIn, username: req.session.username})
 }
@@ -65,7 +65,7 @@ export const deleteChat = async (req, res) => {
     let beskedArr = læsJSON(BESKED_FIL)
     let chatArr = læsJSON(CHAT_FIL)
     
-    beskedArr = beskedArr.filter(besked => besked.chatId !== chatId)
+    beskedArr = beskedArr.filter(besked => Number(besked.chatId) !== Number(chatId))
     chatArr = chatArr.filter(chat => Number(chat.id) !== Number(chatId))
     await gemJSON(CHAT_FIL, chatArr)
     await gemJSON(BESKED_FIL, beskedArr)
@@ -84,12 +84,14 @@ export const updateChat = (req, res) => {
     const chatId = req.body.chatId
     const chatArr = læsJSON(CHAT_FIL)
     const chat = chatArr.find(chat => Number(chat.id) === Number(chatId))
+    const chatMessages = chat.beskeder
     let updatedChat = new Chat(
         chatId,
         newName,
         chat.dato,
         chat.ejer
     )
+    updatedChat.beskeder = chatMessages
     let updatedChatArr = chatArr.filter(chat => Number(chat.id) !== Number(chatId))
     updatedChatArr.push(updatedChat)
     gemJSON(CHAT_FIL, updatedChatArr)

@@ -1,6 +1,7 @@
-import { EJER_FIL, CHAT_FIL, BESKED_FIL } from "./fileStorageController.js"
-import { læsJSON, gemJSON } from "./fileStorageController.js"
+import { EJER_FIL, CHAT_FIL, BESKED_FIL } from "../utils/jsonUtils.js"
+import { læsJSON, gemJSON } from "../utils/jsonUtils.js"
 import Chat from "../models/chatModel.js"
+import { generateUniqueId } from "../utils/helperUtils.js"
 
 export const createChat = async (req, res) => {
     let chatNavn = req.body.chatNavn.trim()
@@ -15,7 +16,7 @@ export const createChat = async (req, res) => {
         return res.render('chatsView', {authLevel: req.session.authLevel, chats: chatArr, errorMessage: 'Navnet er for kort'})
     }
     let ejerNavn = req.session.username
-    let id = generateUniqueId()
+    let id = generateUniqueId('CHAT')
     let dato = new Date().toLocaleDateString()
     let ejerArr = læsJSON(EJER_FIL)
     let ejer = ejerArr.find(ejer => ejer.navn === ejerNavn)
@@ -52,11 +53,6 @@ export const getDetailedChatMessage = (req, res) => {
     const message = læsJSON(BESKED_FIL).find(besked => besked.id === messageId)
     
     res.render('messageDetailView', {besked: message})
-}
-
-const generateUniqueId = () => {
-    const chatArr = læsJSON(CHAT_FIL)
-    return chatArr.length > 0 ? chatArr[chatArr.length - 1].id + 1 : 1
 }
 
 export const deleteChat = async (req, res) => {

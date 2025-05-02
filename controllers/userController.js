@@ -1,5 +1,5 @@
-import { gemJSON, læsJSON } from "./fileStorageController.js"
-import { EJER_FIL, BESKED_FIL } from "./fileStorageController.js"
+import { gemJSON, læsJSON } from "../utils/jsonUtils.js"
+import { EJER_FIL, BESKED_FIL } from "../utils/jsonUtils.js"
 import User from "../models/userModel.js"
 import bcrypt from 'bcrypt'
 

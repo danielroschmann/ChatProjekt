@@ -1,5 +1,6 @@
 import Message from "../models/messageModel.js"
-import { BESKED_FIL, læsJSON, CHAT_FIL, gemJSON, EJER_FIL } from "./fileStorageController.js"
+import { generateUniqueId } from "../utils/helperUtils.js"
+import { BESKED_FIL, læsJSON, CHAT_FIL, gemJSON, EJER_FIL } from "../utils/jsonUtils.js"
 
 export const getAllMessagesInChat = (req, res) => {
     const chatId = Number(req.params.id)
@@ -38,7 +39,7 @@ export const createMessage = async (req, res) => {
         beskedArr = []
     }
     
-    let id = beskedArr.length > 0 ? beskedArr[beskedArr.length - 1].id + 1 : 1; // korrekt ID
+    let id = generateUniqueId('MESSAGE');
     let tidspunkt = [new Date().toLocaleDateString(), new Date().toLocaleTimeString()];
     
     let nyBesked = new Message(id, besked, tidspunkt, ejer, chatId);

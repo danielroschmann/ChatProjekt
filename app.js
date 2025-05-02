@@ -1,6 +1,6 @@
 import express from 'express'
 import session from 'express-session'
-import { checkAccess } from './controllers/authController.js'
+import { checkAccess } from './utils/authUtils.js'
 import messageRoute from './routes/messageRoutes.js'
 import chatRoute from './routes/chatRoutes.js'
 import authRoute from './routes/authRoutes.js'

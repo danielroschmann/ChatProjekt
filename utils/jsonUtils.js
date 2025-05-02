@@ -26,3 +26,4 @@ export function læsJSON(fil) {
         return []
     }
 }
+

@@ -2,6 +2,10 @@ import { EJER_FIL, CHAT_FIL, BESKED_FIL } from "../utils/jsonUtils.js"
 import { læsJSON, gemJSON } from "../utils/jsonUtils.js"
 import Chat from "../models/chatModel.js"
 import { generateUniqueId } from "../utils/helperUtils.js"
+import { getChatFromChatId, handleChatDeletion, handleChatUpdate } from "../utils/chatUtils.js"
+
+const MAX_CHARACTERS = 20
+const MIN_CHARACTERS = 3
 
 export const createChat = async (req, res) => {
     let chatNavn = req.body.chatNavn.trim()
@@ -9,10 +13,10 @@ export const createChat = async (req, res) => {
     if (chatNavn === undefined  || chatNavn === '') {
         return res.render('chatsView', {authLevel: req.session.authLevel, chats: chatArr, errorMessage: 'Indtast venligst et navn'})
     }
-    if (chatNavn.length > 20) {
+    if (chatNavn.length > MAX_CHARACTERS) {
         return res.render('chatsView', {authLevel: req.session.authLevel, chats: chatArr, errorMessage: 'Navnet er for langt'})
     }
-    if (chatNavn.length < 3) {
+    if (chatNavn.length < MIN_CHARACTERS) {
         return res.render('chatsView', {authLevel: req.session.authLevel, chats: chatArr, errorMessage: 'Navnet er for kort'})
     }
     let ejerNavn = req.session.username
@@ -57,29 +61,20 @@ export const getDetailedChatMessage = (req, res) => {
 
 export const deleteChat = async (req, res) => {
     const chatId = Number(req.params.id)
-
-    let beskedArr = læsJSON(BESKED_FIL)
-    let chatArr = læsJSON(CHAT_FIL)
-    
-    beskedArr = beskedArr.filter(besked => Number(besked.chatId) !== Number(chatId))
-    chatArr = chatArr.filter(chat => Number(chat.id) !== Number(chatId))
-    await gemJSON(CHAT_FIL, chatArr)
-    await gemJSON(BESKED_FIL, beskedArr)
+    handleChatDeletion(chatId)
     res.redirect('/chats')
 }
 
 export const editChat = (req, res) => {
     const chatId = Number(req.params.id)
-    const chatArr = læsJSON(CHAT_FIL)
-    const chat = chatArr.find(c => Number(c.id) === Number(chatId))
+    const chat = getChatFromChatId(chatId)
     res.render('chatEditView', {chat: chat, isKnownUser: req.session.isLoggedIn})
 }
 
 export const updateChat = (req, res) => {
     const newName = req.body.newName
     const chatId = req.body.chatId
-    const chatArr = læsJSON(CHAT_FIL)
-    const chat = chatArr.find(chat => Number(chat.id) === Number(chatId))
+    const chat = getChatFromChatId(chatId)
     const chatMessages = chat.beskeder
     let updatedChat = new Chat(
         chatId,
@@ -88,9 +83,7 @@ export const updateChat = (req, res) => {
         chat.ejer
     )
     updatedChat.beskeder = chatMessages
-    let updatedChatArr = chatArr.filter(chat => Number(chat.id) !== Number(chatId))
-    updatedChatArr.push(updatedChat)
-    gemJSON(CHAT_FIL, updatedChatArr)
+    handleChatUpdate(updatedChat);
     res.redirect('/chats')
 }
 

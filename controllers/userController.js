@@ -2,6 +2,8 @@ import { gemJSON, læsJSON } from "../utils/jsonUtils.js"
 import { EJER_FIL, BESKED_FIL } from "../utils/jsonUtils.js"
 import User from "../models/userModel.js"
 import bcrypt from 'bcrypt'
+import { generateUniqueId } from "../utils/helperUtils.js"
+import { inputIsBlank, usernameIsValid } from "../utils/authUtils.js"
 
 export const createUser = async (req, res) => {
     const username = req.body.username.trim()
@@ -12,8 +14,8 @@ export const createUser = async (req, res) => {
 
     const dato = new Date().toLocaleDateString()
     let brugere = læsJSON(EJER_FIL)
-    const id = generateUniqueId()
-    if (!usernameIsValid) {
+    const id = generateUniqueId('USER')
+    if (!usernameIsValid(username)) {
         return res.render('registerView', {errorMessage: 'Brugernavnet er allerede taget'})
     }
 
@@ -60,17 +62,4 @@ export const getUserMessages = (req, res) => {
     res.render('chatMessageListView', {beskeder: beskeder, bruger: bruger, isKnownUser: req.session.isLoggedIn, viewMode: true})
 }
 
-function inputIsBlank(username, password) {
-    return username.trim() === '' || password.trim() === ''
-}
-
-function generateUniqueId() {
-    const userArr = læsJSON(EJER_FIL)
-    return userArr.length > 0 ? userArr[userArr.length - 1].id + 1 : 1
-}
-
-function usernameIsValid(username) {
-    const userArr = læsJSON(EJER_FIL)
-    return userArr.find(b => b.navn === username) === undefined
-}
 

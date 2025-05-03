@@ -37,3 +37,12 @@ export function getAuthentificationLevel(username) {
     )
     return authentificationLevel
 }
+
+export function inputIsBlank(username, password) {
+    return username.trim() === '' || password.trim() === ''
+}
+
+export function usernameIsValid(username) {
+    const userArr = læsJSON(EJER_FIL)
+    return userArr.find(b => b.navn.trim().toLowerCase() === username.trim().toLowerCase()) === undefined
+}

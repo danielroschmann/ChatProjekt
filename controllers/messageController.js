@@ -1,6 +1,8 @@
 import Message from "../models/messageModel.js"
+import { handleChatUpdate, getChatFromChatId } from "../utils/chatUtils.js"
 import { generateUniqueId } from "../utils/helperUtils.js"
 import { BESKED_FIL, læsJSON, CHAT_FIL, gemJSON, EJER_FIL } from "../utils/jsonUtils.js"
+import { getMessageFromMessageId, handleMessageUpdate } from "../utils/messageUtils.js"
 
 export const getAllMessagesInChat = (req, res) => {
     const chatId = Number(req.params.id)
@@ -29,28 +31,19 @@ export const createMessage = async (req, res) => {
     }
     let ejer = læsJSON(EJER_FIL).find(u => u.navn === req.session.username);
     let chatId = req.body.chatId;
-    console.log("Hentet chatId: " + chatId)
-    
-    let chatArr = læsJSON(CHAT_FIL);
-    console.log(chatArr)
-    let beskedArr = læsJSON(BESKED_FIL);
-
-    if (beskedArr === undefined) {
-        beskedArr = []
-    }
-    
     let id = generateUniqueId('MESSAGE');
     let tidspunkt = [new Date().toLocaleDateString(), new Date().toLocaleTimeString()];
     
     let nyBesked = new Message(id, besked, tidspunkt, ejer, chatId);
     
-    let chat = chatArr.find(c => c.id == chatId);
+    let beskedArr = læsJSON(BESKED_FIL);
+
+    let chat = getChatFromChatId(chatId);
     let beskeder = chat.beskeder;
-    
     chat.beskeder.push(nyBesked);
     beskedArr.push(nyBesked); 
-
-    await gemJSON(CHAT_FIL, chatArr);
+    
+    handleChatUpdate(chat);
     await gemJSON(BESKED_FIL, beskedArr);
     
     res.render('chatMessageListView', {username: req.session.username, beskeder: beskeder, chat: chat, isKnownUser: req.session.isLoggedIn})
@@ -59,7 +52,7 @@ export const createMessage = async (req, res) => {
 
 export const editMessage = (req, res) => {
     const messageId = Number(req.params.id)
-    const message = getSpecificMessage(messageId)
+    const message = getMessageFromMessageId(messageId)
     res.render('messageEditView', {message: message, username: req.session.username})
 }
 
@@ -67,7 +60,7 @@ export const updateMessage = (req, res) => {
     const messageId = Number(req.params.id);
     const newText = req.body.newMessage;
 
-    const oldMessage = getSpecificMessage(messageId)
+    const oldMessage = getMessageFromMessageId(messageId)
 
     const chatObject = getChatFromChatId(oldMessage.chatId)
     const chatObjectMessages = chatObject.beskeder
@@ -80,44 +73,19 @@ export const updateMessage = (req, res) => {
         oldMessage.chatId
     );
 
-    handleMessagesUpdate(updatedMessage)
+    handleMessageUpdate(updatedMessage)
 
     const updatedChatMessages = chatObjectMessages.filter(m => Number(m.id) !== Number(messageId));
     updatedChatMessages.push(updatedMessage);
     chatObject.beskeder = updatedChatMessages;
 
-    const allChat = læsJSON(CHAT_FIL)
-    const updatedChats = allChat.filter(chat => Number(chat.id) !== Number(oldMessage.chatId))
-    updatedChats.push(chatObject)
-    gemJSON(CHAT_FIL, updatedChats);
+    handleChatUpdate(chatObject)
 
     res.redirect(`/chats/${updatedMessage.chatId}/messages`);
 };
 
 
 
-const getSpecificMessage = (id) => {
-    const messageArr = læsJSON(BESKED_FIL)
-    const message = messageArr.find(message => message.id === id)
-    if (!message) {
-        return res.status(404).send("Message ikke fundet");
-    }
-    return message
-}
-
-const getChatFromChatId = (id) => {
-    const allChat = læsJSON(CHAT_FIL)
-    const chatObject = allChat.find(chat => Number(chat.id) === Number(id))
-    return chatObject
-}
-
-const handleMessagesUpdate = (updatedMessage) => {
-    const allMessages = læsJSON(BESKED_FIL)
-    const messageId = updatedMessage.id
-    const updatedMessages = allMessages.filter(m => Number(m.id) !== Number(messageId));
-    updatedMessages.push(updatedMessage);
-    gemJSON(BESKED_FIL, updatedMessages);
-}
 
 
 

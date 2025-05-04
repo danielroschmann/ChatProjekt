@@ -84,6 +84,20 @@ export const updateMessage = (req, res) => {
     res.redirect(`/chats/${updatedMessage.chatId}/messages`);
 };
 
+export const deleteMessage = (req, res) => {
+    const messageId = Number(req.params.id)
+    const message = getMessageFromMessageId(messageId)
+    const chatObject = getChatFromChatId(message.chatId)
+    const messageArr = læsJSON(BESKED_FIL)
+    const updatedMessages = messageArr.filter(m => Number(m.id) !== Number(messageId));
+    gemJSON(BESKED_FIL, updatedMessages);
+    const chatObjectMessages = chatObject.beskeder
+    const updatedChatMessages = chatObjectMessages.filter(m => Number(m.id) !== Number(messageId));
+    chatObject.beskeder = updatedChatMessages;
+    handleChatUpdate(chatObject)
+    res.redirect(`/chats/${message.chatId}/messages`);
+}
+
 
 
 

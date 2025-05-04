@@ -20,12 +20,17 @@ app.use(session({
 
 app.set('view engine', 'pug')
 
+// Link til css
 app.use(express.static('public'))
+
+// JSON
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
+// Check access hver gang en URL tilgåes
 app.use(checkAccess)
 
+// Routes
 app.use('/', messageRoute)
 app.use('/', chatRoute)
 app.use('/', authRoute)

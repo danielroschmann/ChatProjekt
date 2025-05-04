@@ -1,1 +1,9 @@
-[{"id":1,"navn":"admin","password":"$2b$10$A53adsNppHEyWIrNOvkSDeEZ7bApiVyJoofsxaMILlenGA21k19kC","dato":"5/3/2025","niveau":3},{"id":2,"navn":"modtest","password":"$2b$10$We6DoZnfq.OUQSCFFlGR/uN0k9StaR3T2/sKj7O.qK0qjl3cpSFwS","dato":"5/3/2025","niveau":2},{"id":3,"navn":"modtest2","password":"$2b$10$D814Nwz7TulsC6xCl4oMFuIn0jeA.PNIa1JsapImwsn9yoW9N6x8W","dato":"5/3/2025","niveau":2},{"id":4,"navn":"brugerTest","password":"$2b$10$QeWi6bFfPen72Ix.dzyGhe5sUKY6nR9OPcT0e3ZiM1p2cO8DULRH2","dato":"5/4/2025","niveau":1}]
+[
+    {
+        "id":1,
+        "navn":"admin",
+        "password":"$2b$10$ItqOQokCFV7bV2OUwmvVcOVwsrOqCRfNR.kR/fAghsiCgA2AUEYMy",
+        "dato":"4.5.2025",
+        "niveau":3
+    }
+]

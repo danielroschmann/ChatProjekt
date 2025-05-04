@@ -11,11 +11,9 @@ html
         include includes/menubarComponent
         if (!viewMode)
             a(class="tilbage", href="/chats") ⬅ Gå tilbage
-        else 
-            a(class="tilbage", href=`/users/${bruger.id}`) ⬅ Gå tilbage
-        if (!viewMode)
             h1 #{chat.navn}
         else 
+            a(class="tilbage", href=`/users/${bruger.id}`) ⬅ Gå tilbage
             h1 #{bruger.navn}
         div(class="message-container")
             each besked in beskeder
@@ -23,10 +21,15 @@ html
                     a.div(class="message-content", href=`/chats/messages/${besked.id}`)
                         span(class="ejer") #{besked.ejer.navn}: 
                         span(class="besked") #{besked.besked}
-                        a(href=`/chats/messages/${besked.id}/edit`) Redigér 
                         br
                         - var tidspunkt = new Date().toLocaleDateString() !== besked.dato[0] ?  `${besked.dato[0]}: ${besked.dato[1]}` : `${besked.dato[1]}`
                         span(class="tid") #{tidspunkt}
+                    if (!viewMode)
+                    - var isChatOwner = chat.ejer.navn === username
+                    - var isMessageOwner = besked.ejer.navn === username
+                        if (isChatOwner || isMessageOwner)
+                            a(href=`/chats/messages/${besked.id}/edit`, class="editButton") ✏️
+                            a(href=`/chats/messages/${besked.id}/delete`, class="deleteButton") ❌
         if (!viewMode)
             form(action=`/chats/${chat.id}/messages`, method="post") 
                 input(type="text", name="besked", placeholder="Indtast besked")

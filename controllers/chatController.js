@@ -3,6 +3,7 @@ import { læsJSON, gemJSON } from "../utils/jsonUtils.js"
 import Chat from "../models/chatModel.js"
 import { generateUniqueId } from "../utils/helperUtils.js"
 import { getChatFromChatId, handleChatDeletion, handleChatUpdate } from "../utils/chatUtils.js"
+import { getMessageFromMessageId } from "../utils/messageUtils.js"
 
 const MAX_CHARACTERS = 20
 const MIN_CHARACTERS = 3
@@ -24,7 +25,12 @@ export const createChat = async (req, res) => {
     let dato = new Date().toLocaleDateString()
     let ejerArr = læsJSON(EJER_FIL)
     let ejer = ejerArr.find(ejer => ejer.navn === ejerNavn)
-    let nyChat = new Chat(id, chatNavn, dato, ejer)
+    let nyChat = new Chat(
+        id, 
+        chatNavn, 
+        dato, 
+        ejer
+    )
     chatArr.push(nyChat)
     await gemJSON(CHAT_FIL, chatArr)
     res.redirect('/chats')
@@ -37,24 +43,22 @@ export const getChat = (req, res) => {
 }
 
 export const getSingleChat = (req, res) => {
-    let chats = læsJSON(CHAT_FIL)
     const chatId = Number(req.params.id)
-    const chat = chats.find(c => Number(c.id) === Number(chatId))
+    const chat = getChatFromChatId(chatId)
     
     res.render('chatDetailView', {chat: chat, isKnownUser: req.session.isLoggedIn})
 }
 
 export const getChatMessages = (req, res) => {
     const chatId = Number(req.params.id)
-    let chats = læsJSON(CHAT_FIL)
-    const chat = chats.find(c => Number(c.id) === Number(chatId))
+    const chat = getChatFromChatId(chatId)
     
     res.render('chatMessageListView', {chat: chat, isKnownUser: req.session.isLoggedIn, username: req.session.username})
 }
 
 export const getDetailedChatMessage = (req, res) => {
     const messageId = Number(req.params.id)
-    const message = læsJSON(BESKED_FIL).find(besked => besked.id === messageId)
+    const message = getMessageFromMessageId(messageId)
     
     res.render('messageDetailView', {besked: message})
 }

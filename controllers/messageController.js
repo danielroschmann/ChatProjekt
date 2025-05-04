@@ -42,9 +42,9 @@ export const createMessage = async (req, res) => {
     let beskeder = chat.beskeder;
     chat.beskeder.push(nyBesked);
     beskedArr.push(nyBesked); 
+    await gemJSON(BESKED_FIL, beskedArr);
     
     handleChatUpdate(chat);
-    await gemJSON(BESKED_FIL, beskedArr);
     
     res.render('chatMessageListView', {username: req.session.username, beskeder: beskeder, chat: chat, isKnownUser: req.session.isLoggedIn})
 };

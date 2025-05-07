@@ -7,6 +7,7 @@ html
             title Beskeder fra #{bruger.navn}
         link(rel="stylesheet", href="/css/menubarComponent.css")
         link(rel="stylesheet", href="/css/chatMessageListView.css")
+        script(src="/js/message.js") 
     body
         include includes/menubarComponent
         if (!viewMode)
@@ -24,6 +25,7 @@ html
                         span(class="ejer") #{besked.ejer.navn}: 
                         span(class="besked") #{besked.besked}
                         a(href=`/chats/messages/${besked.id}/edit`) Redigér 
+                        button(onclick=`deleteMessage(${besked.id}, ${chat.id})`) ❌
                         br
                         - var tidspunkt = new Date().toLocaleDateString() !== besked.dato[0] ?  `${besked.dato[0]}: ${besked.dato[1]}` : `${besked.dato[1]}`
                         span(class="tid") #{tidspunkt}

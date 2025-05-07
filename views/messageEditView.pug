@@ -2,7 +2,9 @@ doctype HTML
 html 
     head 
         title Message - #{message.id} 
+        script(src="/js/message.js" defer) 
     body 
-        form(action=`/chats/messages/${message.id}/edit`, method="post") 
-            input(type="text", name="newMessage", placeholder=`${message.besked}`)
-            button(type="submit") Redigér
+        h1 Rediger besked 
+        textarea#beskedInput=message.besked
+        br
+        button(onclick=`opdaterBesked(${message.id}, ${message.chatId})`) Gem ændringer

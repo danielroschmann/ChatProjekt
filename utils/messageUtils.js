@@ -5,7 +5,15 @@ import { handleChatUpdate, getChatFromChatId } from "./chatUtils.js"
 
 export const handleMessageUpdate = (updatedMessage) => {
     console.log(`Attempting to update message with ID: ${updatedMessage.id}`);
+    console.log('Fetching all messages...');
     const allMessages = læsJSON(BESKED_FIL);
+    console.log('Fetching all chats...');
+    const allChats = læsJSON(CHAT_FIL);
+    const chat = allChats.find(c => c.id === updatedMessage.chatId);
+    const chatMessages = chat.beskeder
+    chat.beskeder = chatMessages.filter(m => Number(m.id) !== Number(updatedMessage.id));
+    chat.beskeder.push(updatedMessage);
+    handleChatUpdate(chat, chatMessages.findIndex(c => c.id === chat.id));
     console.log(`Total messages before update: ${allMessages.length}`);
     const messageId = updatedMessage.id;
     const updatedMessages = allMessages.filter(m => Number(m.id) !== Number(messageId));

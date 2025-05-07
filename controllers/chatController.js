@@ -79,6 +79,7 @@ export const updateChat = (req, res) => {
     const newName = req.body.newName
     const chatId = req.body.chatId
     const chat = getChatFromChatId(chatId)
+    const chatIndex = læsJSON(CHAT_FIL).findIndex(c => c.id === chatId)
     const chatMessages = chat.beskeder
     let updatedChat = new Chat(
         chatId,
@@ -87,7 +88,7 @@ export const updateChat = (req, res) => {
         chat.ejer
     )
     updatedChat.beskeder = chatMessages
-    handleChatUpdate(updatedChat);
+    handleChatUpdate(updatedChat, chatIndex);
     res.redirect('/chats')
 }
 

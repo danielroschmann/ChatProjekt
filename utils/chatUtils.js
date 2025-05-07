@@ -7,11 +7,11 @@ export const getChatFromChatId = (id) => {
     return chatObject
 }
 
-export const handleChatUpdate = (updatedChat) => {
+export const handleChatUpdate = (updatedChat, index) => {
     const allChat = læsJSON(CHAT_FIL)
     const chatId = updatedChat.id
     const updatedChats = allChat.filter(chat => Number(chat.id) !== Number(chatId));
-    updatedChats.push(updatedChat);
+    updatedChats.splice(index, 0, updatedChat);
     gemJSON(CHAT_FIL, updatedChats);
 }
 

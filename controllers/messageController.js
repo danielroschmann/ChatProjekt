@@ -39,12 +39,13 @@ export const createMessage = async (req, res) => {
     let beskedArr = læsJSON(BESKED_FIL);
 
     let chat = getChatFromChatId(chatId);
+    const chatIndex = læsJSON(CHAT_FIL).findIndex(c => c.id === chatId);
     let beskeder = chat.beskeder;
     chat.beskeder.push(nyBesked);
     beskedArr.push(nyBesked); 
     await gemJSON(BESKED_FIL, beskedArr);
     
-    handleChatUpdate(chat);
+    handleChatUpdate(chat, chatIndex);
     
     res.render('chatMessageListView', {username: req.session.username, beskeder: beskeder, chat: chat, isKnownUser: req.session.isLoggedIn})
 };
@@ -63,6 +64,7 @@ export const updateMessage = (req, res) => {
     const oldMessage = getMessageFromMessageId(messageId)
 
     const chatObject = getChatFromChatId(oldMessage.chatId)
+    const chatIndex = læsJSON(CHAT_FIL).findIndex(c => c.id === oldMessage.chatId)
     const chatObjectMessages = chatObject.beskeder
 
     const updatedMessage = new Message(
@@ -79,7 +81,7 @@ export const updateMessage = (req, res) => {
     updatedChatMessages.push(updatedMessage);
     chatObject.beskeder = updatedChatMessages;
 
-    handleChatUpdate(chatObject)
+    handleChatUpdate(chatObject, chatIndex)
 
     res.redirect(`/chats/${updatedMessage.chatId}/messages`);
 };
@@ -88,13 +90,14 @@ export const deleteMessage = (req, res) => {
     const messageId = Number(req.params.id)
     const message = getMessageFromMessageId(messageId)
     const chatObject = getChatFromChatId(message.chatId)
+    const chatIndex = læsJSON(CHAT_FIL).findIndex(c => c.id === message.chatId)
     const messageArr = læsJSON(BESKED_FIL)
     const updatedMessages = messageArr.filter(m => Number(m.id) !== Number(messageId));
     gemJSON(BESKED_FIL, updatedMessages);
     const chatObjectMessages = chatObject.beskeder
     const updatedChatMessages = chatObjectMessages.filter(m => Number(m.id) !== Number(messageId));
     chatObject.beskeder = updatedChatMessages;
-    handleChatUpdate(chatObject)
+    handleChatUpdate(chatObject, chatIndex)
     res.redirect(`/chats/${message.chatId}/messages`);
 }
 

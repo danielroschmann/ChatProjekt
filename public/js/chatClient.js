@@ -1,4 +1,6 @@
 async function deleteChat(chatId) {
+    const confirmDelete = confirm("Er du sikker på at du vil slette denne chat?");
+    if (!confirmDelete) return;
     try {
         const res = await fetch(`/chats/${chatId}/delete`, {
             method: 'DELETE'
@@ -15,6 +17,18 @@ async function deleteChat(chatId) {
 async function updateChat(chatId) {
     const newName = prompt("Nyt navn til chat:");
     if (!newName) return;
+    if (newName.length < 3) {
+        alert("Navnet er for kort");
+        return;
+    }
+    if (newName.length > 20) {
+        alert("Navnet er for langt");
+        return;
+    }
+    if (newName === '') {
+        alert("Indtast venligst et navn");
+        return;
+    }
 
     try {
         const res = await fetch(`/chats/${chatId}/update`, {

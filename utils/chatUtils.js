@@ -1,5 +1,7 @@
 import { læsJSON} from "./jsonUtils.js";
-import { CHAT_FIL, gemJSON, BESKED_FIL } from "./jsonUtils.js"
+import { CHAT_FIL, gemJSON, BESKED_FIL, EJER_FIL } from "./jsonUtils.js"
+import { generateUniqueId } from "./helperUtils.js";
+import Chat from "../models/chatModel.js";
 
 export const getChatFromChatId = (id) => {
     const allChat = læsJSON(CHAT_FIL)
@@ -22,4 +24,14 @@ export const handleChatDeletion = (chatId) => {
     const updatedChats = allChat.filter(chat => Number(chat.id) !== Number(chatId));
     gemJSON(BESKED_FIL, updatedMessages);
     gemJSON(CHAT_FIL, updatedChats);
+}
+
+export const handeChatCreation = (chatName, chatOwner) => {
+    const allChat = læsJSON(CHAT_FIL)
+    const id = generateUniqueId('CHAT');
+    const date = new Date().toLocaleDateString();
+    const owner = læsJSON(EJER_FIL).find(e => e.navn === chatOwner);
+    const newChat = new Chat(id, chatName, date, owner);
+    allChat.push(newChat);
+    gemJSON(CHAT_FIL, allChat);
 }

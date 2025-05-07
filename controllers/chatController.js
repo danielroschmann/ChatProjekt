@@ -1,38 +1,26 @@
-import { EJER_FIL, CHAT_FIL, BESKED_FIL } from "../utils/jsonUtils.js"
-import { læsJSON, gemJSON } from "../utils/jsonUtils.js"
+import { CHAT_FIL } from "../utils/jsonUtils.js"
+import { læsJSON } from "../utils/jsonUtils.js"
 import Chat from "../models/chatModel.js"
-import { generateUniqueId } from "../utils/helperUtils.js"
-import { getChatFromChatId, handleChatDeletion, handleChatUpdate } from "../utils/chatUtils.js"
+import { getChatFromChatId, handeChatCreation, handleChatDeletion, handleChatUpdate } from "../utils/chatUtils.js"
 import { getMessageFromMessageId } from "../utils/messageUtils.js"
 
 const MAX_CHARACTERS = 20
 const MIN_CHARACTERS = 3
 
 export const createChat = async (req, res) => {
-    let chatNavn = req.body.chatNavn.trim()
+    let chatName = req.body.chatNavn.trim()
+    let ejerName = req.session.username
     let chatArr = læsJSON(CHAT_FIL)
-    if (chatNavn === undefined  || chatNavn === '') {
+    if (chatName === undefined  || chatName === '') {
         return res.render('chatsView', {authLevel: req.session.authLevel, chats: chatArr, errorMessage: 'Indtast venligst et navn'})
     }
-    if (chatNavn.length > MAX_CHARACTERS) {
+    if (chatName.length > MAX_CHARACTERS) {
         return res.render('chatsView', {authLevel: req.session.authLevel, chats: chatArr, errorMessage: 'Navnet er for langt'})
     }
-    if (chatNavn.length < MIN_CHARACTERS) {
+    if (chatName.length < MIN_CHARACTERS) {
         return res.render('chatsView', {authLevel: req.session.authLevel, chats: chatArr, errorMessage: 'Navnet er for kort'})
     }
-    let ejerNavn = req.session.username
-    let id = generateUniqueId('CHAT')
-    let dato = new Date().toLocaleDateString()
-    let ejerArr = læsJSON(EJER_FIL)
-    let ejer = ejerArr.find(ejer => ejer.navn === ejerNavn)
-    let nyChat = new Chat(
-        id, 
-        chatNavn, 
-        dato, 
-        ejer
-    )
-    chatArr.push(nyChat)
-    await gemJSON(CHAT_FIL, chatArr)
+    handeChatCreation(chatName, ejerName)
     res.redirect('/chats')
 }
 

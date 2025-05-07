@@ -2,7 +2,7 @@ import Message from "../models/messageModel.js"
 import { handleChatUpdate, getChatFromChatId } from "../utils/chatUtils.js"
 import { generateUniqueId } from "../utils/helperUtils.js"
 import { BESKED_FIL, læsJSON, CHAT_FIL, gemJSON, EJER_FIL } from "../utils/jsonUtils.js"
-import { getMessageFromMessageId, handleMessageUpdate } from "../utils/messageUtils.js"
+import { getMessageFromMessageId, handleMessageCreation, handleMessageUpdate } from "../utils/messageUtils.js"
 
 export const getAllMessagesInChat = (req, res) => {
     const chatId = Number(req.params.id)
@@ -18,36 +18,22 @@ export const getSingleMessage = (req, res) => {
     let messageData = læsJSON(BESKED_FIL)
     const message = messageData.find(m => m.id === messageId)
 
-    res.render('messageDetailView', {besked: message, isKnownUser: req.session.isLoggedIn})
+    res.render('messageDetailView', {message: message, isKnownUser: req.session.isLoggedIn})
 }
 
 export const createMessage = async (req, res) => {
+    let chatId = req.body.chatId;
+    let message = req.body.message.trim();
+    let username = req.session.username
     if (!req.session.isLoggedIn) {
         return res.redirect('/login')
     }
-    let besked = req.body.besked.trim();
-    if (besked === undefined || besked === '') {
+    if (message === undefined || message === '') {
         return res.redirect('chatMessageListView')
     }
-    let ejer = læsJSON(EJER_FIL).find(u => u.navn === req.session.username);
-    let chatId = req.body.chatId;
-    let id = generateUniqueId('MESSAGE');
-    let tidspunkt = [new Date().toLocaleDateString(), new Date().toLocaleTimeString()];
-    
-    let nyBesked = new Message(id, besked, tidspunkt, ejer, chatId);
-    
-    let beskedArr = læsJSON(BESKED_FIL);
+    handleMessageCreation(message, chatId, username)
 
-    let chat = getChatFromChatId(chatId);
-    const chatIndex = læsJSON(CHAT_FIL).findIndex(c => c.id === chatId);
-    let beskeder = chat.beskeder;
-    chat.beskeder.push(nyBesked);
-    beskedArr.push(nyBesked); 
-    await gemJSON(BESKED_FIL, beskedArr);
-    
-    handleChatUpdate(chat, chatIndex);
-    
-    res.render('chatMessageListView', {username: req.session.username, beskeder: beskeder, chat: chat, isKnownUser: req.session.isLoggedIn})
+    res.redirect('/chats/' + chatId + '/messages')
 };
 
 

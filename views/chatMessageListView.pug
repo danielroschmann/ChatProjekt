@@ -33,6 +33,6 @@ html
                                     a(href=`/chats/messages/${besked.id}/edit`, class="editButton") ✏️
         if (!viewMode)
             form(action=`/chats/${chat.id}/messages`, method="post") 
-                input(type="text", name="besked", placeholder="Indtast besked")
+                input(type="text", name="message", placeholder="Indtast besked")
                 input(type="hidden", name="chatId", value=chat.id)
                 button(type="submit") Send

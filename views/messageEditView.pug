@@ -1,8 +1,0 @@
-doctype HTML 
-html 
-    head 
-        title Message - #{message.id} 
-    body 
-        form(action=`/chats/messages/${message.id}/edit`, method="post") 
-            input(type="text", name="newMessage", placeholder=`${message.besked}`)
-            button(type="submit") Redigér

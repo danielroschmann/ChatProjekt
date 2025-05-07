@@ -5,7 +5,7 @@ import { deleteMessage, getAllMessagesInChat, getSingleMessage, createMessage, u
 
 router.route('/chats/:id/messages').get(getAllMessagesInChat).post(createMessage);
 router.route('/chats/messages/:id').get(getSingleMessage)
-router.route('/chats/messages/:id/edit').get(editMessage).post(updateMessage);
-router.route('/chats/messages/:id/delete').get(deleteMessage);
+router.route('/chats/messages/:id/edit').get(editMessage).put(updateMessage);
+router.route('/chats/messages/:id/delete').delete(deleteMessage);
 
 export default router;

@@ -4,6 +4,8 @@ html
         title Chats 
         link(rel="stylesheet", href="/css/chatsView.css")
         link(rel="stylesheet", href="css/menubarComponent.css")
+        script(type="module", src="/js/chatClient.js") 
+            import deleteChat from '/js/chatClient.js'
     body 
         include includes/menubarComponent
         h1 Chats
@@ -23,11 +25,9 @@ html
                         div.chat-item(style="display: flex; align-items: center; gap: 0.5rem;")
                             div.chat-link(style="flex: 1;")
                                 a(href=`/chats/${chat.id}`, class="chat-box") #{chat.navn}
-                            if (authLevel === 3 || (authLevel === 2 && chat.ejer.navn.toLowerCase() === username.toLowerCase()))
-                                form(action=`/chats/${chat.id}/delete`, method="post", onsubmit="return confirm('Er du sikker på, at du vil slette denne chat?');") 
-                                    button(type="submit", class="delete")  ❌
-                            if (authLevel === 3 || (authLevel === 2 && chat.ejer.navn.toLowerCase() === username.toLowerCase()))
-                                a(href=`/chats/${chat.id}/edit`, class="edit") ✏️
+                            if (authLevel === 3 || (authLevel === 2 && chat.ejer.navn.toLowerCase() === username.toLowerCase()))                 
+                                button(class="deleteBtn", onclick=`deleteChat(${chat.id})`)  ❌
+                                button(class="editBtn", onclick=`updateChat(${chat.id})`) ✏️
                             
             else 
                 h1 Der er ingen chats til rådighed

@@ -10,8 +10,8 @@ router.route('/chats/:id').get(getSingleChat)
 
 router.route('/chats/:id/messages').get(getChatMessages)
 
-router.route('/chats/:id/delete').post(deleteChat)
-router.route('/chats/:id/edit').get(editChat).post(updateChat)
+router.route('/chats/:id/delete').delete(deleteChat)
+router.route('/chats/:id/update').put(updateChat)
 
 export default router
 

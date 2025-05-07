@@ -1,5 +1,8 @@
 import Message from "../models/messageModel.js"
-import { BESKED_FIL, læsJSON, CHAT_FIL, gemJSON, EJER_FIL } from "./fileStorageController.js"
+import { handleChatUpdate, getChatFromChatId } from "../utils/chatUtils.js"
+import { generateUniqueId } from "../utils/helperUtils.js"
+import { BESKED_FIL, læsJSON, CHAT_FIL, gemJSON, EJER_FIL } from "../utils/jsonUtils.js"
+import { getMessageFromMessageId, handleMessageCreation, handleMessageUpdate } from "../utils/messageUtils.js"
 
 export const getAllMessagesInChat = (req, res) => {
     const chatId = Number(req.params.id)
@@ -42,11 +45,13 @@ export const getSingleMessage = (req, res) => {
 }
 
 export const createMessage = async (req, res) => {
+    let chatId = req.body.chatId;
+    let message = req.body.message.trim();
+    let username = req.session.username
     if (!req.session.isLoggedIn) {
         return res.redirect('/login')
     }
-    let besked = req.body.besked.trim();
-    if (besked === undefined || besked === '') {
+    if (message === undefined || message === '') {
         return res.redirect('chatMessageListView')
     }
     let ejer = læsJSON(EJER_FIL).find(u => u.navn === req.session.username);

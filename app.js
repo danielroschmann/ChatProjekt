@@ -1,6 +1,6 @@
 import express from 'express'
 import session from 'express-session'
-import { checkAccess } from './controllers/authController.js'
+import { checkAccess } from './utils/authUtils.js'
 import messageRoute from './routes/messageRoutes.js'
 import chatRoute from './routes/chatRoutes.js'
 import authRoute from './routes/authRoutes.js'
@@ -20,12 +20,17 @@ app.use(session({
 
 app.set('view engine', 'pug')
 
+// Link til css
 app.use(express.static('public'))
+
+// JSON
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
+// Check access hver gang en URL tilgåes
 app.use(checkAccess)
 
+// Routes
 app.use('/', messageRoute)
 app.use('/', chatRoute)
 app.use('/', authRoute)

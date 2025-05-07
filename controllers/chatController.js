@@ -1,74 +1,93 @@
-import { EJER_FIL, CHAT_FIL, BESKED_FIL } from "./fileStorageController.js"
-import { læsJSON, gemJSON } from "./fileStorageController.js"
+import { CHAT_FIL } from "../utils/jsonUtils.js"
+import { læsJSON } from "../utils/jsonUtils.js"
 import Chat from "../models/chatModel.js"
+import { getChatFromChatId, handeChatCreation, handleChatDeletion, handleChatUpdate } from "../utils/chatUtils.js"
+import { getMessageFromMessageId } from "../utils/messageUtils.js"
+
+const MAX_CHARACTERS = 20
+const MIN_CHARACTERS = 3
 
 export const createChat = async (req, res) => {
-    let chatNavn = req.body.chatNavn.trim()
+    let chatName = req.body.chatNavn.trim()
+    let ejerName = req.session.username
     let chatArr = læsJSON(CHAT_FIL)
-    if (chatNavn === undefined  || chatNavn === '') {
+    if (chatName === undefined  || chatName === '') {
         return res.render('chatsView', {authLevel: req.session.authLevel, chats: chatArr, errorMessage: 'Indtast venligst et navn'})
     }
-    if (chatNavn.length > 20) {
+    if (chatName.length > MAX_CHARACTERS) {
         return res.render('chatsView', {authLevel: req.session.authLevel, chats: chatArr, errorMessage: 'Navnet er for langt'})
     }
-    if (chatNavn.length < 3) {
+    if (chatName.length < MIN_CHARACTERS) {
         return res.render('chatsView', {authLevel: req.session.authLevel, chats: chatArr, errorMessage: 'Navnet er for kort'})
     }
-    let ejerNavn = req.session.username
-    let id = generateUniqueId()
-    let dato = new Date().toLocaleDateString()
-    let ejerArr = læsJSON(EJER_FIL)
-    let ejer = ejerArr.find(ejer => ejer.navn === ejerNavn)
-    let nyChat = new Chat(id, chatNavn, dato, ejer)
-    chatArr.push(nyChat)
-    await gemJSON(CHAT_FIL, chatArr)
+    handeChatCreation(chatName, ejerName)
     res.redirect('/chats')
 }
 
 
 export const getChat = (req, res) => {
     let chats = læsJSON(CHAT_FIL)
-    res.render('chatsView', {chats: chats, isKnownUser: req.session.isLoggedIn, authLevel: req.session.authLevel})
+    res.render('chatsView', {username: req.session.username, chats: chats, isKnownUser: req.session.isLoggedIn, authLevel: req.session.authLevel})
 }
 
 export const getSingleChat = (req, res) => {
-    let chats = læsJSON(CHAT_FIL)
     const chatId = Number(req.params.id)
-    const chat = chats.find(c => c.id === chatId)
+    const chat = getChatFromChatId(chatId)
     
     res.render('chatDetailView', {chat: chat, isKnownUser: req.session.isLoggedIn})
 }
 
 export const getChatMessages = (req, res) => {
     const chatId = Number(req.params.id)
-    let chats = læsJSON(CHAT_FIL)
-    const chat = chats.find(c => c.id === chatId)
+    const chat = getChatFromChatId(chatId)
     
     res.render('chatMessageListView', {chat: chat, isKnownUser: req.session.isLoggedIn, username: req.session.username})
 }
 
 export const getDetailedChatMessage = (req, res) => {
     const messageId = Number(req.params.id)
-    const message = læsJSON(BESKED_FIL).find(besked => besked.id === messageId)
+    const message = getMessageFromMessageId(messageId)
     
     res.render('messageDetailView', {besked: message})
 }
 
-const generateUniqueId = () => {
-    const chatArr = læsJSON(CHAT_FIL)
-    return chatArr.length > 0 ? chatArr[chatArr.length - 1].id + 1 : 1
+export const deleteChat = async (req, res) => {
+    try {
+        const chatId = Number(req.params.id)
+        handleChatDeletion(chatId);
+        res.status(200).json({ message: 'Chat slettet' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
 }
 
-export const deleteChat = async (req, res) => {
+export const editChat = (req, res) => {
     const chatId = Number(req.params.id)
+    const chat = getChatFromChatId(chatId)
+    res.render('chatEditView', {chat: chat, isKnownUser: req.session.isLoggedIn})
+}
 
-    const {chatArr, beskedArr } = læsJSON(CHAT_FIL, BESKED_FIL)
-    
-    beskedArr = beskedArr.filter(besked => besked.chatId !== chatId)
-    chatArr = chatArr.filter(chat => chat.id !== chatId)
-    await gemJSON(CHAT_FIL, chatArr)
-    await gemJSON(BESKED_FIL, beskedArr)
-    res.redirect('/chats')
+export const updateChat = (req, res) => {
+    try {
+        const newName = req.body.name
+        const chatId = Number(req.params.id)
+        const chat = getChatFromChatId(chatId)
+        const chatIndex = læsJSON(CHAT_FIL).findIndex(c => c.id === chatId)
+        const chatMessages = chat.beskeder
+        let updatedChat = new Chat(
+            chatId,
+            newName,
+            chat.dato,
+            chat.ejer
+        )
+        updatedChat.beskeder = chatMessages
+        handleChatUpdate(updatedChat, chatIndex);
+        res.status(200).json({ message: 'Chat opdateret' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
 }
 
 

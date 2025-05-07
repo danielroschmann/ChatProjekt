@@ -15,7 +15,7 @@ async function deleteChat(chatId) {
     }
 }
 async function updateChat(chatId) {
-    const newName = prompt("Nyt navn til chat:");
+    const newName = prompt("Nyt navn til chat:").trim();
     if (!newName) return;
     if (newName.length < 3) {
         alert("Navnet er for kort");

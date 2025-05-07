@@ -31,10 +31,19 @@ export const getChat = (req, res) => {
 }
 
 export const getSingleChat = (req, res) => {
-    const chatId = Number(req.params.id)
-    const chat = getChatFromChatId(chatId)
-    
-    res.render('chatDetailView', {chat: chat, isKnownUser: req.session.isLoggedIn})
+    const chatId = Number(req.params.id);
+    console.log(`Fetching chat with ID: ${chatId}`);
+
+    const chat = getChatFromChatId(chatId);
+    if (!chat) {
+        console.error(`Chat with ID ${chatId} not found`);
+        return res.status(404).send("Chat ikke fundet");
+    }
+
+    const ejer = chat.ejer || { navn: "Ukendt" };
+    console.log(`Chat found:`, chat);
+
+    res.render('chatDetailView', { ejer, chat: chat, isKnownUser: req.session.isLoggedIn });
 }
 
 export const getChatMessages = (req, res) => {
@@ -62,9 +71,9 @@ export const deleteChat = async (req, res) => {
     }
 }
 
-export const editChat = (req, res) => {
+export const editChat = async (req, res) => {
     const chatId = Number(req.params.id)
-    const chat = getChatFromChatId(chatId)
+    const chat = await getChatFromChatId(chatId)
     res.render('chatEditView', {chat: chat, isKnownUser: req.session.isLoggedIn})
 }
 

@@ -4,11 +4,15 @@ import { generateUniqueId } from "./helperUtils.js"
 import { handleChatUpdate, getChatFromChatId } from "./chatUtils.js"
 
 export const handleMessageUpdate = (updatedMessage) => {
-    const allMessages = læsJSON(BESKED_FIL)
-    const messageId = updatedMessage.id
+    console.log(`Attempting to update message with ID: ${updatedMessage.id}`);
+    const allMessages = læsJSON(BESKED_FIL);
+    console.log(`Total messages before update: ${allMessages.length}`);
+    const messageId = updatedMessage.id;
     const updatedMessages = allMessages.filter(m => Number(m.id) !== Number(messageId));
     updatedMessages.push(updatedMessage);
     gemJSON(BESKED_FIL, updatedMessages);
+    console.log(`Total messages after update: ${updatedMessages.length}`);
+    console.log(`Message with ID: ${messageId} updated successfully.`);
 }
 
 export const getMessageFromMessageId = (messageId) => {
@@ -17,12 +21,19 @@ export const getMessageFromMessageId = (messageId) => {
 }
 
 export const handleMessageDeletion = (messageId) => {
-    const allMessages = læsJSON(BESKED_FIL)
+    console.log(`Attempting to delete message with ID: ${messageId}`);
+    const allMessages = læsJSON(BESKED_FIL);
+    console.log(`Total messages before deletion: ${allMessages.length}`);
+    
     const updatedMessages = allMessages.filter(m => Number(m.id) !== Number(messageId));
+    console.log(`Total messages after deletion: ${updatedMessages.length}`);
+    
     gemJSON(BESKED_FIL, updatedMessages);
+    console.log(`Message with ID: ${messageId} has been deleted successfully.`);
 }
 
 export const handleMessageCreation = async (message, chatId, username) => {
+    console.log(`Attempting to create message with message: ${message}, chatId: ${chatId}, and username: ${username}`);
     let ejer = læsJSON(EJER_FIL).find(u => u.navn === username);
     let id = generateUniqueId('MESSAGE');
     let date = [new Date().toLocaleDateString(), new Date().toLocaleTimeString()];
@@ -36,7 +47,10 @@ export const handleMessageCreation = async (message, chatId, username) => {
     chatMessages.push(messageObject);
     chat.beskeder = chatMessages;
     beskedArr.push(messageObject); 
+    console.log(`Attempting to save message to beskedArr: ${JSON.stringify(beskedArr)}`);
     await gemJSON(BESKED_FIL, beskedArr);
         
+    console.log(`Attempting to update chat with ID: ${chatId}`);
     handleChatUpdate(chat, chatIndex);
+    console.log(`Message created successfully`);
 }

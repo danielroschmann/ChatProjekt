@@ -141,6 +141,16 @@ button:hover {
     
 }
 
-.message-buttons a {
-    text-decoration: none;
+.message-buttons button {
+    margin: 0rem;
+    background: none;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
 }
+
+
+

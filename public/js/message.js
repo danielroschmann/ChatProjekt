@@ -1,5 +1,5 @@
 async function updateMessage(id, chatId) {
-    const besked = document.getElementById('beskedInput').value.trim();
+    const besked = prompt("Opdater besked:");
 
     if (!besked) {
         alert("Besked må ikke være tom");
@@ -12,7 +12,7 @@ async function updateMessage(id, chatId) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ besked })
+            body: JSON.stringify({ updatedMessage: besked })
         });
 
         if (response.ok) {

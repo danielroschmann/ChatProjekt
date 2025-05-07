@@ -8,6 +8,6 @@ html
         include includes/menubarComponent
         a(class="tilbage", href="/chats") ⬅ Gå tilbage
         h1 Server navn: #{chat.navn} 
-        h2 Server ejer: #{chat.ejer.navn} 
+        h2 Server ejer: #{ejer.navn} 
         h2 Server oprettelsesdato: #{chat.dato} 
         a.join-link(href="/chats/" + chat.id + "/messages") Tilslut

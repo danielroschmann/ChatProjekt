@@ -7,7 +7,7 @@ html
             title Beskeder fra #{bruger.navn}
         link(rel="stylesheet", href="/css/menubarComponent.css")
         link(rel="stylesheet", href="/css/chatMessageListView.css")
-        script(src="/js/message.js") 
+        script(src="/js/message.js" defer) 
     body
         include includes/menubarComponent
         if (!viewMode)
@@ -22,8 +22,6 @@ html
                     a.div(class="message-content", href=`/chats/messages/${besked.id}`)
                         span(class="ejer") #{besked.ejer.navn}: 
                         span(class="besked") #{besked.besked}
-                        a(href=`/chats/messages/${besked.id}/edit`) Redigér 
-                        button(onclick=`deleteMessage(${besked.id}, ${chat.id})`) ❌
                         br
                         - var tidspunkt = new Date().toLocaleDateString() !== besked.dato[0] ?  `${besked.dato[0]}: ${besked.dato[1]}` : `${besked.dato[1]}`
                         span(class="tid") #{tidspunkt}
@@ -32,8 +30,8 @@ html
                             - var isChatOwner = chat.ejer.navn === username
                             - var isMessageOwner = besked.ejer.navn === username
                                 if (isChatOwner || isMessageOwner)
-                                    a(href=`/chats/messages/${besked.id}/delete`, class="deleteButton", onclick="return confirm('Er du sikker på at du vil slette denne besked?')") ❌
-                                    a(href=`/chats/messages/${besked.id}/edit`, class="editButton") ✏️
+                                    button(class="deleteBtn", onclick=`deleteMessage(${besked.id}, ${chat.id})`) ❌
+                                    button(class="editBtn", onclick=`updateMessage(${besked.id}, ${chat.id})`) ✏️
         if (!viewMode)
             form(action=`/chats/${chat.id}/messages`, method="post") 
                 input(type="text", name="message", placeholder="Indtast besked")

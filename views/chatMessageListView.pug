@@ -31,8 +31,8 @@ html
                             - var isChatOwner = chat.ejer.navn === username
                             - var isMessageOwner = besked.ejer.navn === username
                                 if (isChatOwner || isMessageOwner)
-                                    button(class="deleteBtn", onclick=`deleteMessage(${besked.id}, ${chat.id})`) ❌
-                                    button(class="editBtn", onclick=`updateMessage(${besked.id}, ${chat.id})`) ✏️
+                                    button(class="deleteBtn", onclick=`deleteMessage('${besked.id}', '${chat.id}')`) ❌
+                                    button(class="editBtn", onclick=`updateMessage('${besked.id}', '${chat.id}')`) ✏️
         if (!viewMode)
             form(action=`/chats/${chat.id}/messages`, method="post") 
                 input(type="text", name="message", placeholder="Indtast besked")

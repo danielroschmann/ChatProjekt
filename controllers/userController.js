@@ -14,7 +14,7 @@ export const createUser = async (req, res) => {
 
     const dato = new Date().toLocaleDateString()
     let brugere = læsJSON(EJER_FIL)
-    const id = generateUniqueId('USER')
+    const id = generateUniqueId()
     if (!usernameIsValid(username)) {
         return res.render('registerView', {errorMessage: 'Brugernavnet er allerede taget'})
     }
@@ -36,7 +36,7 @@ export const createUser = async (req, res) => {
 
 export const getSingleUser = (req, res) => {
     let brugere = læsJSON(EJER_FIL)
-    const userId = Number(req.params.id)
+    const userId = req.params.id
     const bruger = brugere.find(b => b.id === userId)
     res.render('userDetailView', {bruger: bruger, isKnownUser: req.session.isLoggedIn})
 }
@@ -53,7 +53,7 @@ export const signUp = (req, res) => {
 export const getUserMessages = (req, res) => {
     let brugere = læsJSON(EJER_FIL)
     let beskeder = læsJSON(BESKED_FIL)
-    const userId = Number(req.params.id)
+    const userId = req.params.id
     const bruger = brugere.find(b => b.id === userId)
     beskeder = beskeder.filter(b => b.ejer.id === userId)
     if (beskeder === undefined) {
@@ -61,5 +61,4 @@ export const getUserMessages = (req, res) => {
     }
     res.render('chatMessageListView', {beskeder: beskeder, bruger: bruger, isKnownUser: req.session.isLoggedIn, viewMode: true})
 }
-
 

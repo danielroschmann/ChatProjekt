@@ -5,7 +5,7 @@ import { BESKED_FIL, læsJSON, CHAT_FIL, gemJSON, EJER_FIL } from "../utils/json
 import { getMessageFromMessageId, handleMessageCreation, handleMessageDeletion, handleMessageUpdate } from "../utils/messageUtils.js"
 
 export const getAllMessagesInChat = async (req, res) => {
-    const chatId = Number(req.params.id)
+    const chatId = String(req.params.id)
     
     let chats = læsJSON(CHAT_FIL)
     let alleBeskeder = læsJSON(BESKED_FIL)
@@ -17,10 +17,10 @@ export const getAllMessagesInChat = async (req, res) => {
     
     
     // Dette sikrer at vi bruger de seneste data
-    const chatBeskeder = alleBeskeder.filter(besked => Number(besked.chatId) === chatId)
+    const chatBeskeder = alleBeskeder.filter(besked => String(besked.chatId) === chatId)
     
-    // Sorter beskederne efter id for at sikre de vises i rækkefølge
-    chatBeskeder.sort((a, b) => a.id - b.id)
+    // Sorter beskederne efter dato for at sikre de vises i rækkefølge
+    chatBeskeder.sort((a, b) => new Date(a.dato) - new Date(b.dato))
     
     // Opdater chat objektet med de seneste beskeder
     chat.beskeder = chatBeskeder
@@ -33,9 +33,9 @@ export const getAllMessagesInChat = async (req, res) => {
 }
 
 export const getSingleMessage = (req, res) => {
-    const messageId = Number(req.params.id)
+    const messageId = String(req.params.id)
     let messageData = læsJSON(BESKED_FIL)
-    const message = messageData.find(m => m.id === messageId)
+    const message = messageData.find(m => String(m.id) === messageId)
 
     if (!message) {
         return res.status(404).send("Besked ikke fundet")
@@ -45,7 +45,7 @@ export const getSingleMessage = (req, res) => {
 }
 
 export const createMessage = async (req, res) => {
-    let chatId = req.body.chatId;
+    let chatId = String(req.body.chatId);
     let message = req.body.message.trim();
     let username = req.session.username
     if (!req.session.isLoggedIn) {
@@ -59,7 +59,7 @@ export const createMessage = async (req, res) => {
 };
 
 export const editMessage = (req, res) => {
-    const messageId = Number(req.params.id)
+    const messageId = String(req.params.id)
     const message = getMessageFromMessageId(messageId)
     
     if (!message) {
@@ -69,41 +69,34 @@ export const editMessage = (req, res) => {
     res.render('messageEditView', {message: message, username: req.session.username})
 }
 
-export const updateMessage = (req, res) => {
-    const messageId = Number(req.params.id);
-    const newText = req.body.updatedMessage;
+export const updateMessage = async (req, res) => {
+    const messageId = req.params.id;
+    const newText = req.body.tekst;
 
-
-    // Find den gamle besked
     const oldMessage = getMessageFromMessageId(messageId);
     if (!oldMessage) {
-        return res.status(404).json({ error: 'Besked ikke fundet' });
+        return res.status(404).json({ error: 'Message not found' });
     }
 
-    const chatId = Number(oldMessage.chatId);
-
-    // Opret en ny Message-objekt med opdateret tekst
     const updatedMessage = new Message(
         messageId,
         newText,
         oldMessage.dato,
         oldMessage.ejer,
-        chatId
+        oldMessage.chatId
     );
 
-    handleMessageUpdate(updatedMessage);
-
-    // Return en succesfuld response med det opdaterede besked-data
-    res.status(200).json({ 
-        success: true, 
-        message: 'Besked opdateret', 
-        data: updatedMessage 
-    });
-    
+    try {
+        await handleMessageUpdate(updatedMessage);
+        res.status(200).json({ success: true, message: 'Message updated', data: updatedMessage });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Failed to update message' });
+    }
 };
 
 export const deleteMessage = (req, res) => {
-    const messageId = Number(req.params.id)
+    const messageId = String(req.params.id)
 
     handleMessageDeletion(messageId)
 

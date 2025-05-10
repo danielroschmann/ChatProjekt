@@ -19,16 +19,20 @@ html
         if (errorMessage) 
             p(class="error-message") #{errorMessage}
 
-        ul 
-            if (chats !== undefined && chats.length > 0)
-                each chat in chats 
-                    li 
-                        div.chat-item(style="display: flex; align-items: center; gap: 0.5rem;")
-                            div.chat-link(style="flex: 1;")
-                                a(href=`/chats/${chat.id}`, class="chat-box") #{chat.navn}
-                            if (authLevel === 3 || (authLevel === 2 && chat.ejer.navn.toLowerCase() === username.toLowerCase()))                 
-                                button(class="deleteBtn", onclick=`deleteChat(${chat.id})`)  ❌
-                                button(class="editBtn", onclick=`updateChat(${chat.id})`) ✏️
-                            
-            else 
-                h1 Der er ingen chats til rådighed
+        .chatContainer
+            .searchContainer
+                input(type="text", name="searchFilter", id="searchFilter", placeholder="Søg efter chat")
+                button(type="button", name="searchSubmit", onclick=`filterChats()`) Søg
+            ul 
+                if (chats !== undefined && chats.length > 0)
+                    each chat in chats 
+                        li 
+                            div.chat-item(style="display: flex; align-items: center; gap: 0.5rem;")
+                                div.chat-link(style="flex: 1;")
+                                    a(href=`/chats/${chat.id}`, class="chat-box") #{chat.navn}
+                                if (authLevel === 3 || (authLevel === 2 && chat.ejer.navn.toLowerCase() === username.toLowerCase()))                 
+                                    button(class="deleteBtn", onclick=`deleteChat('${chat.id}')`)  ❌
+                                    button(class="editBtn", onclick=`updateChat('${chat.id}')`) ✏️
+                                
+                else 
+                    h1 Der er ingen chats til rådighed

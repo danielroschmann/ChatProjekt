@@ -1,5 +1,5 @@
 async function updateMessage(id, chatId) {
-    const besked = prompt("Opdater besked:");
+    const besked = prompt("Opdater besked:").trim();
 
     if (!besked) {
         alert("Besked må ikke være tom");
@@ -12,7 +12,9 @@ async function updateMessage(id, chatId) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ updatedMessage: besked })
+            body: JSON.stringify({ 
+                tekst: besked
+            })
         });
 
         if (response.ok) {
@@ -20,7 +22,7 @@ async function updateMessage(id, chatId) {
             console.log(besked);
         } else {
             const fejl = await response.text();
-            console.log(fejl);
+            console.log('Kunne ikke opdatere besked:', fejl);
         }
     } catch (err) {
         console.log(err.message);
@@ -49,3 +51,6 @@ async function deleteMessage(id, chatId) {
         console.log(error);
     }
 }
+
+window.updateMessage = updateMessage;
+window.deleteMessage = deleteMessage;

@@ -31,7 +31,7 @@ export const getChat = (req, res) => {
 }
 
 export const getSingleChat = (req, res) => {
-    const chatId = Number(req.params.id);
+    const chatId = String(req.params.id);
     console.log(`Fetching chat with ID: ${chatId}`);
 
     const chat = getChatFromChatId(chatId);
@@ -47,7 +47,7 @@ export const getSingleChat = (req, res) => {
 }
 
 export const getChatMessages = (req, res) => {
-    const chatId = Number(req.params.id)
+    const chatId = String(req.params.id)
     const chat = getChatFromChatId(chatId)
     
     res.render('chatMessageListView', {chat: chat, isKnownUser: req.session.isLoggedIn, username: req.session.username})
@@ -62,7 +62,7 @@ export const getDetailedChatMessage = (req, res) => {
 
 export const deleteChat = async (req, res) => {
     try {
-        const chatId = Number(req.params.id)
+        const chatId = String(req.params.id)
         handleChatDeletion(chatId);
         res.status(200).json({ message: 'Chat slettet' });
     } catch (error) {
@@ -72,7 +72,7 @@ export const deleteChat = async (req, res) => {
 }
 
 export const editChat = async (req, res) => {
-    const chatId = Number(req.params.id)
+    const chatId = String(req.params.id)
     const chat = await getChatFromChatId(chatId)
     res.render('chatEditView', {chat: chat, isKnownUser: req.session.isLoggedIn})
 }
@@ -80,7 +80,7 @@ export const editChat = async (req, res) => {
 export const updateChat = (req, res) => {
     try {
         const newName = req.body.name
-        const chatId = Number(req.params.id)
+        const chatId = String(req.params.id)
         const chat = getChatFromChatId(chatId)
         const chatIndex = læsJSON(CHAT_FIL).findIndex(c => c.id === chatId)
         const chatMessages = chat.beskeder
@@ -98,5 +98,4 @@ export const updateChat = (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 }
-
 

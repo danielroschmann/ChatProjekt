@@ -50,6 +50,18 @@ async function updateChat(chatId) {
     }
 }
 
+window.filterChats = () => {
+    const chatItems = document.querySelectorAll('.chat-item');
+    const chatFilter = document.querySelector('#searchFilter').value;
+    chatItems.forEach(chatItem => {
+        if (chatItem.textContent.toLowerCase().includes(chatFilter.toLowerCase())) {
+            chatItem.style.display = 'flex';
+        } else {
+            chatItem.style.display = 'none';
+        }
+    });
+}
+
 window.deleteChat = deleteChat;
 window.updateChat = updateChat;
 

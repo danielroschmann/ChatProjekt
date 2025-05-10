@@ -62,3 +62,9 @@ export const getUserMessages = (req, res) => {
     res.render('chatMessageListView', {beskeder: beskeder, bruger: bruger, isKnownUser: req.session.isLoggedIn, viewMode: true})
 }
 
+export const getUserProfile = (req, res) => {
+    const username = req.session.username
+    const user = læsJSON(EJER_FIL).find(b => b.navn === username)
+    res.render('userDetailView', {bruger: user, profileView: true, isKnownUser: req.session.isLoggedIn})
+}
+

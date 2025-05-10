@@ -80,3 +80,27 @@ h2 {
     border-radius: 6px;
     transition: background-color 0.3s ease;
 }
+
+.profileButtons {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.viewMessages, .changePassword{
+    display: inline-block;
+    margin-top: 30px;
+    padding: 12px 24px;
+    background-color: #7c7c7c;
+    color: white;
+    text-decoration: none;
+    font-size: 1.2em;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+    gap: 10px;
+}
+
+.viewMessages {
+    margin-right: 10px;
+}
+

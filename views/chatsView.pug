@@ -13,7 +13,7 @@ html
         if (authLevel > 1)
             form(action=`/chats`, method="post") 
                 input(type="hidden", name="ejerNavn", value=username)
-                input(type="text", name="chatNavn")
+                input(type="text", name="chatNavn", placeholder="Indtast navn til ny chat")
                 button(type="submit") Ny chat
 
         if (errorMessage) 
@@ -21,8 +21,7 @@ html
 
         .chatContainer
             .searchContainer
-                input(type="text", name="searchFilter", id="searchFilter", placeholder="Søg efter chat")
-                button(type="button", name="searchSubmit", onclick=`filterChats()`) Søg
+                input(type="text", name="searchFilter", id="searchFilter", placeholder="Søg efter chat", oninput=`filterChats()`)
             ul 
                 if (chats !== undefined && chats.length > 0)
                     each chat in chats 

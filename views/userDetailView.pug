@@ -22,4 +22,7 @@ html
                 h2 ID: #{bruger.id}
             .role-info 
                 h2(class=rolle) #{rolle}
-            a(class="viewMessages", href=`/users/${bruger.id}/messages`) Se beskeder
+            .profileButtons
+                a(class="viewMessages", href=`/users/${bruger.id}/messages`) Se beskeder
+                if (profileView)
+                    a.changePassword(href=`/profile/changePassword`) Skift adgangskode

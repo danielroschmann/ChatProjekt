@@ -16,7 +16,7 @@ export async function checkCredentials(username, password) {
 
 export function checkAccess(req, res, next) {
     console.log("Forsøger at få adgang til siden " + req.url)
-    if ((req.url.includes('/chats') || req.url.includes('/users')) && !req.session.isLoggedIn)  {
+    if ((req.url.includes('/chats') || req.url.includes('/users') || req.url.includes('/profile')) && !req.session.isLoggedIn)  {
         res.render('errorView', { errorMessage: 'Du skal være logget ind for at se denne side' })
     } else if (req.url.includes('/users') && !(req.session.authLevel === 3)) {
         res.render('errorView', { isKnownUser: req.session.isLoggedIn, errorMessage: 'Du har ikke adgang til denne side' })

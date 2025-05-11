@@ -1,7 +1,7 @@
 doctype HTML 
 html 
     head 
-        title #{bruger.navn}
+        title #{user.navn}
         link(rel="stylesheet", href="/css/menubarComponent.css")
         link(rel="stylesheet", href="/css/userDetailView.css")
         link(rel="icon", href="/logo/chat.svg")
@@ -12,21 +12,21 @@ html
         else 
             a(class="tilbage", href="/chats") ⬅ Gå tilbage
         .container
-            h1 Navn: #{bruger.navn} 
-            h2 Oprettelsesdato: #{bruger.dato} 
+            h1 Navn: #{user.navn} 
+            h2 Oprettelsesdato: #{user.dato} 
             - var rolle
-            if (bruger.niveau === 1)
-                - rolle = 'Bruger'
-            if (bruger.niveau === 2)
+            if (user.niveau === 1)
+                - rolle = 'user'
+            if (user.niveau === 2)
                 - rolle = 'Moderator'
-            if (bruger.niveau === 3) 
+            if (user.niveau === 3) 
                 - rolle = 'Administrator'
             .profile-info
-                h2 ID: #{bruger.id}
+                h2 ID: #{user.id}
             .role-info 
                 h2(class=rolle) #{rolle}
             .profileButtons
                 if (!profileView)
-                    a(class="viewMessages", href=`/users/${bruger.id}/messages`) Se beskeder
+                    a(class="viewMessages", href=`/users/${user.id}/messages`) Se beskeder
                 else
                     a.changePassword(href=`/profile/password`) Skift adgangskode

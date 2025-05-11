@@ -44,10 +44,10 @@ export const getSingleChat = (req, res) => {
         return res.status(404).send("Chat ikke fundet");
     }
 
-    const ejer = chat.ejer || { navn: "Ukendt" };
+    const user = chat.ejer || { navn: "Ukendt" };
     console.log(`Chat found:`, chat);
 
-    res.render('chatDetailView', { ejer, chat: chat, isKnownUser: req.session.isLoggedIn });
+    res.render('chatDetailView', { user, chat: chat, isKnownUser: req.session.isLoggedIn });
 }
 
 export const getChatMessages = (req, res) => {

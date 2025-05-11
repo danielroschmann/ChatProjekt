@@ -4,7 +4,7 @@ html
         if (!viewMode)
             title Chat: #{chat.navn}
         else 
-            title Beskeder fra #{bruger.navn}
+            title Beskeder fra #{user.navn}
         link(rel="stylesheet", href="/css/menubarComponent.css")
         link(rel="icon", href="/logo/chat.svg")
         link(rel="stylesheet", href="/css/chatMessageListView.css")
@@ -15,8 +15,8 @@ html
             a(class="tilbage", href="/chats") ⬅ Gå tilbage
             h1 #{chat.navn}
         else 
-            a(class="tilbage", href=`/users/${bruger.id}`) ⬅ Gå tilbage
-            h1 #{bruger.navn}
+            a(class="tilbage", href=`/users/${user.id}`) ⬅ Gå tilbage
+            h1 #{user.navn}
         div(class="message-container")
             each besked in beskeder
                 div(class=besked.ejer.navn == username ? 'outgoing' : 'incoming')

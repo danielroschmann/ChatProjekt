@@ -3,11 +3,11 @@ import bcrypt from 'bcrypt'
 
 export async function checkCredentials(username, password) {
     let validate = false
-    let brugere = læsJSON(EJER_FIL)
-    for (const bruger of brugere) {
-        if (username === bruger.navn) 
+    let users = læsJSON(EJER_FIL)
+    for (const user of users) {
+        if (username === user.navn) 
             {
-            const passwordMatch = await bcrypt.compare(password,bruger.password)
+            const passwordMatch = await bcrypt.compare(password,user.password)
             if (passwordMatch) validate = true
             }
         }
@@ -27,11 +27,11 @@ export function checkAccess(req, res, next) {
 
 export function getAuthentificationLevel(username) {
     let authentificationLevel = 1
-    let brugere = læsJSON(EJER_FIL)
-    brugere.forEach(bruger => {
-        if (username == bruger.navn) 
+    let users = læsJSON(EJER_FIL)
+    users.forEach(user => {
+        if (username == user.navn) 
             {
-            authentificationLevel = bruger.niveau
+            authentificationLevel = user.niveau
             }
         }
     )

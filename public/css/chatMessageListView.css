@@ -1,4 +1,4 @@
-/* Generelle stilarter for siden */
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f0f2f5;
@@ -12,7 +12,7 @@ h1 {
     color: #333;
 }
 
-/* Container for beskeder */
+
 .message-container {
     display: flex;
     flex-direction: column;
@@ -24,7 +24,6 @@ h1 {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Stilarter for hver besked */
 .message-container .outgoing, .message-container .incoming {
     margin-bottom: 20px;
     display: flex;
@@ -46,9 +45,9 @@ h1 {
     border-radius: 15px;
     font-size: 14px;
     line-height: 1.4;
-    word-wrap: break-word; /* Bryder ord, så de ikke går udenfor containeren */
-    word-break: break-word; /* Hvis der er lange ord uden mellemrum, bryder linjen */
-    white-space: normal; /* Sikrer, at teksten vises normalt og kan bryde linje */
+    word-wrap: break-word;
+    word-break: break-word; 
+    white-space: normal; 
     text-decoration: none;
 }
 
@@ -67,14 +66,12 @@ h1 {
     border-top-right-radius: 15px;
 }
 
-/* Stilarter for beskedens ejer */
 .ejer {
     font-weight: bold;
     margin-right: 8px;
     font-size: 14px;
 }
 
-/* Stilarter for selve beskeden */
 .besked {
     font-size: 14px;
     max-width: 200px;
@@ -85,7 +82,6 @@ h1 {
     color: #999;
 }
 
-/* Formular til at sende beskeder */
 form {
     display: flex;
     justify-content: space-between;

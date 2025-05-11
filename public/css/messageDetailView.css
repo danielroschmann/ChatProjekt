@@ -1,5 +1,4 @@
 /* besked.css */
-
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f2f2f2;
@@ -29,10 +28,9 @@ h3 p {
 }
 
 br {
-    display: none; /* Fjern unødvendige mellemrum fra br, layoutet klares via margin */
+    display: none; 
 }
 
-/* Hvis du vil have lidt ekstra spacing mellem sektionerne */
 h3 p:not(:last-child) {
     border-bottom: 1px solid #eee;
     padding-bottom: 10px;

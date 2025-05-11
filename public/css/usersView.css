@@ -2,7 +2,7 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
-    margin: 0;
+    margin-top: 50px;
     padding: 0;
 }
 
@@ -12,7 +12,6 @@ h1 {
     color: #333;
 }
 
-/* Container for brugerne */
 .user-item {
     background-color: #ffffff;
     margin-bottom: 15px;
@@ -22,29 +21,22 @@ h1 {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Hover-effekt for hver user */
 .user-item:hover {
     transform: scale(1.02);
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Link-stil */
 .user-item a {
     text-decoration: none;
     font-size: 16px;
-    color: #007bff; /* Blå farve for link */
+    color: #007bff; 
     font-weight: bold;
     transition: color 0.2s ease;
 }
 
-/* Hover-effekt for links */
-.user-item a:hover {
-    color: #0056b3; /* Mørkere blå farve ved hover */
-}
 
-/* Stilarter for container af brugere */
-body {
-    padding: 0 2rem;
+.user-item a:hover {
+    color: #0056b3; 
 }
 
 ul {
@@ -53,7 +45,6 @@ ul {
     margin: 0;
 }
 
-/* Gør brugere centreret */
 .user-item {
     max-width: 600px;
     margin: 10px auto;

@@ -77,7 +77,8 @@ export const changePassword = (req, res) => {
 }
 
 export const updatePassword = async (req, res) => {
-    const {oldPassword, newPassword, username} = req.body
+    const {oldPassword, newPassword} = req.body
+    const username = req.session.username
     const password = await checkCredentials(username, oldPassword)
     if (!password) {
         console.error('Forkert kodeord')

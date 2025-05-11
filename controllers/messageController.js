@@ -1,7 +1,6 @@
 import Message from "../models/messageModel.js"
-import { handleChatUpdate, getChatFromChatId } from "../utils/chatUtils.js"
-import { generateUniqueId } from "../utils/helperUtils.js"
-import { BESKED_FIL, læsJSON, CHAT_FIL, gemJSON, EJER_FIL } from "../utils/jsonUtils.js"
+import { getChatFromChatId } from "../utils/chatUtils.js"
+import { BESKED_FIL, læsJSON, CHAT_FIL} from "../utils/jsonUtils.js"
 import { getMessageFromMessageId, handleMessageCreation, handleMessageDeletion, handleMessageUpdate } from "../utils/messageUtils.js"
 
 export const getAllMessagesInChat = async (req, res) => {

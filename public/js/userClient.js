@@ -3,9 +3,8 @@ async function updatePassword() {
     const oldPassword = document.querySelector('#oldPassword').value;
     const newPassword = document.querySelector('#newPassword').value;
     const repeatPassword = document.querySelector('#repeatPassword').value;
-    const username = document.querySelector('#username').value;
 
-    if (!oldPassword || !newPassword || !username) {
+    if (!oldPassword || !newPassword || !repeatPassword) {
         document.querySelector('.error-message').textContent = 'Indtast venligst alle felter';
         return;
     }
@@ -38,7 +37,6 @@ async function updatePassword() {
             },
             body: JSON.stringify({
                 oldPassword: oldPassword,
-                username: username,
                 newPassword: newPassword
             })
         });

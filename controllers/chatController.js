@@ -9,18 +9,22 @@ const MIN_CHARACTERS = 3
 
 export const createChat = async (req, res) => {
     let chatName = req.body.chatNavn.trim()
-    let ejerName = req.session.username
+    let username = req.session.username
     let chatArr = læsJSON(CHAT_FIL)
+    let chatNameAvailable = chatArr.find(chat => chat.navn.toLowerCase() === chatName.toLowerCase()) === undefined
+    if (!chatNameAvailable) {
+        return res.render('chatsView', {username, authLevel: req.session.authLevel, chats: chatArr, errorMessage: 'Navnet er allerede taget'})
+    }
     if (chatName === undefined  || chatName === '') {
-        return res.render('chatsView', {authLevel: req.session.authLevel, chats: chatArr, errorMessage: 'Indtast venligst et navn'})
+        return res.render('chatsView', {username, authLevel: req.session.authLevel, chats: chatArr, errorMessage: 'Indtast venligst et navn'})
     }
     if (chatName.length > MAX_CHARACTERS) {
-        return res.render('chatsView', {authLevel: req.session.authLevel, chats: chatArr, errorMessage: 'Navnet er for langt'})
+        return res.render('chatsView', {username, authLevel: req.session.authLevel, chats: chatArr, errorMessage: 'Navnet er for langt'})
     }
     if (chatName.length < MIN_CHARACTERS) {
-        return res.render('chatsView', {authLevel: req.session.authLevel, chats: chatArr, errorMessage: 'Navnet er for kort'})
+        return res.render('chatsView', {username, authLevel: req.session.authLevel, chats: chatArr, errorMessage: 'Navnet er for kort'})
     }
-    handeChatCreation(chatName, ejerName)
+    handeChatCreation(chatName, username)
     res.redirect('/chats')
 }
 

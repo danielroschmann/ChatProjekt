@@ -29,7 +29,7 @@ html
                             div.chat-item(style="display: flex; align-items: center; gap: 0.5rem;")
                                 div.chat-link(style="flex: 1;")
                                     a(href=`/chats/${chat.id}`, class="chat-box") #{chat.navn}
-                                if (authLevel === 3 || (authLevel === 2 && chat.ejer.navn.toLowerCase() === username.toLowerCase()))                 
+                                if (authLevel === 3 || (authLevel === 2 && chat.ejer.navn === username))                 
                                     button(class="deleteBtn", onclick=`deleteChat('${chat.id}')`)  ❌
                                     button(class="editBtn", onclick=`updateChat('${chat.id}')`) ✏️
                                 

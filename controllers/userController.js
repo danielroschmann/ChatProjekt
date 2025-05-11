@@ -3,13 +3,19 @@ import { EJER_FIL, BESKED_FIL } from "../utils/jsonUtils.js"
 import User from "../models/userModel.js"
 import bcrypt from 'bcrypt'
 import { generateUniqueId } from "../utils/helperUtils.js"
-import { inputIsBlank, usernameIsValid } from "../utils/authUtils.js"
+import { checkCredentials, inputIsBlank, usernameIsValid } from "../utils/authUtils.js"
 
 export const createUser = async (req, res) => {
     const username = req.body.username.trim()
     const password = req.body.password.trim()
     if (inputIsBlank(username, password)) {
         return res.render('registerView', {errorMessage: 'Indtast venligst et brugernavn og et kodeord'})
+    }
+    if (password.length < 8) {
+        return res.render('registerView', {errorMessage: 'Kodeordet er for kort'})
+    }
+    if (password.length > 20) {
+        return res.render('registerView', {errorMessage: 'Kodeordet er for langt'})
     }
 
     const dato = new Date().toLocaleDateString()
@@ -29,8 +35,6 @@ export const createUser = async (req, res) => {
         res.render('registerView', { errorMessage: 'Noget gik galt. Prøv igen.' })
     
     }
-    
-    
 }
 
 
@@ -68,3 +72,23 @@ export const getUserProfile = (req, res) => {
     res.render('userDetailView', {bruger: user, profileView: true, isKnownUser: req.session.isLoggedIn})
 }
 
+export const changePassword = (req, res) => {
+    res.render('changePasswordView', {username: req.session.username, isKnownUser: req.session.isLoggedIn})
+}
+
+export const updatePassword = async (req, res) => {
+    const {oldPassword, newPassword, username} = req.body
+    const password = await checkCredentials(username, oldPassword)
+    if (!password) {
+        console.error('Forkert kodeord')
+        res.status(403).send('Forkert adgangskode');
+        return
+    } 
+    let brugere = læsJSON(EJER_FIL)
+        const bruger = brugere.find(b => b.navn === username)
+        const hashPassword = await bcrypt.hash(newPassword, 10);
+        bruger.password = hashPassword
+        gemJSON(EJER_FIL, brugere)
+        console.log(`Password for user ${username} updated`)
+        res.status(200).send('Kodeord opdateret');
+}

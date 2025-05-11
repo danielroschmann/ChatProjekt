@@ -7,7 +7,10 @@ html
         link(rel="icon", href="/logo/chat.svg")
     body 
         include includes/menubarComponent
-        a(class="tilbage", href="/users") ⬅ Gå tilbage
+        if (!profileView)
+            a(class="tilbage", href="/users") ⬅ Gå tilbage
+        else 
+            a(class="tilbage", href="/chats") ⬅ Gå tilbage
         .container
             h1 Navn: #{bruger.navn} 
             h2 Oprettelsesdato: #{bruger.dato} 
@@ -23,6 +26,7 @@ html
             .role-info 
                 h2(class=rolle) #{rolle}
             .profileButtons
-                a(class="viewMessages", href=`/users/${bruger.id}/messages`) Se beskeder
-                if (profileView)
-                    a.changePassword(href=`/profile/changePassword`) Skift adgangskode
+                if (!profileView)
+                    a(class="viewMessages", href=`/users/${bruger.id}/messages`) Se beskeder
+                else
+                    a.changePassword(href=`/profile/password`) Skift adgangskode

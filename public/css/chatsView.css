@@ -112,5 +112,15 @@ li {
   display: flex ;
   flex-direction: row;
   padding-bottom: 20px;
+  justify-content: center;
   gap: 10px;
+}
+
+.searchContainer input {
+  align-self: center;
+  padding: 5px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  width: 300px;
 }

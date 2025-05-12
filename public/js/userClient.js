@@ -55,4 +55,31 @@ async function updatePassword() {
     }
 }
 
+async function updateAuthLevel(userId, authLevel) {
+    try {
+        const response = await fetch(`/users/${userId}/auth`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                authLevel: authLevel,
+                id: userId
+            })
+        });
+
+        if (response.ok) {
+            alert('Rettigheder opdateret');
+            console.log(authLevel);
+        } else {
+            const fejl = await response.text();
+            document.querySelector('.error-message').textContent = fejl;
+            console.log('Kunne ikke opdatere rettigheder:', fejl);
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 window.updatePassword = updatePassword
+window.updateAuthLevel = updateAuthLevel

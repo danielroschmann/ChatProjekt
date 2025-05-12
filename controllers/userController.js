@@ -1,7 +1,7 @@
 import { læsJSON } from "../utils/jsonUtils.js"
 import { EJER_FIL, BESKED_FIL } from "../utils/jsonUtils.js"
 import { checkCredentials, inputIsBlank, usernameIsValid, getAuthentificationLevel } from "../utils/authUtils.js"
-import { getUserByUserId, getUserByUsername, handlePasswordUpdate, handleUserCreation } from "../utils/userUtils.js"
+import { getUserByUserId, getUserByUsername, handlePasswordUpdate, handleUserCreation, handleUserAuthUpdate } from "../utils/userUtils.js"
 
 export const createUser = async (req, res) => {
     const username = req.body.username.trim()
@@ -35,7 +35,7 @@ export const getSingleUser = (req, res) => {
 
 export const getAllUsers = (req, res) => {
     let users = læsJSON(EJER_FIL)
-    res.render('usersView', {users: users, isKnownUser: req.session.isLoggedIn})
+    res.render('usersView', {username: req.session.username, users: users, isKnownUser: req.session.isLoggedIn})
 }
 
 export const signUp = (req, res) => {
@@ -75,4 +75,15 @@ export const updatePassword = async (req, res) => {
     handlePasswordUpdate(username, newPassword)
     console.log(`Password for user ${username} updated`)
     res.status(200).send('Kodeord opdateret');
+}
+
+export const updateAuthLevel = async (req, res) => {
+    const { id, authLevel } = req.body
+    try {
+        await handleUserAuthUpdate(id, authLevel)
+        res.status(200).send('Rettigheder opdateret')
+    } catch (error) {
+        console.error(error)
+        res.status(500).send('Kunne ikke opdatere rettigheder')
+    }
 }

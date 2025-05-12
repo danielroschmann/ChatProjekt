@@ -4,17 +4,40 @@ html
         title Brugere 
         link(rel="stylesheet", href="/css/menubarComponent.css")
         link(rel="stylesheet", href="/css/usersView.css")
+        script(type="module", src="/js/userClient.js")
+            import updateAuthLevel from '/js/userClient.js' 
         link(rel="icon", href="/logo/chat.svg")
     body 
         include includes/menubarComponent
         h1 Brugere
-        each user in users 
-            - var auth 
-            if (user.niveau === 1)
-                - auth = "user"
-            if (user.niveau === 2)
-                - auth = "Moderator"
-            if (user.niveau === 3) 
-                - auth = "Administrator"
-            div(class="user-item") 
-                a(href=`/users/${user.id}`, style="display: block; width: 100%; height: 100%") #{user.navn} (#{auth})
+        table.tbl 
+            thead 
+                tr 
+                    th Bruger ID 
+                    th Brugernavn 
+                    th Oprettelsesdato 
+                    th Niveau
+            tbody
+                each user in users 
+                    tr
+                        - var auth 
+                        if (user.niveau === 1)
+                            - auth = "user"
+                        if (user.niveau === 2)
+                            - auth = "Moderator"
+                        if (user.niveau === 3) 
+                            - auth = "Administrator"
+                        div(class="user-item") 
+                            td(data-label="id") #{user.id} 
+                            td(data-label="name") 
+                                a(href=`/users/${user.id}`) #{user.navn}
+                            td(data-label="date") #{user.dato} 
+                            td(data-label="auth")
+                                if (user.navn === username)
+                                    select(name="disabledAuthLevel", disabled)
+                                        option(value="3", selected) Administrator
+                                else 
+                                    select(name="authLevel", id="authLevel", onchange=`updateAuthLevel('${user.id}', this.value)`)
+                                        option(value="1", selected=user.niveau === 1) Bruger 
+                                        option(value="2", selected=user.niveau === 2) Moderator 
+                                        option(value="3", selected=user.niveau === 3) Administrator

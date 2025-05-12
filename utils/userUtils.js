@@ -34,3 +34,20 @@ export const getUserByUserId = (userId) => {
     let users = læsJSON(EJER_FIL)
     return users.find(b => b.id === userId)
 }
+
+export const handleUserAuthUpdate = async (userId, authLevel) => {
+  console.log(`Attempting to update auth level for user ID: ${userId} to ${authLevel}`);
+
+  let users = læsJSON(EJER_FIL);
+  
+  const userIndex = users.findIndex(u => u.id === userId);
+
+  if (userIndex !== -1) {
+    users[userIndex].niveau = Number(authLevel);
+    await gemJSON(EJER_FIL, users);
+    console.log(`Auth level updated successfully for user ID: ${userId}`);
+  } else {
+    console.error(`User with ID: ${userId} not found`);
+  }
+};
+

@@ -81,5 +81,22 @@ async function updateAuthLevel(userId, authLevel) {
     }
 }
 
+async function deleteUser(userId) {
+    const confirmDelete = confirm("Er du sikker på at du vil slette denne bruger?");
+    if (!confirmDelete) return;
+    try {
+        const res = await fetch(`/users/${userId}`, {
+            method: 'DELETE'
+        });
+
+        const data = await res.json();
+        console.log(data);
+        window.location.href = "/users";
+    } catch (error) {
+        console.error('Fejl ved sletning:' + error);
+    }
+}
+
 window.updatePassword = updatePassword
 window.updateAuthLevel = updateAuthLevel
+window.deleteUser = deleteUser

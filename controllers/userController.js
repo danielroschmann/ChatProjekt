@@ -1,7 +1,7 @@
 import { læsJSON } from "../utils/jsonUtils.js"
 import { EJER_FIL, BESKED_FIL } from "../utils/jsonUtils.js"
 import { checkCredentials, inputIsBlank, usernameIsValid, getAuthentificationLevel } from "../utils/authUtils.js"
-import { getUserByUserId, getUserByUsername, handlePasswordUpdate, handleUserCreation, handleUserAuthUpdate } from "../utils/userUtils.js"
+import { getUserByUserId, getUserByUsername, handlePasswordUpdate, handleUserCreation, handleUserAuthUpdate, handleUserDeletion } from "../utils/userUtils.js"
 
 export const createUser = async (req, res) => {
     const username = req.body.username.trim()
@@ -86,4 +86,16 @@ export const updateAuthLevel = async (req, res) => {
         console.error(error)
         res.status(500).send('Kunne ikke opdatere rettigheder')
     }
+}
+
+export const deleteUser = async (req, res) => {
+    const userId = req.params.id
+    try {
+        await handleUserDeletion(userId)
+        res.status(200).json({ message: 'Bruger slettet'})
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({ message: 'Kunne ikke slette bruger'})
+    }
+    
 }

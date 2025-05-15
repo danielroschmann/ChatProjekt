@@ -1,5 +1,5 @@
 import { gemJSON, læsJSON } from "./jsonUtils.js"
-import { EJER_FIL } from "./jsonUtils.js"
+import { EJER_FIL, BESKED_FIL, CHAT_FIL} from "./jsonUtils.js"
 import bcrypt from 'bcrypt'
 import User from "../models/userModel.js"
 import { generateUniqueId } from "./helperUtils.js"
@@ -50,4 +50,22 @@ export const handleUserAuthUpdate = async (userId, authLevel) => {
     console.error(`User with ID: ${userId} not found`);
   }
 };
+
+export const handleUserDeletion = async (userId) => {
+  let users = læsJSON(EJER_FIL);
+  let messages = læsJSON(BESKED_FIL);
+  let chats = læsJSON(CHAT_FIL);
+  const userIndex = users.findIndex(u => u.id === userId);
+  if (userIndex !== -1) {
+    users.splice(userIndex, 1);
+    messages = messages.filter(m => m.ejer.id !== userId);
+    chats = chats.filter(c => c.ejer.id !== userId);
+    gemJSON(BESKED_FIL, messages);
+    gemJSON(CHAT_FIL, chats);
+    gemJSON(EJER_FIL, users);
+    console.log(`User with ID: ${userId} deleted successfully`);
+  } else {
+    console.error(`User with ID: ${userId} not found`);
+  }
+}
 

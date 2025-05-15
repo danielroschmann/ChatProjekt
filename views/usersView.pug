@@ -4,8 +4,7 @@ html
         title Brugere 
         link(rel="stylesheet", href="/css/menubarComponent.css")
         link(rel="stylesheet", href="/css/usersView.css")
-        script(type="module", src="/js/userClient.js")
-            import updateAuthLevel from '/js/userClient.js' 
+        script(src="/js/userClient.js" defer) 
         link(rel="icon", href="/logo/chat.svg")
     body 
         include includes/menubarComponent
@@ -36,8 +35,10 @@ html
                                 if (user.navn === username)
                                     select(name="disabledAuthLevel", disabled)
                                         option(value="3", selected) Administrator
+                                    button.deleteButton(disabled) Slet
                                 else 
                                     select(name="authLevel", id="authLevel", onchange=`updateAuthLevel('${user.id}', this.value)`)
                                         option(value="1", selected=user.niveau === 1) Bruger 
                                         option(value="2", selected=user.niveau === 2) Moderator 
                                         option(value="3", selected=user.niveau === 3) Administrator
+                                    button.deleteButton(onclick=`deleteUser('${user.id}')`) Slet

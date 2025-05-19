@@ -6,7 +6,7 @@ export const CHAT_FIL = path.join('./data', 'chatData.json')
 export const BESKED_FIL = path.join('./data', 'messageData.json')
 
 export async function gemJSON(fil, arr) {
-    let jsonFil = JSON.stringify(arr)
+    let jsonFil = JSON.stringify(arr, null, 2)
     await fsPromises.writeFile(fil, jsonFil, 'utf8', (err) => {
         if (err) {
             console.error(err) 

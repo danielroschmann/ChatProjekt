@@ -1,1 +1,23 @@
-[{"id":"b23e5983-adde-4b98-b0ab-8820dbce0599","navn":"admin","password":"$2b$10$onOlU7bBlHKvpotdlaws3OesgIQLWwazZ.Xoxc5Q0gUf.dsE1z76u","dato":"5/11/2025","niveau":3}]
+[
+  {
+    "id": "b23e5983-adde-4b98-b0ab-8820dbce0599",
+    "navn": "admin",
+    "password": "$2b$10$onOlU7bBlHKvpotdlaws3OesgIQLWwazZ.Xoxc5Q0gUf.dsE1z76u",
+    "dato": "5/11/2025",
+    "niveau": 3
+  },
+  {
+    "id": "b1b13b04-c808-44b8-a67a-b752db6a74ec",
+    "navn": "test",
+    "password": "$2b$10$jWAWSmW4FpTyeFCMwS.iBeb4T.EdnS7qk7eh2LVnTyu0nx7BlMgdq",
+    "dato": "19.5.2025",
+    "niveau": 1
+  },
+  {
+    "id": "a4e2969b-6989-4a5b-b698-f1338443fe28",
+    "navn": "modtest",
+    "password": "$2b$10$xNLDIw7kADfj8JiRKZRF5O5VovEnlBMr05O6voeS9hvaQfYW.TRKy",
+    "dato": "19.5.2025",
+    "niveau": 2
+  }
+]

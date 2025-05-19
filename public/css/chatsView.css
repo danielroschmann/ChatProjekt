@@ -109,7 +109,7 @@ li {
 }
 
 .searchContainer {
-  display: flex ;
+  display: flex;
   flex-direction: row;
   padding-bottom: 20px;
   justify-content: center;

@@ -1,50 +1,51 @@
 body.content {
-    font-family: 'Arial', sans-serif;
-    background-color: #f0f2f5;
-    margin: 0;
-    padding: 20px;
-    text-align: center;
+  font-family: "Arial", sans-serif;
+  background-color: #f0f2f5;
+  margin: 0;
+  padding: 20px;
+  text-align: center;
 }
 
-body.content h1, body.content h2 {
-    color: #333;
-    margin-bottom: 10px;
+body.content h1,
+body.content h2 {
+  color: #333;
+  margin-bottom: 10px;
 }
 
 body.content h1 {
-    font-size: 2.5em;
+  font-size: 2.5em;
 }
 
 body.content h2 {
-    font-size: 1.5em;
-    font-weight: normal;
+  font-size: 1.5em;
+  font-weight: normal;
 }
 
 body.content a.join-link {
-    display: inline-block;
-    margin-top: 30px;
-    padding: 12px 24px;
-    background-color: #4CAF50;
-    color: white;
-    text-decoration: none;
-    font-size: 1.2em;
-    border-radius: 6px;
-    transition: background-color 0.3s ease;
+  display: inline-block;
+  margin-top: 30px;
+  padding: 12px 24px;
+  background-color: #4caf50;
+  color: white;
+  text-decoration: none;
+  font-size: 1.2em;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
 }
 
 body.content a:hover {
-    background-color: #45a049;
+  background-color: #45a049;
 }
 
 .tilbage {
-    justify-self: left;
-    display: inline-block;
-    margin-top: 30px;
-    padding: 12px 24px;
-    background-color: #4CAF50;
-    color: white;
-    text-decoration: none;
-    font-size: 1.2em;
-    border-radius: 6px;
-    transition: background-color 0.3s ease;
+  justify-self: left;
+  display: inline-block;
+  margin-top: 30px;
+  padding: 12px 24px;
+  background-color: #4caf50;
+  color: white;
+  text-decoration: none;
+  font-size: 1.2em;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
 }

@@ -1,1 +1,108 @@
-[{"id":"662a8f30-b14c-430f-8994-0561f9e172fc","beskeder":[{"id":"3a5061d8-a89d-4844-a67b-32c4ce177598","besked":"jdajda","dato":["12.5.2025","19.40.14"],"ejer":{"id":"b23e5983-adde-4b98-b0ab-8820dbce0599","navn":"admin","password":"$2b$10$onOlU7bBlHKvpotdlaws3OesgIQLWwazZ.Xoxc5Q0gUf.dsE1z76u","dato":"5/11/2025","niveau":3},"chatId":"662a8f30-b14c-430f-8994-0561f9e172fc"},{"id":"9ebc30c0-73c4-4fa4-b795-e858fef3e5db","besked":"dfgdfgdfg","dato":["14.5.2025","17.31.03"],"ejer":{"id":"b23e5983-adde-4b98-b0ab-8820dbce0599","navn":"admin","password":"$2b$10$onOlU7bBlHKvpotdlaws3OesgIQLWwazZ.Xoxc5Q0gUf.dsE1z76u","dato":"5/11/2025","niveau":3},"chatId":"662a8f30-b14c-430f-8994-0561f9e172fc"},{"id":"0f60039e-8788-4875-bcc4-60b38fe2c770","besked":"dfgdfgdfgdf","dato":["14.5.2025","17.31.04"],"ejer":{"id":"b23e5983-adde-4b98-b0ab-8820dbce0599","navn":"admin","password":"$2b$10$onOlU7bBlHKvpotdlaws3OesgIQLWwazZ.Xoxc5Q0gUf.dsE1z76u","dato":"5/11/2025","niveau":3},"chatId":"662a8f30-b14c-430f-8994-0561f9e172fc"}],"navn":"Kapsejladsen","dato":"5/11/2025","ejer":{"id":"b23e5983-adde-4b98-b0ab-8820dbce0599","navn":"admin","password":"$2b$10$onOlU7bBlHKvpotdlaws3OesgIQLWwazZ.Xoxc5Q0gUf.dsE1z76u","dato":"5/11/2025","niveau":3}},{"id":"b818e08e-7048-4d32-a7a9-fe8a61d3ac64","beskeder":[{"id":"26201b0b-d933-4192-bd9b-e9d7de283642","besked":"dfgfdgdf","dato":["14.5.2025","17.31.09"],"ejer":{"id":"b23e5983-adde-4b98-b0ab-8820dbce0599","navn":"admin","password":"$2b$10$onOlU7bBlHKvpotdlaws3OesgIQLWwazZ.Xoxc5Q0gUf.dsE1z76u","dato":"5/11/2025","niveau":3},"chatId":"b818e08e-7048-4d32-a7a9-fe8a61d3ac64"},{"id":"89ca4619-f866-4a08-91a0-5a2de1d981cc","besked":"fghfghf","dato":["14.5.2025","17.31.11"],"ejer":{"id":"b23e5983-adde-4b98-b0ab-8820dbce0599","navn":"admin","password":"$2b$10$onOlU7bBlHKvpotdlaws3OesgIQLWwazZ.Xoxc5Q0gUf.dsE1z76u","dato":"5/11/2025","niveau":3},"chatId":"b818e08e-7048-4d32-a7a9-fe8a61d3ac64"},{"id":"e8f3537a-f4bb-48ad-99e2-3b1912ccc1d9","besked":"hgfhfg","dato":["14.5.2025","17.31.12"],"ejer":{"id":"b23e5983-adde-4b98-b0ab-8820dbce0599","navn":"admin","password":"$2b$10$onOlU7bBlHKvpotdlaws3OesgIQLWwazZ.Xoxc5Q0gUf.dsE1z76u","dato":"5/11/2025","niveau":3},"chatId":"b818e08e-7048-4d32-a7a9-fe8a61d3ac64"}],"navn":"Fredagsbar","dato":"5/11/2025","ejer":{"id":"b23e5983-adde-4b98-b0ab-8820dbce0599","navn":"admin","password":"$2b$10$onOlU7bBlHKvpotdlaws3OesgIQLWwazZ.Xoxc5Q0gUf.dsE1z76u","dato":"5/11/2025","niveau":3}},{"id":"be251255-7f6e-4357-adfd-23aa39e5e9e4","beskeder":[],"navn":"Lektiecafe","dato":"5/11/2025","ejer":{"id":"b23e5983-adde-4b98-b0ab-8820dbce0599","navn":"admin","password":"$2b$10$onOlU7bBlHKvpotdlaws3OesgIQLWwazZ.Xoxc5Q0gUf.dsE1z76u","dato":"5/11/2025","niveau":3}},{"id":"f7c72d69-5d86-497f-b784-1f35ea17fd42","beskeder":[],"navn":"Datamatiker","dato":"5/11/2025","ejer":{"id":"b23e5983-adde-4b98-b0ab-8820dbce0599","navn":"admin","password":"$2b$10$onOlU7bBlHKvpotdlaws3OesgIQLWwazZ.Xoxc5Q0gUf.dsE1z76u","dato":"5/11/2025","niveau":3}}]
+[
+  {
+    "id": "47df9e1c-c01c-41e8-bee6-86bf3534cf82",
+    "beskeder": [
+      {
+        "id": "b0647023-abe7-48e3-9537-adf40aa5c732",
+        "besked": "mimi",
+        "dato": [
+          "19.5.2025",
+          "18.38.26"
+        ],
+        "ejer": {
+          "id": "b23e5983-adde-4b98-b0ab-8820dbce0599",
+          "navn": "admin",
+          "password": "$2b$10$onOlU7bBlHKvpotdlaws3OesgIQLWwazZ.Xoxc5Q0gUf.dsE1z76u",
+          "dato": "5/11/2025",
+          "niveau": 3
+        },
+        "chatId": "47df9e1c-c01c-41e8-bee6-86bf3534cf82"
+      },
+      {
+        "id": "336ba753-da07-49f9-a591-ab8929a19f02",
+        "besked": "ghfgfh",
+        "dato": [
+          "19.5.2025",
+          "18.45.02"
+        ],
+        "ejer": {
+          "id": "b23e5983-adde-4b98-b0ab-8820dbce0599",
+          "navn": "admin",
+          "password": "$2b$10$onOlU7bBlHKvpotdlaws3OesgIQLWwazZ.Xoxc5Q0gUf.dsE1z76u",
+          "dato": "5/11/2025",
+          "niveau": 3
+        },
+        "chatId": "47df9e1c-c01c-41e8-bee6-86bf3534cf82"
+      }
+    ],
+    "navn": "Datamatiker",
+    "dato": "19.5.2025",
+    "ejer": {
+      "id": "b23e5983-adde-4b98-b0ab-8820dbce0599",
+      "navn": "admin",
+      "password": "$2b$10$onOlU7bBlHKvpotdlaws3OesgIQLWwazZ.Xoxc5Q0gUf.dsE1z76u",
+      "dato": "5/11/2025",
+      "niveau": 3
+    }
+  },
+  {
+    "id": "fef59835-2240-4cef-ae25-4f89996991f9",
+    "beskeder": [
+      {
+        "id": "75e1f3fb-b93f-4446-a289-134a147e2620",
+        "besked": "hej",
+        "dato": [
+          "19.5.2025",
+          "18.45.08"
+        ],
+        "ejer": {
+          "id": "b23e5983-adde-4b98-b0ab-8820dbce0599",
+          "navn": "admin",
+          "password": "$2b$10$onOlU7bBlHKvpotdlaws3OesgIQLWwazZ.Xoxc5Q0gUf.dsE1z76u",
+          "dato": "5/11/2025",
+          "niveau": 3
+        },
+        "chatId": "fef59835-2240-4cef-ae25-4f89996991f9"
+      }
+    ],
+    "navn": "Kapsejladsen",
+    "dato": "19.5.2025",
+    "ejer": {
+      "id": "b23e5983-adde-4b98-b0ab-8820dbce0599",
+      "navn": "admin",
+      "password": "$2b$10$onOlU7bBlHKvpotdlaws3OesgIQLWwazZ.Xoxc5Q0gUf.dsE1z76u",
+      "dato": "5/11/2025",
+      "niveau": 3
+    }
+  },
+  {
+    "id": "6582b744-da5d-47a3-b9be-f4c527d9cd03",
+    "beskeder": [
+      {
+        "id": "faf5e92b-b735-4ca3-a4cf-c4d928caa6b0",
+        "besked": "test",
+        "dato": [
+          "19.5.2025",
+          "18.45.11"
+        ],
+        "ejer": {
+          "id": "b23e5983-adde-4b98-b0ab-8820dbce0599",
+          "navn": "admin",
+          "password": "$2b$10$onOlU7bBlHKvpotdlaws3OesgIQLWwazZ.Xoxc5Q0gUf.dsE1z76u",
+          "dato": "5/11/2025",
+          "niveau": 3
+        },
+        "chatId": "6582b744-da5d-47a3-b9be-f4c527d9cd03"
+      }
+    ],
+    "navn": "Karneval",
+    "dato": "19.5.2025",
+    "ejer": {
+      "id": "b23e5983-adde-4b98-b0ab-8820dbce0599",
+      "navn": "admin",
+      "password": "$2b$10$onOlU7bBlHKvpotdlaws3OesgIQLWwazZ.Xoxc5Q0gUf.dsE1z76u",
+      "dato": "5/11/2025",
+      "niveau": 3
+    }
+  }
+]

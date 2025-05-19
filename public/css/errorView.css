@@ -1,28 +1,28 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f8d7da;
-    margin: 0;
-    padding: 0;
-    text-align: center;
+  font-family: Arial, sans-serif;
+  background-color: #f8d7da;
+  margin: 0;
+  padding: 0;
+  text-align: center;
 }
 
 h1 {
-    color: #721c24;
-    margin-top: 50px;
-    font-size: 3em;
+  color: #721c24;
+  margin-top: 50px;
+  font-size: 3em;
 }
 
 p {
-    color: #721c24;
-    font-size: 1.5em;
-    margin: 20px;
+  color: #721c24;
+  font-size: 1.5em;
+  margin: 20px;
 }
 
 .error-container {
-    background-color: #f5c6cb;
-    border: 1px solid #f1b0b7;
-    padding: 20px;
-    margin: 50px auto;
-    width: fit-content;
-    border-radius: 10px;
+  background-color: #f5c6cb;
+  border: 1px solid #f1b0b7;
+  padding: 20px;
+  margin: 50px auto;
+  width: fit-content;
+  border-radius: 10px;
 }

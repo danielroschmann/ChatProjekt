@@ -1,152 +1,146 @@
-
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f2f5;
-    padding: 0;
-    margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f0f2f5;
+  padding: 0;
+  margin: 0;
 }
 
 h1 {
-    text-align: center;
-    margin: 20px 0;
-    color: #333;
+  text-align: center;
+  margin: 20px 0;
+  color: #333;
 }
-
 
 .message-container {
-    display: flex;
-    flex-direction: column;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.message-container .outgoing, .message-container .incoming {
-    margin-bottom: 20px;
-    display: flex;
-    align-items: flex-start;
-    max-width: 100%;
-    word-wrap: break-word;
+.message-container .outgoing,
+.message-container .incoming {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: flex-start;
+  max-width: 100%;
+  word-wrap: break-word;
 }
 
 .message-container .outgoing {
-    justify-content: flex-end;
+  justify-content: flex-end;
 }
 
 .message-container .incoming {
-    justify-content: flex-start;
+  justify-content: flex-start;
 }
 
 .message-container .message-content {
-    padding: 10px;
-    border-radius: 15px;
-    font-size: 14px;
-    line-height: 1.4;
-    word-wrap: break-word;
-    word-break: break-word; 
-    white-space: normal; 
-    text-decoration: none;
+  padding: 10px;
+  border-radius: 15px;
+  font-size: 14px;
+  line-height: 1.4;
+  word-wrap: break-word;
+  word-break: break-word;
+  white-space: normal;
+  text-decoration: none;
 }
 
 .message-container .outgoing .message-content {
-    background-color: #0070ff;
-    color: white;
-    border-bottom-right-radius: 0;
-    border-top-left-radius: 15px;
-    
+  background-color: #0070ff;
+  color: white;
+  border-bottom-right-radius: 0;
+  border-top-left-radius: 15px;
 }
 
 .message-container .incoming .message-content {
-    background-color: #e4e6eb;
-    color: #333;
-    border-bottom-left-radius: 0;
-    border-top-right-radius: 15px;
+  background-color: #e4e6eb;
+  color: #333;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 15px;
 }
 
 .ejer {
-    font-weight: bold;
-    margin-right: 8px;
-    font-size: 14px;
+  font-weight: bold;
+  margin-right: 8px;
+  font-size: 14px;
 }
 
 .besked {
-    font-size: 14px;
-    max-width: 200px;
+  font-size: 14px;
+  max-width: 200px;
 }
 
 .tid {
-    font-size: 12px;
-    color: #999;
+  font-size: 12px;
+  color: #999;
 }
 
 form {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    background-color: #fff;
-    border-top: 1px solid #ddd;
-    max-width: 600px;
-    margin: 20px auto;
-    border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #fff;
+  border-top: 1px solid #ddd;
+  max-width: 600px;
+  margin: 20px auto;
+  border-radius: 8px;
 }
 
 input[type="text"] {
-    width: 85%;
-    padding: 10px;
-    border-radius: 20px;
-    border: 1px solid #ddd;
-    font-size: 14px;
+  width: 85%;
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  font-size: 14px;
 }
 
 button {
-    padding: 10px 15px;
-    background-color: #0084ff;
-    color: white;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s;
+  padding: 10px 15px;
+  background-color: #0084ff;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
 }
 
 button:hover {
-    background-color: #0073e6;
+  background-color: #0073e6;
 }
 .tilbage {
-    justify-self: left;
-    display: inline-block;
-    margin-top: 30px;
-    padding: 12px 24px;
-    background-color: #4CAF50;
-    color: white;
-    text-decoration: none;
-    font-size: 1.2em;
-    border-radius: 6px;
-    transition: background-color 0.3s ease;
+  justify-self: left;
+  display: inline-block;
+  margin-top: 30px;
+  padding: 12px 24px;
+  background-color: #4caf50;
+  color: white;
+  text-decoration: none;
+  font-size: 1.2em;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
 }
 
 .message-buttons {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .message-buttons button {
-    margin: 0rem;
-    background: none;
-    color: white;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s;
+  margin: 0rem;
+  background: none;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
 }
-
-
-
